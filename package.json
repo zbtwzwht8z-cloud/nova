@@ -1,0 +1,30 @@
+{
+  "name": "private-mcq-trainer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "tsc --noEmit",
+    "import:questions": "node scripts/import-questions.mjs",
+    "export:docsdocs": "node scripts/export-docsdocs.mjs"
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.6",
+    "html-to-text": "^9.0.5",
+    "lucide-react": "^0.468.0",
+    "next": "^16.2.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
+  }
+}
