@@ -11,17 +11,22 @@
     "export:docsdocs": "node scripts/export-docsdocs.mjs"
   },
   "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "csv-parse": "^5.5.6",
     "html-to-text": "^9.0.5",
     "lucide-react": "^0.468.0",
     "next": "^16.2.9",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.5.0",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.5.3"
   },
   "overrides": {
