@@ -43,11 +43,21 @@ export const Checkbox = React.forwardRef<
 ));
 Checkbox.displayName = "Checkbox";
 
-export function Stat({ label, value }: { label: string; value: React.ReactNode }) {
+export function Stat({
+  label,
+  value,
+  accent = false
+}: {
+  label: string;
+  value: React.ReactNode;
+  accent?: boolean;
+}) {
   return (
     <div className="grid gap-1">
       <dt className="text-body-sm font-normal text-text-muted">{label}</dt>
-      <dd className="m-0 text-h2 font-semibold text-text">{value}</dd>
+      <dd className={cn("m-0 text-h2 font-semibold", accent ? "text-accent" : "text-text")}>
+        {value}
+      </dd>
     </div>
   );
 }

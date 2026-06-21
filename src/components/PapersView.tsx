@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 
 import { Button, Select } from "@/components/ui";
@@ -15,6 +16,7 @@ type PapersViewProps = {
   onModeChange: (mode: "study" | "exam") => void;
   onStartPaper: (paper: PaperSummary, mode: "study" | "exam") => void;
   onStartPapers: (papers: PaperSummary[], mode: "study" | "exam") => void;
+  customSessionBuilder: ReactNode;
   t: Translate;
 };
 
@@ -55,10 +57,12 @@ export default function PapersView({
   onModeChange,
   onStartPaper,
   onStartPapers,
+  customSessionBuilder,
   t
 }: PapersViewProps) {
   const [openSubjectKey, setOpenSubjectKey] = useState<string | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [tab, setTab] = useState<"papers" | "custom">("papers");
 
   const papersByKey = useMemo(() => {
     const map = new Map<string, PaperSummary>();
@@ -126,100 +130,127 @@ export default function PapersView({
       <section className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
         <p className="m-0 max-w-[720px] text-body text-text-muted">{t("papers.intro")}</p>
 
-        <div aria-label="Paper mode" className="flex" role="group">
+        <div aria-label="Klausuren view" className="flex" role="group">
           <div className="flex rounded border border-border bg-surface p-1">
             <Button
-              aria-pressed={mode === "study"}
-              className={mode === "study" ? "bg-surface-muted text-text" : ""}
-              onClick={() => onModeChange("study")}
-              variant={mode === "study" ? "secondary" : "ghost"}
+              aria-pressed={tab === "papers"}
+              className={tab === "papers" ? "bg-surface-muted text-text" : ""}
+              onClick={() => setTab("papers")}
+              variant={tab === "papers" ? "secondary" : "ghost"}
             >
-              {t("papers.study")}
+              {t("nav.subjects")}
             </Button>
             <Button
-              aria-pressed={mode === "exam"}
-              className={mode === "exam" ? "bg-surface-muted text-text" : ""}
-              onClick={() => onModeChange("exam")}
-              variant={mode === "exam" ? "secondary" : "ghost"}
+              aria-pressed={tab === "custom"}
+              className={tab === "custom" ? "bg-surface-muted text-text" : ""}
+              onClick={() => setTab("custom")}
+              variant={tab === "custom" ? "secondary" : "ghost"}
             >
-              {t("papers.exam")}
+              {t("papers.custom")}
             </Button>
           </div>
         </div>
       </section>
 
-      <div className="grid gap-2 md:hidden">
-        <label className="text-body-sm font-medium text-text" htmlFor="papers-semester">
-          {t("papers.semester")}
-        </label>
-        <Select
-          id="papers-semester"
-          onChange={(event) => selectSemester(event.target.value)}
-          value={effectiveSemester}
-        >
-          {semesters.map((semester) => (
-            <option key={semester.key} value={semester.key}>
-              {semester.label} · {countLabel(semester.subjectCount, "subject", t)}
-            </option>
-          ))}
-        </Select>
-      </div>
+      {tab === "custom" ? (
+        customSessionBuilder
+      ) : (
+        <>
+          <div aria-label="Paper mode" className="flex justify-end" role="group">
+            <div className="flex rounded border border-border bg-surface p-1">
+              <Button
+                aria-pressed={mode === "study"}
+                className={mode === "study" ? "bg-surface-muted text-text" : ""}
+                onClick={() => onModeChange("study")}
+                variant={mode === "study" ? "secondary" : "ghost"}
+              >
+                {t("papers.study")}
+              </Button>
+              <Button
+                aria-pressed={mode === "exam"}
+                className={mode === "exam" ? "bg-surface-muted text-text" : ""}
+                onClick={() => onModeChange("exam")}
+                variant={mode === "exam" ? "secondary" : "ghost"}
+              >
+                {t("papers.exam")}
+              </Button>
+            </div>
+          </div>
 
-      <div className="grid gap-8 md:grid-cols-12">
-        <aside className="hidden md:col-span-3 md:block">
-          <h2 className="m-0 mb-3 text-label font-semibold text-text-muted">
-            {t("papers.semester")}
-          </h2>
-          <nav aria-label="Semesters" className="grid gap-1">
-            {semesters.map((semester) => {
-              const active = effectiveSemester === semester.key;
+          <div className="grid gap-2 md:hidden">
+            <label className="text-body-sm font-medium text-text" htmlFor="papers-semester">
+              {t("papers.semester")}
+            </label>
+            <Select
+              id="papers-semester"
+              onChange={(event) => selectSemester(event.target.value)}
+              value={effectiveSemester}
+            >
+              {semesters.map((semester) => (
+                <option key={semester.key} value={semester.key}>
+                  {semester.label} · {countLabel(semester.subjectCount, "subject", t)}
+                </option>
+              ))}
+            </Select>
+          </div>
 
-              return (
-                <Button
-                  aria-current={active ? "page" : undefined}
-                  className={
-                    active
-                      ? "w-full justify-between bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))] text-accent"
-                      : "w-full justify-between"
-                  }
-                  key={semester.key}
-                  onClick={() => selectSemester(semester.key)}
-                  variant="ghost"
-                >
-                  <span>{semester.label}</span>
-                  <span className="text-label text-text-subtle">
-                    {semester.subjectCount}
-                  </span>
-                </Button>
-              );
-            })}
-          </nav>
-        </aside>
+          <div className="grid gap-8 md:grid-cols-12">
+            <aside className="hidden md:col-span-3 md:block">
+              <h2 className="m-0 mb-3 text-label font-semibold text-text-muted">
+                {t("papers.semester")}
+              </h2>
+              <nav aria-label="Semesters" className="grid gap-1">
+                {semesters.map((semester) => {
+                  const active = effectiveSemester === semester.key;
 
-        <section aria-labelledby="papers-list-heading" className="md:col-span-9">
-          {openSubject ? (
-            <SubjectPapers
-              isSelected={(key) => selected.has(key)}
-              mode={mode}
-              onBack={() => setOpenSubjectKey(null)}
-              onStartPaper={onStartPaper}
-              onTogglePaper={togglePaper}
-              subject={openSubject}
-              t={t}
-            />
-          ) : (
-            <SubjectList
-              isPaperSelected={(key) => selected.has(key)}
-              onOpenSubject={(subject) => setOpenSubjectKey(subject.key)}
-              onToggleSubject={toggleSubject}
-              semester={activeSemester}
-              t={t}
-            />
-          )}
-        </section>
-      </div>
+                  return (
+                    <Button
+                      aria-current={active ? "page" : undefined}
+                      className={
+                        active
+                          ? "w-full justify-between bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))] text-accent"
+                          : "w-full justify-between"
+                      }
+                      key={semester.key}
+                      onClick={() => selectSemester(semester.key)}
+                      variant="ghost"
+                    >
+                      <span>{semester.label}</span>
+                      <span className="text-label text-text-subtle">
+                        {semester.subjectCount}
+                      </span>
+                    </Button>
+                  );
+                })}
+              </nav>
+            </aside>
 
-      {selected.size ? (
+            <section aria-labelledby="papers-list-heading" className="md:col-span-9">
+              {openSubject ? (
+                <SubjectPapers
+                  isSelected={(key) => selected.has(key)}
+                  mode={mode}
+                  onBack={() => setOpenSubjectKey(null)}
+                  onStartPaper={onStartPaper}
+                  onTogglePaper={togglePaper}
+                  subject={openSubject}
+                  t={t}
+                />
+              ) : (
+                <SubjectList
+                  isPaperSelected={(key) => selected.has(key)}
+                  onOpenSubject={(subject) => setOpenSubjectKey(subject.key)}
+                  onToggleSubject={toggleSubject}
+                  semester={activeSemester}
+                  t={t}
+                />
+              )}
+            </section>
+          </div>
+        </>
+      )}
+
+      {selected.size && tab === "papers" ? (
         <div
           className="sticky bottom-0 z-10 -mx-6 flex flex-wrap items-center justify-between gap-3 border-t border-border bg-bg/95 px-6 py-3 backdrop-blur"
           style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}

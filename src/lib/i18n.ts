@@ -46,6 +46,7 @@ const en: Dict = {
   "papers.latestScore": "Latest score",
   "papers.startPapers": "Start",
   "papers.selected": "selected",
+  "papers.custom": "Custom session",
 
   "unit.question": "question",
   "unit.questions": "questions",
@@ -96,6 +97,7 @@ const de: Dict = {
   "papers.latestScore": "Letztes Ergebnis",
   "papers.startPapers": "Starten",
   "papers.selected": "ausgewählt",
+  "papers.custom": "Eigene Sitzung",
 
   "unit.question": "Frage",
   "unit.questions": "Fragen",

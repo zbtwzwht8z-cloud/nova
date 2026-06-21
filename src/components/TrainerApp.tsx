@@ -304,6 +304,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [questionsReady, setQuestionsReady] = useState(false);
   const [questionsError, setQuestionsError] = useState("");
+  const [authChecked, setAuthChecked] = useState(false);
   const [view, setView] = useState<View>("dashboard");
   const [navOpen, setNavOpen] = useState(false);
   const [lang, setLang] = useState<Lang>("en");
@@ -344,6 +345,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [examAnswers, setExamAnswers] = useState<Record<string, string>>({});
   const [examFinished, setExamFinished] = useState(false);
+  const [studyFinished, setStudyFinished] = useState(false);
   const [sessionStartedAt, setSessionStartedAt] = useState(now());
   const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
   const [selectedMistakeIds, setSelectedMistakeIds] = useState<string[]>([]);
@@ -472,13 +474,6 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   }, [filteredPool, questionById, sessionIds]);
 
   const activeQuestion = sessionQuestions[activeIndex] || sessionQuestions[0];
-  const activeStoredAnswer = activeQuestion
-    ? progress.answers[activeQuestion.id]
-    : undefined;
-  const activeExamAnswer = activeQuestion ? examAnswers[activeQuestion.id] : undefined;
-  const selectedAnswer =
-    mode === "exam" && !examFinished ? activeExamAnswer : activeStoredAnswer?.selected;
-  const shouldReveal = mode !== "exam" || examFinished;
 
   const searchResults = useMemo(() => {
     const normalized = clean(searchQuery);
@@ -597,7 +592,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
         return loadProgressFromServer();
       })
-      .catch(() => setReady(true));
+      .catch(() => setReady(true))
+      .finally(() => setAuthChecked(true));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -750,6 +746,83 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   }, [activeIndex, sessionIds.length, view]);
 
   useEffect(() => {
+    if (view !== "trainer" || queueOpen || reportOpen || studyFinished || !activeQuestion) {
+      return;
+    }
+
+    const question = activeQuestion;
+
+    function onKeyDown(event: KeyboardEvent) {
+      const target = event.target as HTMLElement | null;
+
+      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) {
+        return;
+      }
+
+      const key = event.key.toLowerCase();
+
+      if (key === "arrowright" || key === "n") {
+        event.preventDefault();
+        setActiveIndex((current) => Math.min(sessionQuestions.length - 1, current + 1));
+        return;
+      }
+
+      if (key === "arrowleft" || key === "p") {
+        event.preventDefault();
+        setActiveIndex((current) => Math.max(0, current - 1));
+        return;
+      }
+
+      if (question.kind === "freeText") {
+        if (key === "enter" || key === " ") {
+          event.preventDefault();
+
+          if (!progress.answers[question.id]) {
+            revealFreeText(question);
+          }
+        }
+
+        return;
+      }
+
+      const numberIndex = "123456".indexOf(event.key);
+      const letterIndex = "abcdef".indexOf(key);
+      const index = numberIndex !== -1 ? numberIndex : letterIndex;
+
+      if (index === -1 || index >= question.choices.length) {
+        return;
+      }
+
+      const storedAnswer = progress.answers[question.id];
+      const currentSelected =
+        mode === "exam" && !examFinished ? examAnswers[question.id] : storedAnswer?.selected;
+      const locked = mode !== "exam" && Boolean(currentSelected);
+
+      if (locked) {
+        return;
+      }
+
+      event.preventDefault();
+      answerQuestion(question, question.choices[index].id);
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [
+    activeQuestion,
+    examAnswers,
+    examFinished,
+    mode,
+    progress.answers,
+    queueOpen,
+    reportOpen,
+    sessionQuestions.length,
+    studyFinished,
+    view
+  ]);
+
+  useEffect(() => {
     const stored = window.localStorage.getItem(LANG_STORAGE_KEY);
 
     if (stored === "en" || stored === "de") {
@@ -768,6 +841,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setActiveIndex(0);
     setExamAnswers({});
     setExamFinished(false);
+    setStudyFinished(false);
     setQueueOpen(false);
     setReportOpen(false);
   }
@@ -801,6 +875,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setActiveIndex(0);
     setExamAnswers({});
     setExamFinished(false);
+    setStudyFinished(false);
     setSessionStartedAt(startedAt);
     setActiveSessionLogId(sessionId);
     setView("trainer");
@@ -1374,6 +1449,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setActiveIndex(0);
     setMode("study");
     setExamFinished(false);
+    setStudyFinished(false);
     setView("trainer");
   }
 
@@ -1389,12 +1465,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     );
   }
 
-  if (user && (!ready || !questionsReady)) {
+  if (!authChecked || (user && (!ready || !questionsReady))) {
     return (
       <main className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-bg px-6 font-sans text-body text-text">
         <Gauge className="text-text-subtle" size={28} aria-hidden="true" />
         <p className="m-0 text-body text-text-muted">
-          {ready ? "Loading question bank" : "Loading trainer"}
+          {!authChecked ? "Loading trainer" : ready ? "Loading question bank" : "Loading trainer"}
         </p>
       </main>
     );
@@ -1421,7 +1497,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const sidebarContent = (
     <>
       <div className="flex items-center justify-between border-b border-border pb-4">
-        <strong className="text-h3 font-semibold">Stoa</strong>
+        <div className="flex items-center gap-2">
+          <span aria-hidden="true" className="h-2.5 w-2.5 shrink-0 rounded-full bg-accent" />
+          <strong className="text-h3 font-semibold">Stoa</strong>
+        </div>
         <Button
           aria-label="Close navigation"
           className="px-2 md:hidden"
@@ -1570,7 +1649,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       <div className="mx-auto grid max-w-content gap-8">
         <section className="grid grid-cols-2 gap-x-6 gap-y-8 border-b border-border pb-6 sm:grid-cols-4 sm:gap-x-10">
           <Stat label={t("stat.answered")} value={formatNumber(stats.answered)} />
-          <Stat label={t("stat.accuracy")} value={formatPercent(stats.accuracy)} />
+          <Stat accent label={t("stat.accuracy")} value={formatPercent(stats.accuracy)} />
           <Stat label={t("stat.mistakes")} value={formatNumber(stats.missed)} />
           <Stat
             label={t("stat.coverage")}
@@ -1609,12 +1688,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         </section>
 
         {recentSessions.length ? (
-          <section className="grid gap-3">
+          <section className="grid gap-4">
             <h2 className="m-0 text-h3 font-semibold">{t("dashboard.recent")}</h2>
             <div className="divide-y divide-border border-y border-border">
               {recentSessions.map((session) => (
                 <button
-                  className="flex w-full items-center justify-between gap-4 px-1 py-4 text-left transition-colors hover:bg-surface-muted"
+                  className="flex w-full items-center justify-between gap-4 px-2 py-5 text-left transition-colors hover:bg-surface-muted"
                   key={session.id}
                   onClick={() => {
                     setSelectedSessionId(session.id);
@@ -1664,6 +1743,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   function renderSubjects() {
     return (
       <PapersView
+        customSessionBuilder={renderSessionBuilder()}
         mode={mode === "exam" ? "exam" : "study"}
         onModeChange={setMode}
         onSemesterChange={setPapersSemester}
@@ -1676,15 +1756,84 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     );
   }
 
+  function resumeSession(session: StudySessionLog) {
+    const ids = session.questionIds.filter((questionId) => questionById.has(questionId));
+
+    if (!ids.length) {
+      setNotice("That session has no available questions");
+      return;
+    }
+
+    const firstUnanswered = ids.findIndex((questionId) => !progress.answers[questionId]);
+
+    setMode(session.mode === "exam" ? "exam" : session.mode === "review" ? "review" : "study");
+    setSessionIds(ids);
+    setActiveIndex(firstUnanswered === -1 ? 0 : firstUnanswered);
+    setExamAnswers({});
+    setExamFinished(false);
+    setStudyFinished(false);
+    setSessionStartedAt(session.startedAt);
+    setActiveSessionLogId(session.id);
+    setQueueOpen(false);
+    setView("trainer");
+  }
+
   function renderTrainer() {
     if (!sessionIds.length) {
+      const latestMistakeSession = sessionLogs.find(
+        (session) => session.mistakeQuestionIds?.length
+      );
+      const openSessions = sessionLogs.filter(
+        (session) =>
+          session.mode !== "exam" && session.answered < session.questionIds.length
+      );
+
       return (
         <div className="mx-auto grid max-w-content gap-6">
-          <p className="m-0 max-w-[640px] text-body text-text-muted">
-            Set filters and start a custom session, or open Papers to start a full
-            exam paper.
-          </p>
-          {renderSessionBuilder()}
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+            <p className="m-0 max-w-[480px] text-body text-text-muted">
+              Resume an open session below, or build a custom session from the
+              Klausuren tab.
+            </p>
+            <Button
+              onClick={() =>
+                latestMistakeSession
+                  ? reviewSessionMistakes(latestMistakeSession)
+                  : startSession("review", "wrong")
+              }
+              variant="primary"
+            >
+              <ListChecks size={18} aria-hidden="true" />
+              <span>Review wrong answers</span>
+            </Button>
+          </div>
+
+          {openSessions.length ? (
+            <section className="grid gap-3">
+              <h2 className="m-0 text-h3 font-semibold">Open sessions</h2>
+              <div className="divide-y divide-border border-y border-border">
+                {openSessions.map((session) => (
+                  <button
+                    className="flex w-full items-center justify-between gap-4 px-1 py-4 text-left transition-colors hover:bg-surface-muted"
+                    key={session.id}
+                    onClick={() => resumeSession(session)}
+                    type="button"
+                  >
+                    <span className="min-w-0 truncate text-body font-medium text-text">
+                      {session.label}
+                    </span>
+                    <span className="shrink-0 text-body-sm text-text-muted">
+                      {session.answered}/{session.questionIds.length} answered
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ) : (
+            <p className="m-0 border-y border-border py-4 text-body text-text-muted">
+              No open sessions. Start one from the Klausuren tab.
+            </p>
+          )}
         </div>
       );
     }
@@ -1729,34 +1878,87 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                 Finish
               </Button>
             ) : null}
+            {mode !== "exam" && !studyFinished ? (
+              <Button onClick={() => setStudyFinished(true)} variant="primary">
+                <Check size={16} aria-hidden="true" />
+                Submit
+              </Button>
+            ) : null}
           </div>
         </div>
 
-        {activeQuestion ? renderQuestion(activeQuestion) : renderEmptyQuestion()}
+        {studyFinished
+          ? renderStudyResults()
+          : activeQuestion
+            ? renderQuestion(activeQuestion)
+            : renderEmptyQuestion()}
 
-        <div
-          className="sticky bottom-0 z-10 -mx-6 flex items-center justify-between gap-3 border-t border-border bg-bg/95 px-6 py-3 backdrop-blur lg:static lg:mx-0 lg:border-0 lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
-          style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
-        >
-          <Button disabled={activeIndex === 0} onClick={goPrev} variant="secondary">
-            <ChevronLeft size={18} aria-hidden="true" />
-            <span>Previous</span>
-          </Button>
-          <span className="text-body-sm text-text-muted">
-            {total ? activeIndex + 1 : 0} / {total}
-          </span>
-          <Button
-            disabled={activeIndex >= total - 1}
-            onClick={goNext}
-            variant="secondary"
+        {!studyFinished ? (
+          <div
+            className="sticky bottom-0 z-10 -mx-6 flex items-center justify-between gap-3 border-t border-border bg-bg/95 px-6 py-3 backdrop-blur lg:static lg:mx-0 lg:border-0 lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
+            style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
           >
-            <span>Next</span>
-            <ChevronRight size={18} aria-hidden="true" />
-          </Button>
-        </div>
+            <Button disabled={activeIndex === 0} onClick={goPrev} variant="secondary">
+              <ChevronLeft size={18} aria-hidden="true" />
+              <span>Previous</span>
+            </Button>
+            <span className="text-body-sm text-text-muted">
+              {total ? activeIndex + 1 : 0} / {total}
+            </span>
+            <Button
+              disabled={activeIndex >= total - 1}
+              onClick={goNext}
+              variant="secondary"
+            >
+              <span>Next</span>
+              <ChevronRight size={18} aria-hidden="true" />
+            </Button>
+          </div>
+        ) : null}
 
         {queueOpen ? renderQueueDrawer() : null}
       </div>
+    );
+  }
+
+  function renderStudyResults() {
+    const activeSession = sessionLogs.find(
+      (session) => session.id === activeSessionLogId
+    );
+    const total = sessionQuestions.length;
+    const answered = activeSession?.answered ?? 0;
+    const correct = activeSession?.correct ?? 0;
+    const mistakeIds = activeSession?.mistakeQuestionIds || [];
+    const accuracy = answered ? Math.round((correct / answered) * 100) : 0;
+
+    return (
+      <section className="grid gap-5 rounded border border-border bg-surface p-6 text-center">
+        <div className="grid gap-1">
+          <span className="text-label text-text-subtle">Session complete</span>
+          <strong className="text-h1 font-semibold text-accent">{accuracy}%</strong>
+          <p className="m-0 text-body-sm text-text-muted">
+            {correct} of {answered} graded correct · {total} questions total
+          </p>
+        </div>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button onClick={() => setStudyFinished(false)} variant="secondary">
+            <ChevronLeft size={18} aria-hidden="true" />
+            <span>Keep reviewing</span>
+          </Button>
+          {mistakeIds.length ? (
+            <Button
+              onClick={() => activeSession && reviewSessionMistakes(activeSession)}
+              variant="primary"
+            >
+              <ListChecks size={18} aria-hidden="true" />
+              <span>Review {mistakeIds.length} mistakes</span>
+            </Button>
+          ) : null}
+          <Button onClick={endSession} variant="ghost">
+            End session
+          </Button>
+        </div>
+      </section>
     );
   }
 
@@ -1836,6 +2038,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     const currentSelected =
       mode === "exam" && !examFinished ? examAnswers[question.id] : storedAnswer?.selected;
     const revealed = mode === "exam" ? examFinished : Boolean(currentSelected);
+    const locked = mode !== "exam" && Boolean(currentSelected);
     const image = proxiedImage(question.imageUrl);
     const isBookmarked = bookmarkedIds.has(question.id);
     const isCorrect = currentSelected === question.answer;
@@ -1897,7 +2100,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             return (
               <button
                 className={cn(
-                  "flex w-full items-center gap-3 rounded border border-border bg-surface px-4 py-3 text-left text-body transition-colors hover:bg-surface-muted",
+                  "flex w-full items-center gap-3 rounded border border-border bg-surface px-4 py-3 text-left text-body transition-colors",
+                  !locked && "hover:bg-surface-muted",
+                  locked && !selected && "cursor-default opacity-70",
                   selected && !revealed && "border-accent",
                   revealed &&
                     correct &&
@@ -1907,6 +2112,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                     !correct &&
                     "border-danger bg-[color-mix(in_srgb,var(--danger)_10%,var(--surface))]"
                 )}
+                disabled={locked}
                 key={choice.id}
                 onClick={() => answerQuestion(question, choice.id)}
                 type="button"
@@ -2924,9 +3130,14 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         </div>
 
         <div>
-          <Button disabled={!startCount} onClick={() => startSession()} variant="primary">
+          <Button
+            className="gap-3 px-6"
+            disabled={!startCount}
+            onClick={() => startSession()}
+            variant="primary"
+          >
             <Play size={18} aria-hidden="true" />
-            Start {startCount}
+            <span>Start {startCount}</span>
           </Button>
         </div>
       </div>

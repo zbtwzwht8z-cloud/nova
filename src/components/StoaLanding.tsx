@@ -37,7 +37,16 @@ export default function StoaLanding({
   onLogin
 }: StoaLandingProps) {
   return (
-    <main className="relative flex min-h-[100dvh] items-center justify-center bg-bg px-6 py-12 font-sans text-body text-text">
+    <main className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-bg px-6 py-12 font-sans text-body text-text">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--accent) 16%, transparent) 0%, transparent 42%), radial-gradient(circle at 88% 92%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 38%)"
+        }}
+      />
+
       <div
         aria-label="Language"
         className="absolute right-6 top-6 flex rounded border border-border bg-surface p-1"
@@ -61,7 +70,10 @@ export default function StoaLanding({
 
       <div className="w-full max-w-sm">
         <div className="mb-8 grid gap-1">
-          <strong className="text-h2 font-semibold">Stoa</strong>
+          <div className="flex items-center gap-2">
+            <span aria-hidden="true" className="h-3 w-3 shrink-0 rounded-full bg-accent" />
+            <strong className="text-h2 font-semibold">Stoa</strong>
+          </div>
           <p className="m-0 text-body-sm text-text-muted">{t("login.subtitle")}</p>
         </div>
 
