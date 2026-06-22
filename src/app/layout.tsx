@@ -3,14 +3,20 @@ import "./globals.css";
 import "./design-system.css";
 
 export const metadata: Metadata = {
-  title: "Stoa",
+  title: "Nova",
   description: "Klausurtrainer",
-  manifest: "/manifest.webmanifest"
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "Nova",
+    statusBarStyle: "default"
+  }
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  maximumScale: 1,
   viewportFit: "cover",
   themeColor: "#216e62"
 };

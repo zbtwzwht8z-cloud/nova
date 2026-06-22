@@ -23,7 +23,7 @@ export default function StyleguidePage() {
     <div className="min-h-screen bg-bg font-sans text-body font-normal text-text">
       <main className="mx-auto grid max-w-content gap-6 px-6 py-8">
         <header className="grid gap-2 border-b border-border pb-6">
-          <h1 className="m-0 text-h1 font-semibold">Stoa design system</h1>
+          <h1 className="m-0 text-h1 font-semibold">Nova design system</h1>
           <p className="m-0 max-w-[720px] text-body text-text-muted">
             Canonical tokens and components for the study application.
           </p>

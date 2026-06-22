@@ -2,14 +2,14 @@ import * as React from "react";
 
 import { cn } from "./utils";
 
-// Stoa = an ancient Greek colonnade/covered walkway. The mark is a minimal
-// temple front: a pediment over three columns on a stylobate. Colors come from
-// the design tokens so it tracks the theme; the favicon/app-icon variants in
-// src/app/icon.svg + public/logo.svg hardcode the same shapes.
+// Nova = a star flaring bright. The mark is a four-point sparkle (a nova
+// burst) in white on the accent square. Colors come from the design tokens so
+// it tracks the theme; the favicon/app-icon variants in src/app/icon.svg +
+// public/logo.svg hardcode the same shape.
 export function Logo({
   size = 28,
   className,
-  title = "Stoa"
+  title = "Nova"
 }: {
   size?: number;
   className?: string;
@@ -27,14 +27,11 @@ export function Logo({
     >
       {title ? <title>{title}</title> : null}
       <rect fill="var(--accent)" height="32" rx="8" width="32" />
-      <g fill="var(--accent-foreground)">
-        <polygon points="16,6 25,11 7,11" />
-        <rect height="2.2" rx="0.6" width="18" x="7" y="11.6" />
-        <rect height="8" rx="0.5" width="2.4" x="9.8" y="14.4" />
-        <rect height="8" rx="0.5" width="2.4" x="14.8" y="14.4" />
-        <rect height="8" rx="0.5" width="2.4" x="19.8" y="14.4" />
-        <rect height="2.6" rx="0.7" width="20" x="6" y="22.6" />
-      </g>
+      <path
+        d="M16 5 C 16.8 12, 20 15.2, 27 16 C 20 16.8, 16.8 20, 16 27 C 15.2 20, 12 16.8, 5 16 C 12 15.2, 15.2 12, 16 5 Z"
+        fill="var(--accent-foreground)"
+      />
+      <circle cx="23.4" cy="8.6" fill="var(--accent-foreground)" r="1.5" />
     </svg>
   );
 }

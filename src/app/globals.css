@@ -15,10 +15,21 @@
 html,
 body {
   min-height: 100%;
+  /* Kill side-to-side wobble on iOS from any element that overflows width. */
+  overflow-x: hidden;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Stop iOS from resizing text on orientation change. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  /* No rubber-band chaining to the page; the app shell owns scrolling. */
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {

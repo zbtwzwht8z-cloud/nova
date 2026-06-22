@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ReactNode } from "react";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 
 import { Button, Segmented, Select } from "@/components/ui";
@@ -16,9 +15,6 @@ type PapersViewProps = {
   onModeChange: (mode: "study" | "exam") => void;
   onStartPaper: (paper: PaperSummary, mode: "study" | "exam") => void;
   onStartPapers: (papers: PaperSummary[], mode: "study" | "exam") => void;
-  customSessionBuilder: ReactNode;
-  tab: "papers" | "custom";
-  onTabChange: (tab: "papers" | "custom") => void;
   t: Translate;
 };
 
@@ -85,9 +81,6 @@ export default function PapersView({
   onModeChange,
   onStartPaper,
   onStartPapers,
-  customSessionBuilder,
-  tab,
-  onTabChange,
   t
 }: PapersViewProps) {
   const [openSubjectKey, setOpenSubjectKey] = useState<string | null>(null);
@@ -159,36 +152,20 @@ export default function PapersView({
       <section className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
         <p className="m-0 max-w-[720px] text-body text-text-muted">{t("papers.intro")}</p>
 
-        <div aria-label="Klausuren view" className="flex">
+        <div className="flex">
           <Segmented
-            ariaLabel="Ansicht"
-            onChange={onTabChange}
+            ariaLabel="Modus"
+            onChange={onModeChange}
             options={[
-              ["papers", t("nav.subjects")],
-              ["custom", t("papers.custom")]
+              ["study", t("papers.study")],
+              ["exam", t("papers.exam")]
             ] as const}
-            value={tab}
+            value={mode}
           />
         </div>
       </section>
 
-      {tab === "custom" ? (
-        customSessionBuilder
-      ) : (
-        <>
-          <div className="flex justify-end">
-            <Segmented
-              ariaLabel="Modus"
-              onChange={onModeChange}
-              options={[
-                ["study", t("papers.study")],
-                ["exam", t("papers.exam")]
-              ] as const}
-              value={mode}
-            />
-          </div>
-
-          <div className="grid gap-2 md:hidden">
+      <div className="grid gap-2 md:hidden">
             <label className="text-body-sm font-medium text-text" htmlFor="papers-semester">
               {t("papers.semester")}
             </label>
@@ -258,10 +235,8 @@ export default function PapersView({
               )}
             </section>
           </div>
-        </>
-      )}
 
-      {selected.size && tab === "papers" ? (
+      {selected.size ? (
         <div
           className="sticky bottom-0 z-10 -mx-6 flex flex-wrap items-center justify-between gap-3 border-t border-border bg-bg/95 px-6 py-3 backdrop-blur"
           style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}

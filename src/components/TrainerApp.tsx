@@ -439,7 +439,6 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [examFinished, setExamFinished] = useState(false);
   const [studyFinished, setStudyFinished] = useState(false);
   const [sessionStartedAt, setSessionStartedAt] = useState(now());
-  const [papersTab, setPapersTab] = useState<"papers" | "custom">("papers");
   const [searchQuery, setSearchQuery] = useState("");
   const [newFolderName, setNewFolderName] = useState("");
   const [reportType, setReportType] = useState<ReportType>("wrong-answer");
@@ -1834,10 +1833,18 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const sidebarContent = (
     <>
       <div className="flex items-center justify-between border-b border-border pb-4">
-        <div className="flex items-center gap-2.5">
+        <button
+          aria-label="Zur Übersicht"
+          className="flex items-center gap-2.5"
+          onClick={() => {
+            setView("dashboard");
+            setNavOpen(false);
+          }}
+          type="button"
+        >
           <Logo size={26} />
-          <strong className="text-h3 font-semibold">Stoa</strong>
-        </div>
+          <strong className="cursor-pointer text-h3 font-semibold">Nova</strong>
+        </button>
         <Button
           aria-label="Navigation schließen"
           className="px-2 md:hidden"
@@ -1899,7 +1906,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
       {navOpen ? renderMoreSheet() : null}
 
-      <div className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+      <div className="flex min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-contain">
         <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-border bg-bg/90 px-6 py-4 backdrop-blur md:px-8 md:py-5 lg:px-12">
           <h1 className="m-0 text-h2 font-semibold">{titleForView(view)}</h1>
         </header>
@@ -2046,68 +2053,184 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   }
 
   function renderDashboard() {
-    const latestMistakeSession = sessionLogs.find(
-      (session) => session.mistakeQuestionIds?.length
-    );
-    const activeLeaders = leaderboard.filter((entry) => entry.weeklyAnswered > 0);
-    const coverage = questions.length
-      ? (stats.answered / questions.length) * 100
-      : 0;
+    const openSession = sessionLogs.find(isOpenSession);
     const recentSessions = sessionLogs.slice(0, 4);
+    const activeLeaders = leaderboard.filter((entry) => entry.weeklyAnswered > 0);
+    const coverage = questions.length ? (stats.answered / questions.length) * 100 : 0;
+    const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    const answeredThisWeek = Object.values(progress.answers).filter(
+      (answer) => new Date(answer.answeredAt).getTime() >= weekAgo
+    ).length;
+    const mistakeCount = missedQuestions.length;
+
+    const perf = new Map<string, { graded: number; correct: number }>();
+    for (const question of questions) {
+      const answer = progress.answers[question.id];
+
+      if (!answer || answer.correct === undefined) {
+        continue;
+      }
+
+      const entry = perf.get(question.subject) || { graded: 0, correct: 0 };
+      entry.graded += 1;
+      entry.correct += answer.correct ? 1 : 0;
+      perf.set(question.subject, entry);
+    }
+    const weakSubjects = Array.from(perf.entries())
+      .filter(([, entry]) => entry.graded >= 8)
+      .map(([subject, entry]) => ({
+        subject,
+        accuracy: Math.round((entry.correct / entry.graded) * 100)
+      }))
+      .sort((left, right) => left.accuracy - right.accuracy)
+      .slice(0, 4);
 
     return (
       <div className="mx-auto grid max-w-content gap-8">
-        <section className="grid grid-cols-2 gap-x-8 gap-y-6 border-b border-border pb-6 sm:grid-cols-4">
-          <Stat label={t("stat.answered")} value={formatNumber(stats.answered)} />
-          <Stat accent label={t("stat.accuracy")} value={formatPercent(stats.accuracy)} />
-          <Stat label={t("stat.mistakes")} value={formatNumber(stats.missed)} />
-          <Stat
-            label={t("stat.coverage")}
-            value={`${coverage < 1 && coverage > 0 ? "<1" : Math.round(coverage)}%`}
-          />
+        <section className="grid gap-4 sm:grid-cols-3">
+          {openSession ? (
+            <button
+              className="flex items-center gap-3 rounded border border-accent bg-accent p-4 text-left text-accent-foreground transition-opacity hover:opacity-90"
+              onClick={() => resumeSession(openSession)}
+              type="button"
+            >
+              <Play className="shrink-0" size={22} aria-hidden="true" />
+              <span className="grid min-w-0 gap-0.5">
+                <span className="text-body font-medium">Sitzung fortsetzen</span>
+                <span className="truncate text-body-sm opacity-90">
+                  {openSession.answered}/{openSession.questionIds.length} ·{" "}
+                  {openSession.label}
+                </span>
+              </span>
+            </button>
+          ) : (
+            <button
+              className="flex items-center gap-3 rounded border border-accent bg-accent p-4 text-left text-accent-foreground transition-opacity hover:opacity-90"
+              onClick={() => setView("subjects")}
+              type="button"
+            >
+              <Play className="shrink-0" size={22} aria-hidden="true" />
+              <span className="grid min-w-0 gap-0.5">
+                <span className="text-body font-medium">Klausur starten</span>
+                <span className="truncate text-body-sm opacity-90">
+                  Wähle ein Fach oder eine Klausur
+                </span>
+              </span>
+            </button>
+          )}
+
+          <button
+            className="flex items-center gap-3 rounded border border-border bg-surface p-4 text-left transition-colors hover:bg-surface-muted disabled:opacity-50"
+            disabled={!mistakeCount}
+            onClick={reviewAllMistakes}
+            type="button"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--danger)_12%,var(--surface))] text-danger">
+              <ListChecks size={20} aria-hidden="true" />
+            </span>
+            <span className="grid min-w-0 gap-0.5">
+              <span className="text-body font-medium text-text">Fehler üben</span>
+              <span className="text-body-sm text-text-muted">
+                {mistakeCount} {mistakeCount === 1 ? "offener Fehler" : "offene Fehler"}
+              </span>
+            </span>
+          </button>
+
+          <button
+            className="flex items-center gap-3 rounded border border-border bg-surface p-4 text-left transition-colors hover:bg-surface-muted"
+            onClick={() => setView("subjects")}
+            type="button"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--accent)_12%,var(--surface))] text-accent">
+              <BookOpenCheck size={20} aria-hidden="true" />
+            </span>
+            <span className="grid min-w-0 gap-0.5">
+              <span className="text-body font-medium text-text">Klausuren</span>
+              <span className="text-body-sm text-text-muted">Nach Fach &amp; Semester</span>
+            </span>
+          </button>
         </section>
 
         <section className="grid gap-4">
-          <h2 className="m-0 text-h3 font-semibold">{t("dashboard.start")}</h2>
-          <div className="flex flex-wrap gap-4">
-            <Button
-              onClick={() => {
-                setPapersTab("custom");
-                setView("subjects");
-              }}
-              variant="primary"
-            >
-              <Play size={18} aria-hidden="true" />
-              {t("dashboard.custom")}
-            </Button>
-            <Button
-              onClick={() =>
-                latestMistakeSession
-                  ? reviewSessionMistakes(latestMistakeSession)
-                  : startSession("review", "wrong")
-              }
-              variant="secondary"
-            >
-              <ListChecks size={18} aria-hidden="true" />
-              {t("dashboard.review")}
-            </Button>
-            <Button
-              onClick={() => {
-                setPapersTab("papers");
-                setView("subjects");
-              }}
-              variant="secondary"
-            >
-              <BookOpenCheck size={18} aria-hidden="true" />
-              {t("dashboard.papers")}
-            </Button>
+          <h2 className="m-0 text-h3 font-semibold">Fortschritt</h2>
+          <div className="grid gap-4 rounded border border-border bg-surface p-6">
+            <div className="flex items-end justify-between gap-4">
+              <div className="grid gap-1">
+                <span className="text-label text-text-subtle">Bearbeitet</span>
+                <strong className="text-h2 font-semibold text-text">
+                  {formatNumber(stats.answered)}
+                  <span className="text-body font-normal text-text-muted">
+                    {" "}
+                    / {formatNumber(questions.length)}
+                  </span>
+                </strong>
+              </div>
+              <span className="text-h2 font-semibold text-accent">
+                {coverage < 1 && coverage > 0 ? "<1" : Math.round(coverage)}%
+              </span>
+            </div>
+            <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
+              <div
+                className="h-full rounded-full bg-accent"
+                style={{ width: `${Math.min(100, Math.max(coverage, coverage > 0 ? 2 : 0))}%` }}
+              />
+            </div>
+            <div className="flex flex-wrap gap-x-8 gap-y-2 text-body-sm text-text-muted">
+              <span>
+                Trefferquote{" "}
+                <strong className="font-medium text-text">
+                  {formatPercent(stats.accuracy)}
+                </strong>
+              </span>
+              <span>
+                Diese Woche{" "}
+                <strong className="font-medium text-text">{answeredThisWeek}</strong> Fragen
+              </span>
+              <span>
+                Offene Fehler{" "}
+                <strong className="font-medium text-text">{mistakeCount}</strong>
+              </span>
+            </div>
           </div>
-          <p className="m-0 text-body-sm text-text-muted">
-            {formatNumber(stats.answered)} von {formatNumber(questions.length)} Fragen
-            beantwortet · {sessionLogs.length}{" "}
-            {sessionLogs.length === 1 ? "Sitzung" : "Sitzungen"}
-          </p>
         </section>
+
+        {weakSubjects.length ? (
+          <section className="grid gap-4">
+            <h2 className="m-0 text-h3 font-semibold">Schwächste Fächer</h2>
+            <div className="grid gap-3">
+              {weakSubjects.map((item) => (
+                <div
+                  className="flex items-center gap-4 rounded border border-border bg-surface px-4 py-3"
+                  key={item.subject}
+                >
+                  <div className="grid min-w-0 flex-1 gap-2">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="truncate text-body font-medium text-text">
+                        {item.subject}
+                      </span>
+                      <span className="shrink-0 text-body-sm text-text-muted">
+                        {item.accuracy}%
+                      </span>
+                    </div>
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
+                      <div
+                        className="h-full rounded-full bg-accent"
+                        style={{ width: `${Math.max(item.accuracy, 2)}%` }}
+                      />
+                    </div>
+                  </div>
+                  <Button
+                    className="shrink-0 px-3"
+                    onClick={() => practiceSubject(item.subject)}
+                    variant="secondary"
+                  >
+                    Üben
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         {recentSessions.length ? (
           <section className="grid gap-4">
@@ -2161,17 +2284,14 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   function renderSubjects() {
     return (
       <PapersView
-        customSessionBuilder={renderSessionBuilder()}
         mode={mode === "exam" ? "exam" : "study"}
         onModeChange={setMode}
         onSemesterChange={setPapersSemester}
         onStartPaper={startPaper}
         onStartPapers={startPapers}
-        onTabChange={setPapersTab}
         selectedSemester={papersSemester}
         semesters={curriculum}
         t={t}
-        tab={papersTab}
       />
     );
   }
@@ -2688,7 +2808,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                   !locked && !excluded && "hover:bg-surface-muted",
                   locked && !selected && "cursor-default opacity-70",
                   excluded && "bg-surface-muted text-text-subtle",
-                  selected && !revealed && "border-accent",
+                  selected &&
+                    !revealed &&
+                    "border-accent bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))] ring-1 ring-accent",
                   revealed &&
                     correct &&
                     "border-accent bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))]",
@@ -2718,7 +2840,18 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                   }}
                   type="button"
                 >
-                  <span className="w-5 shrink-0 font-medium text-text-muted">
+                  <span
+                    className={cn(
+                      "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-body-sm font-medium transition-colors",
+                      selected && !revealed
+                        ? "bg-accent text-accent-foreground"
+                        : revealed && correct
+                          ? "bg-accent text-accent-foreground"
+                          : revealed && selected && !correct
+                            ? "bg-danger text-accent-foreground"
+                            : "border border-border text-text-muted"
+                    )}
+                  >
                     {choice.id}
                   </span>
                   <span className={cn("min-w-0 flex-1", excluded && "line-through")}>
@@ -3060,6 +3193,55 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     }
 
     startSessionFromIds(ids, session.mode, `Wiederholung · ${session.label}`, session.source);
+  }
+
+  // Reviews every mistake across all subjects in one review session.
+  function reviewAllMistakes() {
+    const ids = missedQuestions.map((entry) => entry.question.id);
+
+    if (!ids.length) {
+      setNotice("Keine Fehler zum Üben");
+      return;
+    }
+
+    startSessionFromIds(ids.slice(0, 200), "review", "Fehler · Alle Fächer");
+  }
+
+  // Starts a focused study session for one subject: its wrong answers first,
+  // then unanswered questions (falls back to the whole subject if all correct).
+  function practiceSubject(subject: string) {
+    const wrong: string[] = [];
+    const unseen: string[] = [];
+
+    for (const question of questions) {
+      if (question.subject !== subject) {
+        continue;
+      }
+
+      const answer = progress.answers[question.id];
+
+      if (!answer) {
+        unseen.push(question.id);
+      } else if (answer.correct === false) {
+        wrong.push(question.id);
+      }
+    }
+
+    let ids = [...wrong, ...unseen];
+
+    if (!ids.length) {
+      ids = questions
+        .filter((question) => question.subject === subject)
+        .map((question) => question.id);
+    }
+
+    if (!ids.length) {
+      return;
+    }
+
+    startSessionFromIds(ids.slice(0, DEFAULT_COUNT), "study", `Lernen · ${subject}`, {
+      subject
+    });
   }
 
   // Marks a session as closed: it stays in the history with its stats, but is
@@ -3785,140 +3967,6 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             </span>
           </div>
         ))}
-      </div>
-    );
-  }
-
-  function renderSessionBuilder() {
-    const startCount = filteredPool.length
-      ? Math.min(sessionCount || DEFAULT_COUNT, filteredPool.length)
-      : 0;
-
-    return (
-      <div className="grid max-w-content gap-6">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field htmlFor="builder-semester" label="Semester">
-            <Select
-              id="builder-semester"
-              onChange={(event) => {
-                setSelectedSemester(event.target.value);
-                setSelectedTopic("all");
-              }}
-              value={selectedSemester}
-            >
-              <option value="all">Alle Semester</option>
-              {semesters.map((semester) => (
-                <option key={semester.key} value={semester.key}>
-                  {semester.label}
-                </option>
-              ))}
-            </Select>
-          </Field>
-          <Field htmlFor="builder-subject" label="Fach">
-            <Select
-              id="builder-subject"
-              onChange={(event) => {
-                setSelectedSubject(event.target.value);
-                setSelectedTopic("all");
-              }}
-              value={selectedSubject}
-            >
-              <option value="all">Alle Fächer</option>
-              {subjects.map((subject) => (
-                <option key={subject} value={subject}>
-                  {subject}
-                </option>
-              ))}
-            </Select>
-          </Field>
-          <Field htmlFor="builder-topic" label="Thema / Klausur">
-            <Select
-              id="builder-topic"
-              onChange={(event) => setSelectedTopic(event.target.value)}
-              value={selectedTopic}
-            >
-              <option value="all">Alle Themen</option>
-              {topics.map((topic) => (
-                <option key={topic} value={topic}>
-                  {topic}
-                </option>
-              ))}
-            </Select>
-          </Field>
-          <Field htmlFor="builder-search" label="In Sitzung suchen">
-            <Input
-              id="builder-search"
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Optionaler Filter"
-              value={query}
-            />
-          </Field>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="grid gap-2">
-            <span className="text-body-sm font-medium text-text">Modus</span>
-            <Segmented
-              onChange={setMode}
-              options={[
-                ["study", "Lernen"],
-                ["exam", "Prüfung"],
-                ["review", "Wiederholung"]
-              ] as const}
-              value={mode}
-            />
-          </div>
-          <div className="grid gap-2">
-            <span className="text-body-sm font-medium text-text">Auswahl</span>
-            <Segmented
-              onChange={setPool}
-              options={[
-                ["all", "Alle"],
-                ["unanswered", "Neu"],
-                ["wrong", "Falsch"],
-                ["bookmarked", "Gespeichert"]
-              ] as const}
-              value={pool}
-            />
-          </div>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field htmlFor="builder-count" label="Anzahl">
-            <Input
-              id="builder-count"
-              max={500}
-              min={1}
-              onChange={(event) => setSessionCount(Number(event.target.value))}
-              type="number"
-              value={sessionCount}
-            />
-          </Field>
-          <Field htmlFor="builder-order" label="Reihenfolge">
-            <Select
-              id="builder-order"
-              onChange={(event) => setSessionOrder(event.target.value as SessionOrder)}
-              value={sessionOrder}
-            >
-              <option value="latest">Neueste Klausur</option>
-              <option value="oldest">Älteste Klausur</option>
-              <option value="subject">Nach Fach</option>
-              <option value="random">Zufällig</option>
-            </Select>
-          </Field>
-        </div>
-
-        <div>
-          <Button
-            className="gap-3 px-6"
-            disabled={!startCount}
-            onClick={() => startSession()}
-            variant="primary"
-          >
-            <Play size={18} aria-hidden="true" />
-            <span>{startCount} starten</span>
-          </Button>
-        </div>
       </div>
     );
   }

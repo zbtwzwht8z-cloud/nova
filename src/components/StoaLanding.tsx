@@ -38,7 +38,7 @@ export default function StoaLanding({
         <div className="mb-8 grid gap-1">
           <div className="flex items-center gap-2.5">
             <Logo size={32} />
-            <strong className="text-h2 font-semibold">Stoa</strong>
+            <strong className="text-h2 font-semibold">Nova</strong>
           </div>
           <p className="m-0 text-body-sm text-text-muted">{t("login.subtitle")}</p>
         </div>
