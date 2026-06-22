@@ -31,6 +31,42 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/*
+ * Preflight is off, so strip the browser's default margins/padding from block
+ * text elements. Without this, every heading and <p> injects its own ~1em
+ * margin on top of the layout's grid/flex gaps — the main cause of uneven,
+ * unpredictable vertical spacing. All spacing should come from utilities.
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
 button {
   margin: 0;
   padding: 0;

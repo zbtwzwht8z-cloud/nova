@@ -8,6 +8,12 @@ const config: Config = {
     preflight: false
   },
   theme: {
+    // NOTE: do not override `theme.spacing` with a restricted subset. Doing so
+    // silently drops every class outside the subset (m-0, gap-5, pb-24, py-0.5,
+    // …) — Tailwind emits no CSS for them — which was the cause of widespread
+    // inconsistent spacing. Keep the full default 4px scale; enforce rhythm by
+    // convention (gap-8 pages, gap-6 focused views, gap-4 sections), not by
+    // pruning the scale.
     colors: {
       bg: "var(--bg)",
       surface: "var(--surface)",
@@ -21,17 +27,13 @@ const config: Config = {
       danger: "var(--danger)",
       highlight: "var(--highlight)"
     },
-    spacing: {
-      1: "4px",
-      2: "8px",
-      3: "12px",
-      4: "16px",
-      6: "24px",
-      8: "32px",
-      12: "48px"
-    },
     borderRadius: {
+      none: "0px",
+      sm: "4px",
       DEFAULT: "8px",
+      md: "8px",
+      lg: "12px",
+      xl: "16px",
       full: "9999px"
     },
     fontFamily: {

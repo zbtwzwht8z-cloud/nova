@@ -2057,7 +2057,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
     return (
       <div className="mx-auto grid max-w-content gap-8">
-        <section className="grid grid-cols-2 gap-x-6 gap-y-8 border-b border-border pb-6 sm:grid-cols-4 sm:gap-x-10">
+        <section className="grid grid-cols-2 gap-x-8 gap-y-6 border-b border-border pb-6 sm:grid-cols-4">
           <Stat label={t("stat.answered")} value={formatNumber(stats.answered)} />
           <Stat accent label={t("stat.accuracy")} value={formatPercent(stats.accuracy)} />
           <Stat label={t("stat.mistakes")} value={formatNumber(stats.missed)} />
@@ -2136,7 +2136,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         ) : null}
 
         {activeLeaders.length ? (
-          <section className="grid gap-3">
+          <section className="grid gap-4">
             <h2 className="m-0 text-h3 font-semibold">{t("dashboard.week")}</h2>
             <List>
               {activeLeaders.slice(0, 8).map((entry, index) => (
@@ -2265,7 +2265,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       setActiveIndex((current) => Math.min(total - 1, current + 1));
 
     return (
-      <div className="mx-auto grid max-w-content gap-5">
+      <div className="mx-auto grid max-w-content gap-6">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
           <div className="flex min-w-0 items-center gap-2">
             <Button
@@ -3207,7 +3207,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     const tooShort = clean(searchQuery).length < 2;
 
     return (
-      <div className="mx-auto grid max-w-content gap-5">
+      <div className="mx-auto grid max-w-content gap-8">
         <Field htmlFor="search-input" label="Fragen, Antworten und Kommentare durchsuchen">
           <Input
             id="search-input"
@@ -3255,7 +3255,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     }
 
     return (
-      <div className="mx-auto grid max-w-content gap-4">
+      <div className="mx-auto grid max-w-content gap-8">
         <h2 className="m-0 text-h3 font-semibold">
           {missedQuestions.length}{" "}
           {missedQuestions.length === 1 ? "zu übende Frage" : "zu übende Fragen"}
@@ -3440,7 +3440,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           </div>
         </section>
 
-        <section className="grid gap-3">
+        <section className="grid gap-4">
           <h2 className="m-0 text-h3 font-semibold">Benutzer</h2>
           <div className="divide-y divide-border border-y border-border">
             {users.map((account) => {
@@ -3543,7 +3543,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           </div>
         </section>
 
-        <section className="grid gap-3">
+        <section className="grid gap-4">
           <h2 className="m-0 text-h3 font-semibold">Daten</h2>
           <div className="flex flex-wrap items-center gap-3">
             <Button onClick={exportState} variant="secondary">
@@ -3572,13 +3572,13 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         </section>
 
         {questionsFullReady ? (
-          <section className="grid gap-3">
+          <section className="grid gap-4">
             <h2 className="m-0 text-h3 font-semibold">Datenqualität</h2>
             {renderBankHygiene()}
           </section>
         ) : null}
 
-        <section className="grid gap-3">
+        <section className="grid gap-4">
           <h2 className="m-0 text-h3 font-semibold">
             {openReports.length} offene{" "}
             {openReports.length === 1 ? "Meldung" : "Meldungen"}
@@ -3795,7 +3795,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       : 0;
 
     return (
-      <div className="grid max-w-content gap-5">
+      <div className="grid max-w-content gap-6">
         <div className="grid gap-4 sm:grid-cols-2">
           <Field htmlFor="builder-semester" label="Semester">
             <Select

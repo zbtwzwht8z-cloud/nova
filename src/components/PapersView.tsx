@@ -155,7 +155,7 @@ export default function PapersView({
   }
 
   return (
-    <div className="mx-auto grid max-w-content gap-6 bg-bg font-sans text-body font-normal text-text">
+    <div className="mx-auto grid max-w-content gap-8 bg-bg font-sans text-body font-normal text-text">
       <section className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
         <p className="m-0 max-w-[720px] text-body text-text-muted">{t("papers.intro")}</p>
 
