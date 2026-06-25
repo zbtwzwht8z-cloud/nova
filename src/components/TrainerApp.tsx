@@ -23,6 +23,7 @@ import {
   LayoutDashboard,
   ListChecks,
   LogOut,
+  Menu,
   MoreHorizontal,
   NotebookPen,
   Play,
@@ -399,6 +400,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [authChecked, setAuthChecked] = useState(false);
   const [view, setView] = useState<View>("dashboard");
   const [navOpen, setNavOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [user, setUser] = useState<TrainerUser | null>(null);
   const [users, setUsers] = useState<TrainerUser[]>([]);
   const [devLogin, setDevLogin] = useState<null | { username: string; password: string }>(
@@ -1900,7 +1902,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
   return (
     <main className="flex h-[100dvh] overflow-hidden bg-bg font-sans text-body text-text">
-      <aside className="hidden h-full w-60 shrink-0 flex-col gap-6 overflow-y-auto border-r border-border bg-surface p-6 md:flex">
+      <aside
+        className={cn(
+          "hidden h-full w-60 shrink-0 flex-col gap-6 overflow-y-auto border-r border-border bg-surface p-6",
+          !sidebarCollapsed && "md:flex"
+        )}
+      >
         {sidebarContent}
       </aside>
 
@@ -1908,6 +1915,15 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
       <div className="flex min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-contain">
         <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-border bg-bg/90 px-6 py-4 backdrop-blur md:px-8 md:py-5 lg:px-12">
+          <Button
+            aria-label={sidebarCollapsed ? "Seitenleiste einblenden" : "Seitenleiste ausblenden"}
+            aria-pressed={sidebarCollapsed}
+            className="hidden px-2 md:inline-flex"
+            onClick={() => setSidebarCollapsed((current) => !current)}
+            variant="ghost"
+          >
+            <Menu size={20} aria-hidden="true" />
+          </Button>
           <h1 className="m-0 text-h2 font-semibold">{titleForView(view)}</h1>
         </header>
 
