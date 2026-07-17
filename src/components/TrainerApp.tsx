@@ -94,6 +94,9 @@ type ReportType = QuestionReport["type"];
 const STORAGE_KEY = "private-mcq-trainer-progress-v2";
 const LEGACY_STORAGE_KEY = "private-mcq-trainer-progress";
 const DEFAULT_COUNT = 40;
+const READER_FONT_KEY = "nova-reader-font";
+const MIN_READER_FONT = 13;
+const MAX_READER_FONT = 28;
 
 const navItems: Array<{
   view: View;
@@ -401,6 +404,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [view, setView] = useState<View>("dashboard");
   const [navOpen, setNavOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [readerFontPx, setReaderFontPx] = useState(16);
   const [user, setUser] = useState<TrainerUser | null>(null);
   const [users, setUsers] = useState<TrainerUser[]>([]);
   const [devLogin, setDevLogin] = useState<null | { username: string; password: string }>(
@@ -1090,6 +1094,24 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   useEffect(() => {
     document.documentElement.lang = "de";
   }, []);
+
+  useEffect(() => {
+    const stored = Number(window.localStorage.getItem(READER_FONT_KEY));
+
+    if (stored >= MIN_READER_FONT && stored <= MAX_READER_FONT) {
+      setReaderFontPx(stored);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(READER_FONT_KEY, String(readerFontPx));
+  }, [readerFontPx]);
+
+  function adjustReaderFont(delta: number) {
+    setReaderFontPx((current) =>
+      Math.min(MAX_READER_FONT, Math.max(MIN_READER_FONT, current + delta))
+    );
+  }
 
   // Timer: tick every second while an exam session is active.
   useEffect(() => {
@@ -2703,6 +2725,29 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
     return (
       <div className="flex shrink-0 flex-wrap items-center justify-end gap-1">
+        <div className="flex items-center overflow-hidden rounded border border-border">
+          <button
+            aria-label="Schrift verkleinern"
+            className="flex min-h-[44px] min-w-[40px] items-center justify-center text-body-sm font-medium text-text-muted transition-colors hover:bg-surface-muted hover:text-text disabled:opacity-40"
+            disabled={readerFontPx <= MIN_READER_FONT}
+            onClick={() => adjustReaderFont(-2)}
+            title="Schrift verkleinern"
+            type="button"
+          >
+            A<span className="text-[10px]">−</span>
+          </button>
+          <span className="w-px self-stretch bg-border" aria-hidden="true" />
+          <button
+            aria-label="Schrift vergrößern"
+            className="flex min-h-[44px] min-w-[40px] items-center justify-center text-body font-medium text-text-muted transition-colors hover:bg-surface-muted hover:text-text disabled:opacity-40"
+            disabled={readerFontPx >= MAX_READER_FONT}
+            onClick={() => adjustReaderFont(2)}
+            title="Schrift vergrößern"
+            type="button"
+          >
+            A<span className="text-[13px]">+</span>
+          </button>
+        </div>
         <Button
           aria-label="Frage kopieren"
           className="min-h-[44px] min-w-[44px] px-3"
@@ -2799,7 +2844,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         </div>
 
         <div className="grid gap-4" ref={stemRef}>
-          <p className="m-0 whitespace-pre-line text-body leading-relaxed text-text">
+          <p
+            className="m-0 whitespace-pre-line leading-relaxed text-text"
+            style={{ fontSize: readerFontPx }}
+          >
             {renderHighlightedText(
               question.stem,
               highlights,
@@ -2870,7 +2918,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                   >
                     {choice.id}
                   </span>
-                  <span className={cn("min-w-0 flex-1", excluded && "line-through")}>
+                  <span
+                    className={cn("min-w-0 flex-1", excluded && "line-through")}
+                    style={{ fontSize: readerFontPx }}
+                  >
                     {renderHighlightedText(
                       choice.text,
                       highlights,
@@ -3065,7 +3116,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           <span className="inline-flex w-fit items-center rounded border border-border px-2 py-0.5 text-label text-text-subtle">
             Freitext
           </span>
-          <p className="m-0 whitespace-pre-line text-body leading-relaxed text-text">
+          <p
+            className="m-0 whitespace-pre-line leading-relaxed text-text"
+            style={{ fontSize: readerFontPx }}
+          >
             {renderHighlightedText(
               question.stem,
               highlights,
@@ -3089,7 +3143,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         ) : (
           <section className="grid gap-3 rounded border border-border bg-surface-muted p-4">
             <strong className="text-body font-medium">Musterantwort</strong>
-            <p className="m-0 whitespace-pre-line text-body-sm text-text">
+            <p
+              className="m-0 whitespace-pre-line text-text"
+              style={{ fontSize: readerFontPx }}
+            >
               {question.modelAnswer}
             </p>
 
