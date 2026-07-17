@@ -121,18 +121,78 @@ async function call(endpoint, body, attempts = 5) {
   throw lastError;
 }
 
-function stripHtml(html) {
-  return htmlToText(html || "", {
-    wordwrap: false,
-    selectors: [
-      { selector: "a", options: { ignoreHref: false } },
-      { selector: "img", format: "skip" }
-    ]
-  })
+// The API now stores rich text as ProseMirror/TipTap JSON documents
+// ({type:"doc",content:[...]}) instead of HTML. Walk the node tree and pull the
+// plain text, keeping paragraph/line breaks and list bullets.
+function proseMirrorToText(node) {
+  if (!node || typeof node !== "object") {
+    return "";
+  }
+
+  if (node.type === "text") {
+    return typeof node.text === "string" ? node.text : "";
+  }
+
+  if (node.type === "hardBreak" || node.type === "hard_break") {
+    return "\n";
+  }
+
+  const inner = Array.isArray(node.content)
+    ? node.content.map(proseMirrorToText).join("")
+    : "";
+
+  if (node.type === "listItem" || node.type === "list_item") {
+    return `\u2022 ${inner}\n`;
+  }
+
+  if (node.type === "paragraph" || node.type === "heading") {
+    return `${inner}\n`;
+  }
+
+  return inner;
+}
+
+function normalizeText(value) {
+  return String(value || "")
     .replace(/\u00a0/g, " ")
     .replace(/[ \t]+\n/g, "\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
+}
+
+function stripHtml(input) {
+  const raw = String(input || "").trim();
+
+  // ProseMirror JSON document?
+  if (raw.startsWith("{") && raw.includes('"type"')) {
+    try {
+      const doc = JSON.parse(raw);
+
+      if (doc && doc.type === "doc") {
+        return normalizeText(proseMirrorToText(doc));
+      }
+    } catch {
+      // Source JSON is sometimes truncated. Best-effort: pull the text nodes
+      // out with a regex so we never surface raw JSON to the reader.
+      const parts = [...raw.matchAll(/"text":"((?:[^"\\]|\\.)*)"/g)].map((m) =>
+        m[1].replace(/\\"/g, '"').replace(/\\n/g, "\n").replace(/\\\\/g, "\\")
+      );
+
+      if (parts.length) {
+        return normalizeText(parts.join(" "));
+      }
+    }
+  }
+
+  return normalizeText(
+    htmlToText(raw, {
+      wordwrap: false,
+      selectors: [
+        { selector: "a", options: { ignoreHref: false } },
+        { selector: "img", format: "skip" }
+      ]
+    })
+  );
 }
 
 function answerLabel(index) {
