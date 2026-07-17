@@ -5,7 +5,7 @@ import path from "node:path";
 import { htmlToText } from "html-to-text";
 
 const BASE_URL = process.env.DOCSDOCS_BASE_URL || "https://www.docsdocs.net";
-const API_URL = `${BASE_URL}/api/v3`;
+const API_URL = `${BASE_URL}/api`;
 const RES_USER_URL = `${BASE_URL}/resuser`;
 const OUTPUT_PATH = path.resolve(process.argv[2] || "data/questions.json");
 const USER = process.env.DOCSDOCS_USER;
@@ -55,12 +55,18 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function call(endpoint, body) {
+async function callOnce(endpoint, body) {
   const response = await fetch(`${API_URL}${endpoint}`, {
     method: "POST",
     headers: {
-      Accept: "application/json",
+      Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
+      "Accept-Language": "de-DE,de;q=0.9",
+      "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+      Origin: BASE_URL,
+      Referer: `${BASE_URL}/`,
+      "X-Requested-With": "XMLHttpRequest",
       ...(jar.header() ? { Cookie: jar.header() } : {})
     },
     body: JSON.stringify(body)
@@ -86,6 +92,33 @@ async function call(endpoint, body) {
   }
 
   return json.data;
+}
+
+// Retry transient network/edge failures (timeouts, resets, 5xx). The full
+// export makes thousands of requests, so a single flaky connection shouldn't
+// kill the run.
+async function call(endpoint, body, attempts = 5) {
+  let lastError;
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      return await callOnce(endpoint, body);
+    } catch (error) {
+      lastError = error;
+      const retriable =
+        /fetch failed|ETIMEDOUT|ECONNRESET|EAI_AGAIN|EHOSTUNREACH|socket hang up|HTTP 5\d\d|HTTP 429/i.test(
+          error.message
+        ) || Boolean(error.cause);
+
+      if (!retriable || attempt === attempts) {
+        throw error;
+      }
+
+      await sleep(Math.min(1000 * 2 ** (attempt - 1), 15000));
+    }
+  }
+
+  throw lastError;
 }
 
 function stripHtml(html) {
@@ -162,12 +195,18 @@ function toQuestion(record, chunk, subject) {
   // (marked correct) holding the written model answer, not a multiple-choice
   // option. No A-E choices exist, so render them as stem + reveal-answer.
   if (answerRecords.length === 1 && Number(answerRecords[0].correct) === 1) {
+    const modelAnswer = stripHtml(answerRecords[0].text);
+
+    if (!modelAnswer) {
+      return null;
+    }
+
     return {
       ...base,
       kind: "freeText",
       choices: [],
       answer: "",
-      modelAnswer: stripHtml(answerRecords[0].text)
+      modelAnswer
     };
   }
 
@@ -175,14 +214,14 @@ function toQuestion(record, chunk, subject) {
     return null;
   }
 
+  // answerstats is nested per question: { [questionUuid]: { [answerUuid]: count } }
   const answeredCount = Number(chunk.questionstats?.[record.uuid] || 0);
+  const answerCounts = chunk.answerstats?.[record.uuid] || {};
   const choiceStats = answerRecords.map((answer, index) => ({
     id: answerLabel(index),
-    count: Number(chunk.answerstats?.[answer.uuid] || 0)
+    count: Number(answerCounts[answer.uuid] || 0)
   }));
-  const correctCount = Number(
-    chunk.answerstats?.[answerRecords[correctIndex].uuid] || 0
-  );
+  const correctCount = Number(answerCounts[answerRecords[correctIndex].uuid] || 0);
   const stats =
     answeredCount > 0
       ? { answered: answeredCount, correct: correctCount, choices: choiceStats }
@@ -207,13 +246,6 @@ async function createSubjectTraining(subject, selection) {
     randomanswers: false,
     exammode: false
   });
-}
-
-async function getTrainingEntries(trainingUuid) {
-  const data = await call("/trainer/trainingmeta", { uuid: trainingUuid });
-  const meta = JSON.parse(data.trainingmetaobject || "{}");
-
-  return meta.questionentries || [];
 }
 
 async function hydrate(trainingUuid, offset, count) {
@@ -301,19 +333,52 @@ async function exportSelection(subject, selection) {
   const trainingUuid = await createSubjectTraining(subject, selection);
   await sleep(REQUEST_DELAY_MS);
 
-  const entries = await getTrainingEntries(trainingUuid);
-  const total = entries.length;
+  // The hydrate endpoint cycles through the training set (offsets past the end
+  // wrap around), so there's no "empty last page". Paginate with de-dup and
+  // stop once a page adds no new questions. maxPages is a safety cap only.
   const questions = [];
+  const seen = new Set();
+  const maxPages = selection.expectedCount
+    ? Math.ceil(selection.expectedCount / BATCH_SIZE) + 3
+    : 80;
 
-  for (let offset = 0; offset < total; offset += BATCH_SIZE) {
-    const count = Math.min(BATCH_SIZE, total - offset);
-    const chunk = await hydrate(trainingUuid, offset, count);
-    const normalized = Object.values(chunk.questions || {})
-      .map((record) => toQuestion(record, chunk, subject))
-      .filter(Boolean);
+  for (let page = 0; page < maxPages; page += 1) {
+    const chunk = await hydrate(trainingUuid, page * BATCH_SIZE, BATCH_SIZE);
+    const records = Object.values(chunk.questions || {});
 
-    questions.push(...normalized);
-    console.log(`  ${Math.min(offset + count, total)}/${total}`);
+    if (!records.length) {
+      break;
+    }
+
+    let added = 0;
+
+    for (const record of records) {
+      if (seen.has(record.uuid)) {
+        continue;
+      }
+
+      seen.add(record.uuid);
+      added += 1;
+
+      const question = toQuestion(record, chunk, subject);
+
+      if (question) {
+        questions.push(question);
+      }
+    }
+
+    console.log(
+      `  ${seen.size}${selection.expectedCount ? `/${selection.expectedCount}` : ""}`
+    );
+
+    if (added === 0) {
+      break;
+    }
+
+    if (selection.expectedCount && seen.size >= selection.expectedCount) {
+      break;
+    }
+
     await sleep(REQUEST_DELAY_MS);
   }
 
@@ -348,8 +413,7 @@ async function exportSubject(subject, expectedCount) {
 console.log("Logging in");
 await call("/system/login", {
   displayname: USER,
-  password: PASSWORD,
-  rememberme: false
+  password: PASSWORD
 });
 
 const department = await call("/trainer/departmentinfo", {});
