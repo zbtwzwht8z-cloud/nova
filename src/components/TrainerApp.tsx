@@ -26,6 +26,7 @@ import {
   Menu,
   MoreHorizontal,
   NotebookPen,
+  Pencil,
   Play,
   RotateCcw,
   Search,
@@ -457,6 +458,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [queueOpen, setQueueOpen] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
   const [pocketPickerOpen, setPocketPickerOpen] = useState(false);
+  const [renamingPocketId, setRenamingPocketId] = useState<string | null>(null);
+  const [renamePocketValue, setRenamePocketValue] = useState("");
   const [examSubmitOpen, setExamSubmitOpen] = useState(false);
   const [nowTick, setNowTick] = useState(() => Date.now());
   const [commandOpen, setCommandOpen] = useState(false);
@@ -1611,6 +1614,23 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     }
 
     startSessionFromIds(ids, "study", `Pocket · ${folder.name}`);
+  }
+
+  // Renames a pocket.
+  function renamePocket(folderId: string, name: string) {
+    const trimmed = name.trim();
+
+    if (!trimmed) {
+      return;
+    }
+
+    patchProgress((current) => ({
+      ...current,
+      bookmarkFolders: (current.bookmarkFolders || []).map((folder) =>
+        folder.id === folderId ? { ...folder, name: trimmed } : folder
+      )
+    }));
+    setRenamingPocketId(null);
   }
 
   // Deletes a pocket (not the questions themselves).
@@ -3806,40 +3826,81 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         <section className="grid content-start gap-4">
           {activeFolder ? (
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
-              <div className="flex min-w-0 items-center gap-2">
-                <span
-                  aria-hidden="true"
-                  className="h-2.5 w-2.5 shrink-0 rounded-full"
-                  style={{ background: activeFolder.color }}
-                />
-                <h2 className="m-0 truncate text-h3 font-semibold">
-                  {activeFolder.name}
-                </h2>
-                <span className="shrink-0 text-body-sm text-text-muted">
-                  {folderQuestions.length}
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  className="px-3"
-                  disabled={!folderQuestions.length}
-                  onClick={() => practicePocket(activeFolder)}
-                  variant="primary"
-                >
-                  <Play size={16} aria-hidden="true" />
-                  <span>Üben</span>
-                </Button>
-                {activeFolder.id !== "default" ? (
+              {renamingPocketId === activeFolder.id ? (
+                <div className="flex min-w-0 flex-1 items-center gap-2">
+                  <Input
+                    autoFocus
+                    onChange={(event) => setRenamePocketValue(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        renamePocket(activeFolder.id, renamePocketValue);
+                      } else if (event.key === "Escape") {
+                        setRenamingPocketId(null);
+                      }
+                    }}
+                    value={renamePocketValue}
+                  />
                   <Button
-                    aria-label="Pocket löschen"
-                    className="px-3 text-danger"
-                    onClick={() => deletePocket(activeFolder.id)}
-                    variant="ghost"
+                    disabled={!renamePocketValue.trim()}
+                    onClick={() => renamePocket(activeFolder.id, renamePocketValue)}
+                    variant="secondary"
                   >
-                    <Trash2 size={16} aria-hidden="true" />
+                    Speichern
                   </Button>
-                ) : null}
-              </div>
+                  <Button onClick={() => setRenamingPocketId(null)} variant="ghost">
+                    Abbrechen
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <div className="flex min-w-0 items-center gap-2">
+                    <span
+                      aria-hidden="true"
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ background: activeFolder.color }}
+                    />
+                    <h2 className="m-0 truncate text-h3 font-semibold">
+                      {activeFolder.name}
+                    </h2>
+                    <span className="shrink-0 text-body-sm text-text-muted">
+                      {folderQuestions.length}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      className="px-3"
+                      disabled={!folderQuestions.length}
+                      onClick={() => practicePocket(activeFolder)}
+                      variant="primary"
+                    >
+                      <Play size={16} aria-hidden="true" />
+                      <span>Üben</span>
+                    </Button>
+                    <Button
+                      aria-label="Pocket umbenennen"
+                      className="px-3"
+                      onClick={() => {
+                        setRenamePocketValue(activeFolder.name);
+                        setRenamingPocketId(activeFolder.id);
+                      }}
+                      title="Pocket umbenennen"
+                      variant="ghost"
+                    >
+                      <Pencil size={16} aria-hidden="true" />
+                    </Button>
+                    {activeFolder.id !== "default" ? (
+                      <Button
+                        aria-label="Pocket löschen"
+                        className="px-3 text-danger"
+                        onClick={() => deletePocket(activeFolder.id)}
+                        variant="ghost"
+                      >
+                        <Trash2 size={16} aria-hidden="true" />
+                      </Button>
+                    ) : null}
+                  </div>
+                </>
+              )}
             </div>
           ) : null}
           {folderQuestions.length ? (
