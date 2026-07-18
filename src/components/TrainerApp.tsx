@@ -28,6 +28,7 @@ import {
   NotebookPen,
   Pencil,
   Play,
+  Plus,
   RotateCcw,
   Search,
   Shield,
@@ -2607,22 +2608,39 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   }
 
   function renderPocketPicker(question: Question) {
+    const savedCount = folders.filter((folder) =>
+      (folder.questionIds || []).includes(question.id)
+    ).length;
+
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
+      <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-black/40"
+          className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"
           onClick={() => setPocketPickerOpen(false)}
         />
         <section
           aria-label="In Pocket speichern"
-          className="relative grid max-h-[80vh] w-full max-w-sm gap-4 overflow-y-auto rounded border border-border bg-surface p-6"
+          className="relative grid max-h-[85vh] w-full max-w-md gap-5 overflow-y-auto rounded-t-xl border border-border bg-surface p-6 shadow-popover sm:rounded-xl"
+          style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))" }}
         >
-          <div className="flex items-center justify-between gap-3">
-            <strong className="text-h3 font-semibold">In Pocket speichern</strong>
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[color-mix(in_srgb,var(--accent)_12%,var(--surface))] text-accent">
+                <Bookmark size={20} aria-hidden="true" />
+              </span>
+              <div className="grid gap-0.5">
+                <strong className="text-h3 font-semibold">In Pocket speichern</strong>
+                <span className="text-body-sm text-text-muted">
+                  {savedCount
+                    ? `In ${savedCount} ${savedCount === 1 ? "Pocket" : "Pockets"}`
+                    : "Frage für später markieren"}
+                </span>
+              </div>
+            </div>
             <Button
               aria-label="Schließen"
-              className="px-2"
+              className="-mr-2 -mt-1 px-2"
               onClick={() => setPocketPickerOpen(false)}
               variant="ghost"
             >
@@ -2633,13 +2651,14 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           <div className="grid gap-2">
             {folders.map((folder) => {
               const inFolder = (folder.questionIds || []).includes(question.id);
+              const count = folder.questionIds.length;
 
               return (
                 <button
                   className={cn(
-                    "flex items-center gap-3 rounded border px-3 py-2.5 text-left transition-colors",
+                    "flex items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors",
                     inFolder
-                      ? "border-accent bg-[color-mix(in_srgb,var(--accent)_8%,var(--surface))]"
+                      ? "border-accent bg-[color-mix(in_srgb,var(--accent)_7%,var(--surface))]"
                       : "border-border hover:bg-surface-muted"
                   )}
                   key={folder.id}
@@ -2648,41 +2667,61 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                 >
                   <span
                     aria-hidden="true"
-                    className="h-2.5 w-2.5 shrink-0 rounded-full"
-                    style={{ background: folder.color }}
-                  />
-                  <span className="min-w-0 flex-1 truncate text-body font-medium text-text">
-                    {folder.name}
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+                    style={{
+                      backgroundColor: `color-mix(in srgb, ${folder.color} 16%, var(--surface))`,
+                      color: folder.color
+                    }}
+                  >
+                    <Bookmark size={16} />
                   </span>
-                  <span className="shrink-0 text-body-sm text-text-muted">
-                    {folder.questionIds.length}
+                  <span className="grid min-w-0 flex-1 gap-0.5">
+                    <span className="truncate text-body font-medium text-text">
+                      {folder.name}
+                    </span>
+                    <span className="text-label text-text-subtle">
+                      {count} {count === 1 ? "Frage" : "Fragen"}
+                    </span>
                   </span>
-                  {inFolder ? (
-                    <Check className="shrink-0 text-accent" size={18} aria-hidden="true" />
-                  ) : null}
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-colors",
+                      inFolder
+                        ? "border-accent bg-accent text-accent-foreground"
+                        : "border-border text-text-subtle"
+                    )}
+                  >
+                    {inFolder ? <Check size={16} /> : <Plus size={16} />}
+                  </span>
                 </button>
               );
             })}
           </div>
 
-          <div className="flex gap-2 border-t border-border pt-4">
-            <Input
-              onChange={(event) => setNewFolderName(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" && newFolderName.trim()) {
-                  createPocketWithQuestion(newFolderName, question.id);
-                }
-              }}
-              placeholder="Neue Pocket"
-              value={newFolderName}
-            />
-            <Button
-              disabled={!newFolderName.trim()}
-              onClick={() => createPocketWithQuestion(newFolderName, question.id)}
-              variant="secondary"
-            >
-              Erstellen
-            </Button>
+          <div className="grid gap-2 border-t border-border pt-4">
+            <span className="text-label font-medium text-text-subtle">Neue Pocket</span>
+            <div className="flex gap-2">
+              <Input
+                onChange={(event) => setNewFolderName(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && newFolderName.trim()) {
+                    createPocketWithQuestion(newFolderName, question.id);
+                  }
+                }}
+                placeholder="z.B. Vor der Klausur"
+                value={newFolderName}
+              />
+              <Button
+                className="shrink-0"
+                disabled={!newFolderName.trim()}
+                onClick={() => createPocketWithQuestion(newFolderName, question.id)}
+                variant="primary"
+              >
+                <Plus size={17} aria-hidden="true" />
+                <span>Erstellen</span>
+              </Button>
+            </div>
           </div>
         </section>
       </div>
