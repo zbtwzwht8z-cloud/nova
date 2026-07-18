@@ -8,7 +8,7 @@ const strings = {
   "nav.sessions": "Sitzungen",
   "nav.search": "Suche",
   "nav.mistakes": "Fehler",
-  "nav.bookmarks": "Lesezeichen",
+  "nav.bookmarks": "Pockets",
   "nav.admin": "Admin",
 
   "common.logout": "Abmelden",

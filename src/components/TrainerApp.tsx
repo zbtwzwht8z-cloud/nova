@@ -109,7 +109,7 @@ const navItems: Array<{
   { view: "trainer", label: "Sitzungen", icon: History },
   { view: "search", label: "Suche", icon: Search },
   { view: "mistakes", label: "Fehler", icon: NotebookPen },
-  { view: "bookmarks", label: "Lesezeichen", icon: BookMarked },
+  { view: "bookmarks", label: "Pockets", icon: BookMarked },
   { view: "admin", label: "Admin", icon: Shield, admin: true }
 ];
 
@@ -456,6 +456,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [notice, setNotice] = useState("");
   const [queueOpen, setQueueOpen] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
+  const [pocketPickerOpen, setPocketPickerOpen] = useState(false);
   const [examSubmitOpen, setExamSubmitOpen] = useState(false);
   const [nowTick, setNowTick] = useState(() => Date.now());
   const [commandOpen, setCommandOpen] = useState(false);
@@ -975,6 +976,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
   useEffect(() => {
     setReportOpen(false);
+    setPocketPickerOpen(false);
     lastChoiceKeyRef.current = null;
 
     if (view === "trainer" && sessionIds.length) {
@@ -983,7 +985,14 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   }, [activeIndex, sessionIds.length, view]);
 
   useEffect(() => {
-    if (view !== "trainer" || queueOpen || reportOpen || studyFinished || !activeQuestion) {
+    if (
+      view !== "trainer" ||
+      queueOpen ||
+      reportOpen ||
+      pocketPickerOpen ||
+      studyFinished ||
+      !activeQuestion
+    ) {
       return;
     }
 
@@ -1083,6 +1092,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     examFinished,
     excludedChoices,
     mode,
+    pocketPickerOpen,
     progress.answers,
     queueOpen,
     reportOpen,
@@ -1507,8 +1517,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           correct,
           mistakeQuestionIds,
           startedAt: sessionStartedAt,
-          finishedAt: now(),
-          closed: true
+          finishedAt: now()
         };
 
         return {
@@ -1526,8 +1535,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                 answered: answeredIds.length,
                 correct,
                 mistakeQuestionIds,
-                finishedAt: now(),
-                closed: true
+                finishedAt: now()
               }
             : session
         )
@@ -1537,36 +1545,6 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setExamFinished(true);
   }
 
-  function toggleBookmark(questionId: string) {
-    patchProgress((current) => {
-      const folders = current.bookmarkFolders?.length
-        ? [...current.bookmarkFolders]
-        : [defaultFolder()];
-      const folderIndex = Math.max(
-        folders.findIndex((folder) => folder.id === current.activeFolderId),
-        0
-      );
-      const folder = folders[folderIndex];
-      const ids = new Set(folder.questionIds || []);
-
-      if (ids.has(questionId)) {
-        ids.delete(questionId);
-      } else {
-        ids.add(questionId);
-      }
-
-      folders[folderIndex] = {
-        ...folder,
-        questionIds: Array.from(ids)
-      };
-
-      return {
-        ...current,
-        bookmarkFolders: folders,
-        bookmarks: Array.from(new Set(folders.flatMap((item) => item.questionIds)))
-      };
-    });
-  }
 
   function createFolder() {
     if (!newFolderName.trim()) {
@@ -1588,6 +1566,97 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       bookmarkFolders: [...(current.bookmarkFolders || []), folder],
       activeFolderId: folder.id
     }));
+    setNewFolderName("");
+  }
+
+  // Adds/removes a question from a specific pocket (bookmark folder).
+  function toggleQuestionInFolder(questionId: string, folderId: string) {
+    patchProgress((current) => {
+      const source = current.bookmarkFolders?.length
+        ? current.bookmarkFolders
+        : [defaultFolder()];
+      const nextFolders = source.map((folder) => {
+        if (folder.id !== folderId) {
+          return folder;
+        }
+
+        const ids = new Set(folder.questionIds || []);
+
+        if (ids.has(questionId)) {
+          ids.delete(questionId);
+        } else {
+          ids.add(questionId);
+        }
+
+        return { ...folder, questionIds: Array.from(ids) };
+      });
+
+      return {
+        ...current,
+        bookmarkFolders: nextFolders,
+        bookmarks: Array.from(new Set(nextFolders.flatMap((item) => item.questionIds)))
+      };
+    });
+  }
+
+  // Starts a study session from a pocket's questions.
+  function practicePocket(folder: BookmarkFolder) {
+    const ids = (folder.questionIds || []).filter((questionId) =>
+      questionById.has(questionId)
+    );
+
+    if (!ids.length) {
+      setNotice("Diese Pocket ist leer");
+      return;
+    }
+
+    startSessionFromIds(ids, "study", `Pocket · ${folder.name}`);
+  }
+
+  // Deletes a pocket (not the questions themselves).
+  function deletePocket(folderId: string) {
+    patchProgress((current) => {
+      const nextFolders = (current.bookmarkFolders || []).filter(
+        (folder) => folder.id !== folderId
+      );
+      const folders = nextFolders.length ? nextFolders : [defaultFolder()];
+
+      return {
+        ...current,
+        bookmarkFolders: folders,
+        activeFolderId:
+          current.activeFolderId === folderId ? folders[0]?.id : current.activeFolderId,
+        bookmarks: Array.from(new Set(folders.flatMap((item) => item.questionIds)))
+      };
+    });
+  }
+
+  // Creates a new pocket and immediately drops the given question into it.
+  function createPocketWithQuestion(name: string, questionId: string) {
+    const trimmed = name.trim();
+
+    if (!trimmed) {
+      return;
+    }
+
+    const folder: BookmarkFolder = {
+      id: id("folder"),
+      name: trimmed,
+      color: ["#216e62", "#315d9f", "#8f4d38", "#6f5b9d"][folders.length % 4],
+      questionIds: [questionId],
+      createdAt: now()
+    };
+
+    patchProgress((current) => {
+      const nextFolders = [...(current.bookmarkFolders || []), folder];
+
+      return {
+        ...current,
+        bookmarkFolders: nextFolders,
+        activeFolderId: folder.id,
+        bookmarks: Array.from(new Set(nextFolders.flatMap((item) => item.questionIds)))
+      };
+    });
     setNewFolderName("");
   }
 
@@ -2344,10 +2413,22 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
     const firstUnanswered = ids.findIndex((questionId) => !progress.answers[questionId]);
 
+    // For exam sessions, restore the already-picked answers so finishing again
+    // re-grades the whole set together (not just the newly answered questions).
+    const priorExamAnswers: Record<string, string> = {};
+    if (session.mode === "exam") {
+      for (const questionId of ids) {
+        const selected = progress.answers[questionId]?.selected;
+        if (selected) {
+          priorExamAnswers[questionId] = selected;
+        }
+      }
+    }
+
     setMode(session.mode === "exam" ? "exam" : session.mode === "review" ? "review" : "study");
     setSessionIds(ids);
     setActiveIndex(firstUnanswered === -1 ? 0 : firstUnanswered);
-    setExamAnswers({});
+    setExamAnswers(priorExamAnswers);
     setDraftAnswers({});
     setExcludedChoices({});
     setQuestionHighlights({});
@@ -2500,6 +2581,90 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
         {queueOpen ? renderQueueDrawer() : null}
         {examSubmitOpen ? renderExamSubmitGate() : null}
+        {pocketPickerOpen && activeQuestion ? renderPocketPicker(activeQuestion) : null}
+      </div>
+    );
+  }
+
+  function renderPocketPicker(question: Question) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-black/40"
+          onClick={() => setPocketPickerOpen(false)}
+        />
+        <section
+          aria-label="In Pocket speichern"
+          className="relative grid max-h-[80vh] w-full max-w-sm gap-4 overflow-y-auto rounded border border-border bg-surface p-6"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <strong className="text-h3 font-semibold">In Pocket speichern</strong>
+            <Button
+              aria-label="Schließen"
+              className="px-2"
+              onClick={() => setPocketPickerOpen(false)}
+              variant="ghost"
+            >
+              <X size={18} aria-hidden="true" />
+            </Button>
+          </div>
+
+          <div className="grid gap-2">
+            {folders.map((folder) => {
+              const inFolder = (folder.questionIds || []).includes(question.id);
+
+              return (
+                <button
+                  className={cn(
+                    "flex items-center gap-3 rounded border px-3 py-2.5 text-left transition-colors",
+                    inFolder
+                      ? "border-accent bg-[color-mix(in_srgb,var(--accent)_8%,var(--surface))]"
+                      : "border-border hover:bg-surface-muted"
+                  )}
+                  key={folder.id}
+                  onClick={() => toggleQuestionInFolder(question.id, folder.id)}
+                  type="button"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{ background: folder.color }}
+                  />
+                  <span className="min-w-0 flex-1 truncate text-body font-medium text-text">
+                    {folder.name}
+                  </span>
+                  <span className="shrink-0 text-body-sm text-text-muted">
+                    {folder.questionIds.length}
+                  </span>
+                  {inFolder ? (
+                    <Check className="shrink-0 text-accent" size={18} aria-hidden="true" />
+                  ) : null}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex gap-2 border-t border-border pt-4">
+            <Input
+              onChange={(event) => setNewFolderName(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && newFolderName.trim()) {
+                  createPocketWithQuestion(newFolderName, question.id);
+                }
+              }}
+              placeholder="Neue Pocket"
+              value={newFolderName}
+            />
+            <Button
+              disabled={!newFolderName.trim()}
+              onClick={() => createPocketWithQuestion(newFolderName, question.id)}
+              variant="secondary"
+            >
+              Erstellen
+            </Button>
+          </div>
+        </section>
       </div>
     );
   }
@@ -2507,10 +2672,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   // Submits a study/review session: marks it closed (moves it to history) and
   // shows the score screen.
   function submitStudySession() {
-    if (activeSessionLogId) {
-      closeSession(activeSessionLogId);
-    }
-
+    // Submitting only shows the interim score — it does NOT close the session.
+    // As long as questions are still unanswered, the session stays resumable
+    // ("Fortführen") and everything keeps being graded into the same log.
     setStudyFinished(true);
   }
 
@@ -2572,6 +2736,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     const accuracy = answered ? Math.round((correct / answered) * 100) : 0;
     const elapsed = Date.parse(activeSession?.finishedAt || now()) - Date.parse(sessionStartedAt);
     const isExam = mode === "exam" || activeSession?.mode === "exam";
+    const unansweredIndex = sessionQuestions.findIndex((question) =>
+      isExam ? !examAnswers[question.id] : !progress.answers[question.id]
+    );
 
     // Per-subject breakdown: group session questions by subject and show
     // correct/total per subject using the recorded exam/study answers.
@@ -2631,7 +2798,26 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           </div>
         ) : null}
 
+        {unansweredIndex !== -1 ? (
+          <p className="m-0 text-center text-body-sm text-text-muted">
+            {total - answered} {total - answered === 1 ? "Frage ist" : "Fragen sind"} noch
+            offen — mit „Fortführen" zählt alles zusammen.
+          </p>
+        ) : null}
+
         <div className="flex flex-wrap justify-center gap-3">
+          {unansweredIndex !== -1 ? (
+            <Button
+              onClick={() => {
+                setStudyFinished(false);
+                setActiveIndex(unansweredIndex);
+              }}
+              variant="primary"
+            >
+              <Play size={18} aria-hidden="true" />
+              <span>Fortführen</span>
+            </Button>
+          ) : null}
           <Button onClick={() => setStudyFinished(false)} variant="secondary">
             <ChevronLeft size={18} aria-hidden="true" />
             <span>Weiter ansehen</span>
@@ -2639,7 +2825,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           {mistakeIds.length ? (
             <Button
               onClick={() => activeSession && reviewSessionMistakes(activeSession)}
-              variant="primary"
+              variant="secondary"
             >
               <ListChecks size={18} aria-hidden="true" />
               <span>{mistakeIds.length} Fehler üben</span>
@@ -2781,11 +2967,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           </Button>
         ) : null}
         <Button
-          aria-label={isBookmarked ? "Lesezeichen entfernen" : "Lesezeichen setzen"}
+          aria-label="In Pocket speichern"
+          aria-pressed={isBookmarked}
           className="min-h-[44px] min-w-[44px] px-2"
-          onClick={() => toggleBookmark(question.id)}
-          title={isBookmarked ? "Lesezeichen entfernen" : "Lesezeichen setzen"}
-          variant="ghost"
+          onClick={() => setPocketPickerOpen(true)}
+          title="In Pocket speichern"
+          variant={isBookmarked ? "secondary" : "ghost"}
         >
           {isBookmarked ? (
             <BookmarkCheck size={18} aria-hidden="true" />
@@ -3562,7 +3749,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       <div className="mx-auto grid max-w-content gap-8 lg:grid-cols-[18rem_minmax(0,1fr)]">
         <section className="grid content-start gap-3">
           <h2 className="m-0 text-h3 font-semibold">
-            {folders.length} {folders.length === 1 ? "Ordner" : "Ordner"}
+            {folders.length} {folders.length === 1 ? "Pocket" : "Pockets"}
           </h2>
           <div className="divide-y divide-border border-y border-border">
             {folders.map((folder) => {
@@ -3603,7 +3790,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           <div className="flex gap-2">
             <Input
               onChange={(event) => setNewFolderName(event.target.value)}
-              placeholder="Neuer Ordner"
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  createFolder();
+                }
+              }}
+              placeholder="Neue Pocket"
               value={newFolderName}
             />
             <Button onClick={createFolder} variant="secondary">
@@ -3611,7 +3803,45 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             </Button>
           </div>
         </section>
-        <section className="grid content-start gap-3">
+        <section className="grid content-start gap-4">
+          {activeFolder ? (
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
+              <div className="flex min-w-0 items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="h-2.5 w-2.5 shrink-0 rounded-full"
+                  style={{ background: activeFolder.color }}
+                />
+                <h2 className="m-0 truncate text-h3 font-semibold">
+                  {activeFolder.name}
+                </h2>
+                <span className="shrink-0 text-body-sm text-text-muted">
+                  {folderQuestions.length}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  className="px-3"
+                  disabled={!folderQuestions.length}
+                  onClick={() => practicePocket(activeFolder)}
+                  variant="primary"
+                >
+                  <Play size={16} aria-hidden="true" />
+                  <span>Üben</span>
+                </Button>
+                {activeFolder.id !== "default" ? (
+                  <Button
+                    aria-label="Pocket löschen"
+                    className="px-3 text-danger"
+                    onClick={() => deletePocket(activeFolder.id)}
+                    variant="ghost"
+                  >
+                    <Trash2 size={16} aria-hidden="true" />
+                  </Button>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
           {folderQuestions.length ? (
             <div className="divide-y divide-border border-y border-border">
               {folderQuestions.map((question) => (
@@ -3632,7 +3862,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             </div>
           ) : (
             <p className="m-0 border-y border-border py-4 text-body text-text-muted">
-              Noch keine gespeicherten Fragen in diesem Ordner.
+              Noch keine Fragen in dieser Pocket. Tippe beim Kreuzen auf das
+              Lesezeichen-Symbol, um Fragen hier abzulegen.
             </p>
           )}
         </section>
@@ -3936,7 +4167,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       { label: "Sitzungen", action: () => setView("trainer") },
       { label: "Suche", action: () => setView("search") },
       { label: "Fehler", action: () => setView("mistakes") },
-      { label: "Lesezeichen", action: () => setView("bookmarks") },
+      { label: "Pockets", action: () => setView("bookmarks") },
       ...(user?.role === "admin"
         ? [{ label: "Admin", action: () => setView("admin") }]
         : []),
@@ -4052,7 +4283,7 @@ function titleForView(view: View) {
     trainer: "Sitzungen",
     search: "Suche",
     mistakes: "Fehler",
-    bookmarks: "Lesezeichen",
+    bookmarks: "Pockets",
     admin: "Admin"
   };
 
