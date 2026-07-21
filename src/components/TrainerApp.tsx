@@ -3246,7 +3246,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             ) : null}
 
             {question.explanation ? (
-              <p className="m-0 whitespace-pre-line text-body-sm text-text">
+              <p
+                className="m-0 whitespace-pre-line text-text"
+                style={{ fontSize: readerFontPx - 1 }}
+              >
                 {question.explanation}
               </p>
             ) : null}
@@ -3258,8 +3261,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                 </strong>
                 {question.notes.map((note, index) => (
                   <p
-                    className="m-0 whitespace-pre-line text-body-sm text-text"
+                    className="m-0 whitespace-pre-line text-text"
                     key={`${question.id}-note-${index}`}
+                    style={{ fontSize: readerFontPx - 1 }}
                   >
                     {note}
                   </p>
@@ -3403,7 +3407,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             </p>
 
             {question.explanation ? (
-              <p className="m-0 whitespace-pre-line border-t border-border pt-3 text-body-sm text-text">
+              <p
+                className="m-0 whitespace-pre-line border-t border-border pt-3 text-text"
+                style={{ fontSize: readerFontPx - 1 }}
+              >
                 {question.explanation}
               </p>
             ) : null}
@@ -3415,8 +3422,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                 </strong>
                 {question.notes.map((note, index) => (
                   <p
-                    className="m-0 whitespace-pre-line text-body-sm text-text"
+                    className="m-0 whitespace-pre-line text-text"
                     key={`${question.id}-note-${index}`}
+                    style={{ fontSize: readerFontPx - 1 }}
                   >
                     {note}
                   </p>
