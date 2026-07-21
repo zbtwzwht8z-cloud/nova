@@ -18,6 +18,7 @@ import {
   Gauge,
   History,
   Highlighter,
+  Image as ImageIcon,
   Import,
   KeyRound,
   LayoutDashboard,
@@ -379,6 +380,224 @@ function proxiedImage(src?: string) {
   return src ? `/api/image?src=${encodeURIComponent(src)}` : undefined;
 }
 
+function loadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = src;
+  });
+}
+
+function roundedRectPath(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  radius: number
+) {
+  const r = Math.min(radius, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+// Renders a clean card (subject/topic, stem, embedded graphic, choices) to a
+// PNG blob for copying to the clipboard. The graphic is loaded through our own
+// /api/image proxy, so it's same-origin and doesn't taint the canvas.
+async function renderQuestionImageBlob(question: Question): Promise<Blob> {
+  const SCALE = 2;
+  const W = 840;
+  const PAGE_PAD = 20;
+  const CARD_PAD = 28;
+  const contentW = W - 2 * PAGE_PAD - 2 * CARD_PAD;
+  const FONT =
+    'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif';
+  const c = {
+    page: "#eef1ee",
+    card: "#ffffff",
+    border: "#d5ddd8",
+    text: "#18211c",
+    subtle: "#7d8982",
+    accent: "#216e62"
+  };
+
+  const stemFont = `400 18px ${FONT}`;
+  const stemLH = 27;
+  const choiceFont = `400 16px ${FONT}`;
+  const choiceLH = 24;
+  const headerFont = `400 13px ${FONT}`;
+  const letterFont = `600 13px ${FONT}`;
+  const choicePadY = 12;
+  const choiceGap = 8;
+  const choiceTextX = 44;
+  const choiceTextW = contentW - choiceTextX - 16;
+
+  const meas = document.createElement("canvas").getContext("2d");
+  function wrap(text: string, font: string, maxW: number): string[] {
+    if (!meas) {
+      return [text];
+    }
+    meas.font = font;
+    const out: string[] = [];
+    for (const para of String(text ?? "").split("\n")) {
+      if (!para.trim()) {
+        out.push("");
+        continue;
+      }
+      let line = "";
+      for (const word of para.split(/\s+/)) {
+        const test = line ? `${line} ${word}` : word;
+        if (meas.measureText(test).width > maxW && line) {
+          out.push(line);
+          line = word;
+        } else {
+          line = test;
+        }
+      }
+      if (line) {
+        out.push(line);
+      }
+    }
+    return out;
+  }
+
+  let image: HTMLImageElement | null = null;
+  let drawW = 0;
+  let drawH = 0;
+  const src = proxiedImage(question.imageUrl);
+  if (src) {
+    try {
+      image = await loadImage(src);
+      const s = Math.min(contentW / image.width, 460 / image.height, 1);
+      drawW = image.width * s;
+      drawH = image.height * s;
+    } catch {
+      image = null;
+    }
+  }
+
+  const headerText = [question.subject, question.topic].filter(Boolean).join("  ·  ");
+  const stemLines = wrap(question.stem, stemFont, contentW);
+  const choices = question.kind === "freeText" ? [] : question.choices;
+  const choiceLines = choices.map((choice) => wrap(choice.text, choiceFont, choiceTextW));
+
+  let contentH = 0;
+  if (headerText) contentH += 13 + 12;
+  contentH += stemLines.length * stemLH;
+  if (image) contentH += 16 + drawH;
+  if (choiceLines.length) {
+    contentH += 16;
+    for (const lines of choiceLines) {
+      contentH += Math.max(lines.length, 1) * choiceLH + choicePadY * 2 + choiceGap;
+    }
+    contentH -= choiceGap;
+  }
+
+  const cardH = contentH + CARD_PAD * 2;
+  const totalH = cardH + PAGE_PAD * 2;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = W * SCALE;
+  canvas.height = totalH * SCALE;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("no canvas context");
+  }
+  ctx.scale(SCALE, SCALE);
+  ctx.textBaseline = "top";
+
+  ctx.fillStyle = c.page;
+  ctx.fillRect(0, 0, W, totalH);
+
+  roundedRectPath(ctx, PAGE_PAD, PAGE_PAD, W - 2 * PAGE_PAD, cardH, 16);
+  ctx.fillStyle = c.card;
+  ctx.fill();
+  ctx.strokeStyle = c.border;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  const x = PAGE_PAD + CARD_PAD;
+  let y = PAGE_PAD + CARD_PAD;
+
+  if (headerText) {
+    ctx.fillStyle = c.subtle;
+    ctx.font = headerFont;
+    ctx.fillText(headerText, x, y);
+    y += 13 + 12;
+  }
+
+  ctx.fillStyle = c.text;
+  ctx.font = stemFont;
+  for (const line of stemLines) {
+    ctx.fillText(line, x, y);
+    y += stemLH;
+  }
+
+  if (image) {
+    y += 16;
+    roundedRectPath(ctx, x, y, drawW, drawH, 8);
+    ctx.save();
+    ctx.clip();
+    ctx.drawImage(image, x, y, drawW, drawH);
+    ctx.restore();
+    ctx.strokeStyle = c.border;
+    ctx.stroke();
+    y += drawH;
+  }
+
+  if (choiceLines.length) {
+    y += 16;
+    choiceLines.forEach((lines, index) => {
+      const rowH = Math.max(lines.length, 1) * choiceLH + choicePadY * 2;
+      roundedRectPath(ctx, x, y, contentW, rowH, 8);
+      ctx.fillStyle = c.card;
+      ctx.fill();
+      ctx.strokeStyle = c.border;
+      ctx.stroke();
+
+      const cx = x + 18;
+      const cy = y + rowH / 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 12, 0, Math.PI * 2);
+      ctx.strokeStyle = c.border;
+      ctx.stroke();
+      ctx.fillStyle = c.subtle;
+      ctx.font = letterFont;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(choices[index].id, cx, cy + 1);
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+
+      ctx.fillStyle = c.text;
+      ctx.font = choiceFont;
+      let ty = y + choicePadY;
+      for (const line of lines) {
+        ctx.fillText(line, x + choiceTextX, ty);
+        ty += choiceLH;
+      }
+
+      y += rowH + choiceGap;
+    });
+  }
+
+  return new Promise<Blob>((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      } else {
+        reject(new Error("toBlob failed"));
+      }
+    }, "image/png");
+  });
+}
+
 async function jsonFetch<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, {
     ...init,
@@ -473,6 +692,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     choiceId: string;
     at: number;
   } | null>(null);
+  const copyPressRef = useRef<{ id: string; at: number } | null>(null);
 
   const questionById = useMemo(
     () => new Map(questions.map((question) => [question.id, question])),
@@ -958,6 +1178,52 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setNotice("Frage und Antworten kopiert");
   }
 
+  function copyQuestionAsImage(question: Question) {
+    const type = "image/png";
+    const write = (blob: Blob) =>
+      navigator.clipboard.write([new ClipboardItem({ [type]: blob })]);
+
+    try {
+      // Passing the render promise directly keeps Safari's user-gesture happy.
+      navigator.clipboard
+        .write([new ClipboardItem({ [type]: renderQuestionImageBlob(question) })])
+        .then(
+          () => setNotice("Frage als Bild kopiert"),
+          () =>
+            renderQuestionImageBlob(question)
+              .then(write)
+              .then(() => setNotice("Frage als Bild kopiert"))
+              .catch(() => setNotice("Bild kopieren nicht möglich"))
+        );
+    } catch {
+      renderQuestionImageBlob(question)
+        .then(write)
+        .then(() => setNotice("Frage als Bild kopiert"))
+        .catch(() => setNotice("Bild kopieren nicht möglich"));
+    }
+  }
+
+  // Copy behaviour: questions with a graphic always copy as a rendered image.
+  // Text-only questions copy as text on a single press, and as a rendered
+  // image on a double press (or via the dedicated "Als Bild" button).
+  function handleCopyPress(question: Question) {
+    if (question.imageUrl) {
+      copyQuestionAsImage(question);
+      return;
+    }
+
+    const now = Date.now();
+    const previous = copyPressRef.current;
+
+    if (previous && previous.id === question.id && now - previous.at < 500) {
+      copyPressRef.current = null;
+      copyQuestionAsImage(question);
+    } else {
+      copyPressRef.current = { id: question.id, at: now };
+      void copyQuestion(question);
+    }
+  }
+
   useEffect(() => {
     if (!navOpen) {
       return;
@@ -1030,7 +1296,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
       if (key === "c") {
         event.preventDefault();
-        void copyQuestion(question);
+        handleCopyPress(question);
         return;
       }
 
@@ -3000,15 +3266,31 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           </button>
         </div>
         <Button
-          aria-label="Frage kopieren"
+          aria-label={question.imageUrl ? "Frage als Bild kopieren" : "Frage kopieren"}
           className="min-h-[44px] min-w-[44px] px-3"
-          onClick={() => void copyQuestion(question)}
-          title="Frage kopieren (C)"
+          onClick={() => handleCopyPress(question)}
+          title={
+            question.imageUrl
+              ? "Als Bild kopieren (C)"
+              : "Kopieren (C) · 2× für Bild"
+          }
           variant="ghost"
         >
           <Copy size={18} aria-hidden="true" />
           <span className="hidden sm:inline">Kopieren</span>
         </Button>
+        {!question.imageUrl ? (
+          <Button
+            aria-label="Frage als Bild kopieren"
+            className="min-h-[44px] min-w-[44px] px-3"
+            onClick={() => copyQuestionAsImage(question)}
+            title="Als Bild kopieren"
+            variant="ghost"
+          >
+            <ImageIcon size={18} aria-hidden="true" />
+            <span className="hidden sm:inline">Als Bild</span>
+          </Button>
+        ) : null}
         <Button
           aria-label="Textmarker"
           aria-pressed={highlightMode}
@@ -4230,7 +4512,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       ["N / →", "Nächste Frage"],
       ["P / ←", "Vorherige Frage"],
       ["Q, W, E, R, T", "Antwort ausschließen"],
-      ["C", "Frage kopieren"],
+      ["C", "Frage kopieren (2× als Bild)"],
       ["⌘K / Ctrl+K", "Befehlspalette"],
       ["?", "Diese Hilfe"]
     ];
