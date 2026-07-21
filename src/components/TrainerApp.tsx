@@ -1028,6 +1028,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         return;
       }
 
+      if (key === "c") {
+        event.preventDefault();
+        void copyQuestion(question);
+        return;
+      }
+
       if (question.kind === "freeText") {
         if (key === "enter" || key === " ") {
           event.preventDefault();
@@ -2997,7 +3003,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           aria-label="Frage kopieren"
           className="min-h-[44px] min-w-[44px] px-3"
           onClick={() => void copyQuestion(question)}
-          title="Frage kopieren"
+          title="Frage kopieren (C)"
           variant="ghost"
         >
           <Copy size={18} aria-hidden="true" />
@@ -4216,6 +4222,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       ["N / →", "Nächste Frage"],
       ["P / ←", "Vorherige Frage"],
       ["Q, W, E, R, T", "Antwort ausschließen"],
+      ["C", "Frage kopieren"],
       ["⌘K / Ctrl+K", "Befehlspalette"],
       ["?", "Diese Hilfe"]
     ];

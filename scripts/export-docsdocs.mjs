@@ -199,15 +199,18 @@ function answerLabel(index) {
   return String.fromCharCode(65 + index);
 }
 
-function imageUrl(questionUuid, imageFile) {
+function imageUrl(_questionUuid, imageFile) {
   if (!imageFile) {
     return undefined;
   }
 
+  // The client resolves question images from a fixed "question" bucket, sharded
+  // by the first two chars of the filename — NOT by the question uuid:
+  // getImageUrl("question", imageurl) -> /resuser/img/question/<a>/<ab>/<file>
   const first = imageFile.charAt(0);
   const firstTwo = imageFile.slice(0, 2);
 
-  return `${RES_USER_URL}/img/${questionUuid}/${first}/${firstTwo}/${imageFile}`;
+  return `${RES_USER_URL}/img/question/${first}/${firstTwo}/${imageFile}`;
 }
 
 function toQuestion(record, chunk, subject) {
