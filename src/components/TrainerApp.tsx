@@ -3248,7 +3248,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             {question.explanation ? (
               <p
                 className="m-0 whitespace-pre-line text-text"
-                style={{ fontSize: readerFontPx - 1 }}
+                style={{ fontSize: readerFontPx }}
               >
                 {question.explanation}
               </p>
@@ -3263,7 +3263,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                   <p
                     className="m-0 whitespace-pre-line text-text"
                     key={`${question.id}-note-${index}`}
-                    style={{ fontSize: readerFontPx - 1 }}
+                    style={{ fontSize: readerFontPx }}
                   >
                     {note}
                   </p>
@@ -3409,7 +3409,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             {question.explanation ? (
               <p
                 className="m-0 whitespace-pre-line border-t border-border pt-3 text-text"
-                style={{ fontSize: readerFontPx - 1 }}
+                style={{ fontSize: readerFontPx }}
               >
                 {question.explanation}
               </p>
@@ -3424,7 +3424,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                   <p
                     className="m-0 whitespace-pre-line text-text"
                     key={`${question.id}-note-${index}`}
-                    style={{ fontSize: readerFontPx - 1 }}
+                    style={{ fontSize: readerFontPx }}
                   >
                     {note}
                   </p>
