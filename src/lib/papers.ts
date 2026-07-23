@@ -59,11 +59,26 @@ export function isCompletedSession(session: StudySessionLog) {
   );
 }
 
+// A sitting counts for a paper when it carries the paper's key (single-paper
+// start) *or* simply contains every one of its questions. The second case is
+// what makes multi-paper sittings — "SS 20 bis SS 24 in einem Rutsch" — show a
+// result on each exam instead of on none: those sessions have no single
+// paperKey to carry.
 export function sessionMatchesPaper(
   session: StudySessionLog,
   paper: Pick<PaperSummary, "key" | "questionIds">
 ) {
-  return session.source?.paperKey === paper.key;
+  if (session.source?.paperKey === paper.key) {
+    return true;
+  }
+
+  if (!paper.questionIds.length) {
+    return false;
+  }
+
+  const sessionIds = new Set(session.questionIds);
+
+  return paper.questionIds.every((questionId) => sessionIds.has(questionId));
 }
 
 function scoreFor(session: StudySessionLog | null) {
@@ -72,6 +87,37 @@ function scoreFor(session: StudySessionLog | null) {
   }
 
   return session.answered ? (session.correct / session.answered) * 100 : 0;
+}
+
+// The score a session produced *for one paper*. A sitting spanning five exams
+// has a single combined correct-count, so we re-derive each exam's own result
+// from the questions of that exam and the session's recorded mistakes. Only
+// called for completed sessions, where every question was answered — so the
+// paper's questions in the sitting are exactly its graded set (freeText
+// reveals are never mistakes, matching how they're scored elsewhere).
+function paperScoreFor(
+  session: StudySessionLog | null,
+  paper: Pick<PaperSummary, "key" | "questionIds">
+) {
+  if (!session) {
+    return null;
+  }
+
+  const paperIds = new Set(paper.questionIds);
+  const answeredForPaper = session.questionIds.filter((questionId) =>
+    paperIds.has(questionId)
+  );
+
+  if (!answeredForPaper.length) {
+    return scoreFor(session);
+  }
+
+  const mistakes = new Set(session.mistakeQuestionIds || []);
+  const wrong = answeredForPaper.filter((questionId) =>
+    mistakes.has(questionId)
+  ).length;
+
+  return ((answeredForPaper.length - wrong) / answeredForPaper.length) * 100;
 }
 
 function sessionTime(session: StudySessionLog) {
@@ -113,7 +159,7 @@ export function recentPaperScores(
     )
     .sort((left, right) => sessionTime(right) - sessionTime(left))
     .slice(0, 3)
-    .map((session) => scoreFor(session) ?? 0);
+    .map((session) => paperScoreFor(session, paper) ?? 0);
 }
 
 // Up to 3 most recent completed-session scores across a subject's papers.
@@ -185,7 +231,7 @@ export function buildCurriculum(
       total,
       answered,
       solved: total > 0 && answered === total,
-      latestScore: scoreFor(latestCompletedPaperSession(raw, sessions)),
+      latestScore: paperScoreFor(latestCompletedPaperSession(raw, sessions), raw),
       recentScores: recentPaperScores(raw, sessions)
     };
 
