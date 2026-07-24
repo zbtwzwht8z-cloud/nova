@@ -36,9 +36,23 @@ function scoreLabel(score: number | null) {
   return score === null ? "—" : `${Math.round(score)}%`;
 }
 
-function ScoreHistory({ scores }: { scores: number[] }) {
+// Session scores when there are any, otherwise the accuracy derived from the
+// stored answers — so a paper that reads "Gelöst" always reports how it went.
+function ScoreHistory({
+  scores,
+  fallback = null
+}: {
+  scores: number[];
+  fallback?: number | null;
+}) {
   if (!scores.length) {
-    return <span className="tabular-nums text-text-subtle">—</span>;
+    return fallback === null ? (
+      <span className="tabular-nums text-text-subtle">—</span>
+    ) : (
+      <span className="font-medium tabular-nums text-text">
+        {Math.round(fallback)}%
+      </span>
+    );
   }
 
   return (
@@ -318,7 +332,7 @@ function SubjectList({
                     <span>{countLabel(subject.papers.length, "paper", t)}</span>
                     <span>{progressLabel(subject, t)}</span>
                     <span className="flex items-center gap-1">
-                      {t("papers.latestScore")} <ScoreHistory scores={subject.recentScores} />
+                      {t("papers.latestScore")} <ScoreHistory fallback={subject.latestScore} scores={subject.recentScores} />
                     </span>
                   </span>
                 </button>
@@ -402,7 +416,7 @@ function SubjectPapers({
                   <span>{countLabel(paper.total, "question", t)}</span>
                   <span>{progressLabel(paper, t)}</span>
                   <span className="flex items-center gap-1">
-                    {t("papers.latestScore")} <ScoreHistory scores={paper.recentScores} />
+                    {t("papers.latestScore")} <ScoreHistory fallback={paper.latestScore} scores={paper.recentScores} />
                   </span>
                 </span>
               </div>

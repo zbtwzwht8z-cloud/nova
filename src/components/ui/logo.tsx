@@ -2,8 +2,9 @@ import * as React from "react";
 
 import { cn } from "./utils";
 
-// Nova = a star flaring bright. The mark is a four-point sparkle (a nova
-// burst) in the accent green on a white square. Colors come from the design
+// Nova = a star flaring bright. The mark is a bare four-point sparkle (a nova
+// burst) in the accent green — no container tile, so it sits on whatever it's
+// placed on instead of reading as a bordered box. Color comes from the design
 // tokens so it tracks the theme; the favicon/app-icon variants in
 // src/app/icon.svg + public/logo.svg hardcode the same shape.
 export function Logo({
@@ -26,12 +27,11 @@ export function Logo({
       xmlns="http://www.w3.org/2000/svg"
     >
       {title ? <title>{title}</title> : null}
-      <rect fill="var(--surface)" height="32" rx="8" width="32" />
       <path
-        d="M16 5 C 16.8 12, 20 15.2, 27 16 C 20 16.8, 16.8 20, 16 27 C 15.2 20, 12 16.8, 5 16 C 12 15.2, 15.2 12, 16 5 Z"
+        d="M16 3 C 16.9 12, 20.6 15.6, 29 16.5 C 20.6 17.4, 16.9 21, 16 30 C 15.1 21, 11.4 17.4, 3 16.5 C 11.4 15.6, 15.1 12, 16 3 Z"
         fill="var(--accent)"
       />
-      <circle cx="23.4" cy="8.6" fill="var(--accent)" r="1.5" />
+      <circle cx="25.6" cy="6.6" fill="var(--accent)" r="1.9" />
     </svg>
   );
 }

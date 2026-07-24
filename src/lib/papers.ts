@@ -135,6 +135,40 @@ function paperScoreFor(
   return ((answeredForPaper.length - wrong) / answeredForPaper.length) * 100;
 }
 
+// Accuracy over a paper's stored answers, independent of any session. Papers
+// show "Gelöst" from these answers, so scoring only from the session log left
+// fully-worked papers reading "Gelöst · Letztes Ergebnis —" whenever the
+// questions were answered outside a paper session (free training, an older
+// session, imported progress). freeText reveals carry no `correct` flag and are
+// skipped, matching how sessions grade them.
+function storedAnswerScore(
+  paper: Pick<PaperSummary, "questionIds">,
+  answers: StoredProgress["answers"]
+) {
+  if (!answers) {
+    return null;
+  }
+
+  let graded = 0;
+  let correct = 0;
+
+  for (const questionId of paper.questionIds) {
+    const answer = answers[questionId];
+
+    if (!answer || answer.correct === undefined) {
+      continue;
+    }
+
+    graded += 1;
+
+    if (answer.correct) {
+      correct += 1;
+    }
+  }
+
+  return graded ? (correct / graded) * 100 : null;
+}
+
 function sessionTime(session: StudySessionLog) {
   const finishedAt = Date.parse(session.finishedAt);
   return Number.isNaN(finishedAt) ? Number.NEGATIVE_INFINITY : finishedAt;
@@ -246,7 +280,9 @@ export function buildCurriculum(
       total,
       answered,
       solved: total > 0 && answered === total,
-      latestScore: paperScoreFor(latestCompletedPaperSession(raw, sessions), raw),
+      latestScore:
+        paperScoreFor(latestCompletedPaperSession(raw, sessions), raw) ??
+        storedAnswerScore(raw, progress.answers),
       recentScores: recentPaperScores(raw, sessions)
     };
 
@@ -282,8 +318,15 @@ export function buildCurriculum(
         right.examTermSort - left.examTermSort ||
         left.examTerm.localeCompare(right.examTerm, "de")
     );
-    subject.latestScore = subject.recentScores[0] ?? null;
+    // recentScores has to be filled before latestScore reads it — reading it
+    // first meant latestScore always saw the initial [] and stayed null.
     subject.recentScores = recentSubjectScores(subject.papers, sessions);
+    subject.latestScore =
+      subject.recentScores[0] ??
+      storedAnswerScore(
+        { questionIds: subject.papers.flatMap((entry) => entry.questionIds) },
+        progress.answers
+      );
 
     const group = semesters.get(subject.semesterKey);
 
