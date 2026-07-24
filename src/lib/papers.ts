@@ -29,7 +29,22 @@ function examTermInfo(question: Question) {
   const info = semesterInfoFromText(topic) || semesterInfoFromText(question.source);
 
   if (info) {
-    return { key: info.key, label: info.label, sort: info.sort };
+    // A topic can carry wording beyond the bare term ("Moodle Fragen SS 24",
+    // "SS 22 GP"). The source site lists those as their own exams, so keying
+    // only by the parsed term fused two distinct papers into one — e.g.
+    // "Moodle Fragen SS 22" (186) + "SS 22 GP" (24) collapsed to a single 210.
+    // Keep the extra wording distinct; fall back to the pretty term label only
+    // when the topic is nothing but the term.
+    const extra = topic
+      .replace(/\b(WiSe|WS|SS)\s*[0-9]{2,4}(?:\s*\/\s*[0-9]{2,4})?/i, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!extra) {
+      return { key: info.key, label: info.label, sort: info.sort };
+    }
+
+    return { key: `topic:${topic.toLocaleLowerCase("de")}`, label: topic, sort: info.sort };
   }
 
   const subject = cleanText(question.subject);
