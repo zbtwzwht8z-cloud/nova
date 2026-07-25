@@ -407,36 +407,72 @@ function roundedRectPath(
   ctx.closePath();
 }
 
-// Renders a clean card (subject/topic, stem, embedded graphic, choices) to a
+// The Nova sparkle, same path as src/components/ui/logo.tsx (32x32 viewBox).
+const LOGO_PATH =
+  "M16 3 C 16.9 12, 20.6 15.6, 29 16.5 C 20.6 17.4, 16.9 21, 16 30 C 15.1 21, 11.4 17.4, 3 16.5 C 11.4 15.6, 15.1 12, 16 3 Z";
+const LOGO_DOT = { x: 25.6, y: 6.6, r: 1.9 };
+
+function drawLogo(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  size: number,
+  color: string
+) {
+  const s = size / 32;
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(s, s);
+  ctx.fillStyle = color;
+  ctx.fill(new Path2D(LOGO_PATH));
+  ctx.beginPath();
+  ctx.arc(LOGO_DOT.x, LOGO_DOT.y, LOGO_DOT.r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+// Renders a clean card (branded header, stem, embedded graphic, choices) to a
 // PNG blob for copying to the clipboard. The graphic is loaded through our own
 // /api/image proxy, so it's same-origin and doesn't taint the canvas.
 async function renderQuestionImageBlob(question: Question): Promise<Blob> {
   const SCALE = 2;
-  const W = 840;
-  const PAGE_PAD = 20;
-  const CARD_PAD = 28;
+  const W = 860;
+  const PAGE_PAD = 24;
+  const CARD_PAD = 32;
   const contentW = W - 2 * PAGE_PAD - 2 * CARD_PAD;
   const FONT =
     'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif';
   const c = {
     page: "#eef1ee",
     card: "#ffffff",
-    border: "#d5ddd8",
+    choice: "#fafbfa",
+    border: "#dde4e0",
+    hairline: "#e8ece9",
     text: "#18211c",
     subtle: "#7d8982",
-    accent: "#216e62"
+    accent: "#216e62",
+    chip: "#eaf1ef"
   };
 
   const stemFont = `400 18px ${FONT}`;
-  const stemLH = 27;
+  const stemLH = 28;
   const choiceFont = `400 16px ${FONT}`;
-  const choiceLH = 24;
-  const headerFont = `400 13px ${FONT}`;
+  const choiceLH = 25;
+  const subjectFont = `600 13px ${FONT}`;
+  const metaFont = `400 13px ${FONT}`;
   const letterFont = `600 13px ${FONT}`;
-  const choicePadY = 12;
-  const choiceGap = 8;
-  const choiceTextX = 44;
-  const choiceTextW = contentW - choiceTextX - 16;
+  const footFont = `500 12px ${FONT}`;
+  const choicePadY = 14;
+  const choiceGap = 9;
+  const choiceTextX = 48;
+  const choiceTextW = contentW - choiceTextX - 18;
+
+  // Header: logo + subject · term. Footer: hairline + wordmark.
+  const HEAD_H = 18;
+  const HEAD_GAP = 16;
+  const RULE_GAP = 18;
+  const FOOT_GAP = 20;
+  const FOOT_H = 16;
 
   const meas = document.createElement("canvas").getContext("2d");
   function wrap(text: string, font: string, maxW: number): string[] {
@@ -482,22 +518,21 @@ async function renderQuestionImageBlob(question: Question): Promise<Blob> {
     }
   }
 
-  const headerText = [question.subject, question.topic].filter(Boolean).join("  ·  ");
   const stemLines = wrap(question.stem, stemFont, contentW);
   const choices = question.kind === "freeText" ? [] : question.choices;
   const choiceLines = choices.map((choice) => wrap(choice.text, choiceFont, choiceTextW));
 
-  let contentH = 0;
-  if (headerText) contentH += 13 + 12;
+  let contentH = HEAD_H + HEAD_GAP + 1 + RULE_GAP;
   contentH += stemLines.length * stemLH;
-  if (image) contentH += 16 + drawH;
+  if (image) contentH += 20 + drawH;
   if (choiceLines.length) {
-    contentH += 16;
+    contentH += 20;
     for (const lines of choiceLines) {
       contentH += Math.max(lines.length, 1) * choiceLH + choicePadY * 2 + choiceGap;
     }
     contentH -= choiceGap;
   }
+  contentH += FOOT_GAP + 1 + FOOT_GAP + FOOT_H;
 
   const cardH = contentH + CARD_PAD * 2;
   const totalH = cardH + PAGE_PAD * 2;
@@ -515,9 +550,14 @@ async function renderQuestionImageBlob(question: Question): Promise<Blob> {
   ctx.fillStyle = c.page;
   ctx.fillRect(0, 0, W, totalH);
 
-  roundedRectPath(ctx, PAGE_PAD, PAGE_PAD, W - 2 * PAGE_PAD, cardH, 16);
+  roundedRectPath(ctx, PAGE_PAD, PAGE_PAD, W - 2 * PAGE_PAD, cardH, 18);
+  ctx.save();
+  ctx.shadowColor = "rgba(23, 32, 27, 0.10)";
+  ctx.shadowBlur = 18;
+  ctx.shadowOffsetY = 3;
   ctx.fillStyle = c.card;
   ctx.fill();
+  ctx.restore();
   ctx.strokeStyle = c.border;
   ctx.lineWidth = 1;
   ctx.stroke();
@@ -525,12 +565,26 @@ async function renderQuestionImageBlob(question: Question): Promise<Blob> {
   const x = PAGE_PAD + CARD_PAD;
   let y = PAGE_PAD + CARD_PAD;
 
-  if (headerText) {
-    ctx.fillStyle = c.subtle;
-    ctx.font = headerFont;
-    ctx.fillText(headerText, x, y);
-    y += 13 + 12;
+  // Header: sparkle, then subject in accent and the exam term muted.
+  drawLogo(ctx, x, y + 1, 16, c.accent);
+  let hx = x + 16 + 9;
+  if (question.subject) {
+    ctx.fillStyle = c.accent;
+    ctx.font = subjectFont;
+    ctx.fillText(question.subject, hx, y + 2);
+    hx += ctx.measureText(question.subject).width;
   }
+  if (question.topic) {
+    ctx.fillStyle = c.subtle;
+    ctx.font = metaFont;
+    const sep = question.subject ? "  ·  " : "";
+    ctx.fillText(`${sep}${question.topic}`, hx, y + 2);
+  }
+  y += HEAD_H + HEAD_GAP;
+
+  ctx.fillStyle = c.hairline;
+  ctx.fillRect(x, y, contentW, 1);
+  y += 1 + RULE_GAP;
 
   ctx.fillStyle = c.text;
   ctx.font = stemFont;
@@ -540,8 +594,8 @@ async function renderQuestionImageBlob(question: Question): Promise<Blob> {
   }
 
   if (image) {
-    y += 16;
-    roundedRectPath(ctx, x, y, drawW, drawH, 8);
+    y += 20;
+    roundedRectPath(ctx, x, y, drawW, drawH, 10);
     ctx.save();
     ctx.clip();
     ctx.drawImage(image, x, y, drawW, drawH);
@@ -552,26 +606,29 @@ async function renderQuestionImageBlob(question: Question): Promise<Blob> {
   }
 
   if (choiceLines.length) {
-    y += 16;
+    y += 20;
     choiceLines.forEach((lines, index) => {
       const rowH = Math.max(lines.length, 1) * choiceLH + choicePadY * 2;
-      roundedRectPath(ctx, x, y, contentW, rowH, 8);
-      ctx.fillStyle = c.card;
+      roundedRectPath(ctx, x, y, contentW, rowH, 10);
+      ctx.fillStyle = c.choice;
       ctx.fill();
       ctx.strokeStyle = c.border;
       ctx.stroke();
 
-      const cx = x + 18;
-      const cy = y + rowH / 2;
+      // Filled chip, sitting on the first text line rather than floating in the
+      // middle of a tall row. The letter comes from the position so it always
+      // reads A, B, C … regardless of how the choice ids are stored.
+      const cx = x + 20;
+      const cy = y + choicePadY + choiceLH / 2;
       ctx.beginPath();
       ctx.arc(cx, cy, 12, 0, Math.PI * 2);
-      ctx.strokeStyle = c.border;
-      ctx.stroke();
-      ctx.fillStyle = c.subtle;
+      ctx.fillStyle = c.chip;
+      ctx.fill();
+      ctx.fillStyle = c.accent;
       ctx.font = letterFont;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(choices[index].id, cx, cy + 1);
+      ctx.fillText(String.fromCharCode(65 + index), cx, cy + 1);
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
 
@@ -586,6 +643,19 @@ async function renderQuestionImageBlob(question: Question): Promise<Blob> {
       y += rowH + choiceGap;
     });
   }
+
+  y += FOOT_GAP;
+  ctx.fillStyle = c.hairline;
+  ctx.fillRect(x, y, contentW, 1);
+  y += 1 + FOOT_GAP;
+
+  drawLogo(ctx, x, y, 14, c.subtle);
+  ctx.fillStyle = c.subtle;
+  ctx.font = footFont;
+  ctx.fillText("Nova", x + 14 + 7, y + 1);
+  ctx.textAlign = "right";
+  ctx.fillText("nova-rub.vercel.app", x + contentW, y + 1);
+  ctx.textAlign = "left";
 
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((blob) => {
