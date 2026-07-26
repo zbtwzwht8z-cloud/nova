@@ -1229,9 +1229,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     });
   }
 
-  async function copyQuestion(question: Question) {
-    const text = questionClipboardText(question);
-
+  async function writeClipboardText(text: string) {
     try {
       await navigator.clipboard.writeText(text);
     } catch {
@@ -1244,8 +1242,16 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       document.execCommand("copy");
       textarea.remove();
     }
+  }
 
+  async function copyQuestion(question: Question) {
+    await writeClipboardText(questionClipboardText(question));
     setNotice("Frage und Antworten kopiert");
+  }
+
+  async function copyNote(note: string) {
+    await writeClipboardText(note);
+    setNotice("Kommentar kopiert");
   }
 
   function copyQuestionAsImage(question: Question) {
@@ -2972,6 +2978,44 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     );
   }
 
+  // Comments/corrections scraped from the source site, each with its own copy
+  // button. Shared by the MCQ and free-text renderers.
+  function renderNotes(question: Question) {
+    if (!question.notes?.length) {
+      return null;
+    }
+
+    return (
+      <div className="grid gap-2 border-t border-border pt-3">
+        <strong className="text-body-sm font-medium text-text-muted">
+          Kommentare und Korrekturen
+        </strong>
+        {question.notes.map((note, index) => (
+          <div
+            className="group flex items-start gap-2"
+            key={`${question.id}-note-${index}`}
+          >
+            <p
+              className="m-0 min-w-0 flex-1 whitespace-pre-line text-text"
+              style={{ fontSize: readerFontPx }}
+            >
+              {note}
+            </p>
+            <button
+              aria-label="Kommentar kopieren"
+              className="mt-0.5 shrink-0 rounded p-1 text-text-subtle opacity-0 transition-opacity hover:bg-surface-muted hover:text-text focus-visible:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-100"
+              onClick={() => copyNote(note)}
+              title="Kommentar kopieren"
+              type="button"
+            >
+              <Copy size={14} aria-hidden="true" />
+            </button>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   // One-click row for filing the current question, so the common case doesn't
   // need the full picker dialog. Mirrors the picker's state, and the first nine
   // pockets are reachable with Shift+1…9 (plain digits pick answers).
@@ -3692,22 +3736,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
               </p>
             ) : null}
 
-            {question.notes?.length ? (
-              <div className="grid gap-2 border-t border-border pt-3">
-                <strong className="text-body-sm font-medium text-text-muted">
-                  Kommentare und Korrekturen
-                </strong>
-                {question.notes.map((note, index) => (
-                  <p
-                    className="m-0 whitespace-pre-line text-text"
-                    key={`${question.id}-note-${index}`}
-                    style={{ fontSize: readerFontPx }}
-                  >
-                    {note}
-                  </p>
-                ))}
-              </div>
-            ) : null}
+            {renderNotes(question)}
 
             <div className="flex justify-end pt-1">
               <Button
@@ -3855,22 +3884,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
               </p>
             ) : null}
 
-            {question.notes?.length ? (
-              <div className="grid gap-2 border-t border-border pt-3">
-                <strong className="text-body-sm font-medium text-text-muted">
-                  Kommentare und Korrekturen
-                </strong>
-                {question.notes.map((note, index) => (
-                  <p
-                    className="m-0 whitespace-pre-line text-text"
-                    key={`${question.id}-note-${index}`}
-                    style={{ fontSize: readerFontPx }}
-                  >
-                    {note}
-                  </p>
-                ))}
-              </div>
-            ) : null}
+            {renderNotes(question)}
 
             <div className="flex justify-end pt-1">
               <Button
