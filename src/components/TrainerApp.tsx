@@ -1370,6 +1370,24 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         return;
       }
 
+      // Shift+1…9 files the question in that pocket. Read off event.code so it
+      // works regardless of what the shifted digit produces on the layout, and
+      // leaves the plain digits to answer selection below.
+      if (event.shiftKey) {
+        const pocketMatch = /^Digit([1-9])$/.exec(event.code);
+
+        if (pocketMatch) {
+          const pocket = folders[Number(pocketMatch[1]) - 1];
+
+          if (pocket) {
+            event.preventDefault();
+            toggleQuestionInFolder(question.id, pocket.id);
+          }
+
+          return;
+        }
+      }
+
       if (question.kind === "freeText") {
         if (key === "enter" || key === " ") {
           event.preventDefault();
@@ -1437,6 +1455,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     examAnswers,
     examFinished,
     excludedChoices,
+    folders,
     mode,
     pocketPickerOpen,
     progress.answers,
@@ -2953,6 +2972,69 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     );
   }
 
+  // One-click row for filing the current question, so the common case doesn't
+  // need the full picker dialog. Mirrors the picker's state, and the first nine
+  // pockets are reachable with Shift+1…9 (plain digits pick answers).
+  function renderPocketQuickSelect(question: Question) {
+    return (
+      <div className="flex flex-wrap items-center gap-2 border-t border-border pt-4">
+        <span className="mr-1 text-label font-medium text-text-subtle">Pockets</span>
+        {folders.map((folder, index) => {
+          const inFolder = (folder.questionIds || []).includes(question.id);
+          const hotkey = index < 9 ? `Umschalt+${index + 1}` : null;
+
+          return (
+            <button
+              aria-label={`${folder.name}${inFolder ? " – gespeichert" : ""}`}
+              aria-pressed={inFolder}
+              className={cn(
+                "flex min-h-[36px] items-center gap-1.5 rounded-full border px-3 text-body-sm font-medium transition-colors",
+                !inFolder && "hover:bg-surface-muted"
+              )}
+              key={folder.id}
+              onClick={() => toggleQuestionInFolder(question.id, folder.id)}
+              style={
+                inFolder
+                  ? {
+                      backgroundColor: folder.color,
+                      borderColor: folder.color,
+                      color: "#ffffff"
+                    }
+                  : {
+                      backgroundColor: `color-mix(in srgb, ${folder.color} 10%, var(--surface))`,
+                      borderColor: `color-mix(in srgb, ${folder.color} 35%, var(--surface))`,
+                      color: folder.color
+                    }
+              }
+              title={
+                hotkey
+                  ? `${folder.name} (${hotkey})`
+                  : folder.name
+              }
+              type="button"
+            >
+              {inFolder ? (
+                <BookmarkCheck size={15} aria-hidden="true" />
+              ) : (
+                <Bookmark size={15} aria-hidden="true" />
+              )}
+              <span className="max-w-[140px] truncate">{folder.name}</span>
+            </button>
+          );
+        })}
+        <Button
+          aria-label="Neue Pocket oder alle anzeigen"
+          className="min-h-[36px] px-2"
+          onClick={() => setPocketPickerOpen(true)}
+          title="Alle Pockets · neue anlegen"
+          variant="ghost"
+        >
+          <Plus size={16} aria-hidden="true" />
+        </Button>
+      </div>
+    );
+  }
+
   function renderPocketPicker(question: Question) {
     const savedCount = folders.filter((folder) =>
       (folder.questionIds || []).includes(question.id)
@@ -3687,6 +3769,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           </section>
         ) : null}
 
+        {renderPocketQuickSelect(question)}
+
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4 text-body-sm text-text-muted">
           <span>{question.source || question.subject}</span>
           <Button
@@ -3840,6 +3924,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             </div>
           </section>
         ) : null}
+
+        {renderPocketQuickSelect(question)}
 
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4 text-body-sm text-text-muted">
           <span>{question.source || question.subject}</span>
@@ -4587,6 +4673,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       ["P / ←", "Vorherige Frage"],
       ["Q, W, E, R, T", "Antwort ausschließen"],
       ["C", "Frage kopieren (2× als Bild)"],
+      ["Umschalt+1…9", "In Pocket speichern"],
       ["⌘K / Ctrl+K", "Befehlspalette"],
       ["?", "Diese Hilfe"]
     ];
