@@ -1166,7 +1166,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     if (
       question.kind === "freeText" ||
       isChoiceExcluded(question.id, choiceId) ||
-      (mode !== "exam" && Boolean(progress.answers[question.id]))
+      (mode !== "exam" && isSettledInSession(question.id))
     ) {
       return;
     }
@@ -2171,6 +2171,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       return remaining;
     });
     setExcludedChoices((current) => {
+      const { [activeQuestion.id]: _removed, ...remaining } = current;
+      return remaining;
+    });
+    // Review sessions gate on their own answers, so clearing has to drop that
+    // too or the question stays locked with nothing stored behind it.
+    setReviewAnswers((current) => {
       const { [activeQuestion.id]: _removed, ...remaining } = current;
       return remaining;
     });
