@@ -10,6 +10,7 @@ import {
   RotateCcw
 } from "lucide-react";
 
+import HoldButton from "@/components/HoldButton";
 import { Button, Segmented, Select } from "@/components/ui";
 import type { Translate } from "@/lib/i18n";
 import type { PaperSummary, SemesterGroup, SubjectSummary } from "@/lib/types";
@@ -480,23 +481,13 @@ function SubjectPapers({
                 </span>
               </div>
               {paper.answered > 0 || paper.recentScores.length ? (
-                <Button
-                  aria-label={`Fortschritt ${paper.examTerm} zurücksetzen`}
-                  className="px-3 text-text-subtle hover:text-danger"
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        `Fortschritt für ${paper.examTerm} zurücksetzen? Deine Antworten und Ergebnisse für diese Klausur werden gelöscht.`
-                      )
-                    ) {
-                      onResetPaper(paper);
-                    }
-                  }}
-                  title="Fortschritt zurücksetzen"
-                  variant="ghost"
+                <HoldButton
+                  holdLabel={`${paper.examTerm} zurücksetzen — gedrückt halten`}
+                  label={`Fortschritt ${paper.examTerm} zurücksetzen — gedrückt halten`}
+                  onConfirm={() => onResetPaper(paper)}
                 >
                   <RotateCcw aria-hidden="true" className="h-4 w-4" />
-                </Button>
+                </HoldButton>
               ) : null}
               <Button
                 aria-label={`${subject.subject} ${paper.examTerm}`}
