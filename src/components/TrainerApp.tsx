@@ -772,6 +772,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     at: number;
   } | null>(null);
   const copyPressRef = useRef<{ id: string; at: number } | null>(null);
+  // The ^ key (physical Backquote, left of the 1) acts as a second exclude
+  // modifier next to Shift. It isn't a real modifier, so there's no flag on the
+  // event — we track it being held ourselves.
+  const excludeKeyRef = useRef(false);
 
   const questionById = useMemo(
     () => new Map(questions.map((question) => [question.id, question])),
@@ -1420,6 +1424,14 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         return;
       }
 
+      // Held, not typed: remember it and swallow the keypress so the dead key
+      // doesn't try to compose with the digit that follows.
+      if (event.code === "Backquote") {
+        event.preventDefault();
+        excludeKeyRef.current = true;
+        return;
+      }
+
       const key = event.key.toLowerCase();
 
       if (key === "arrowright" || key === "n") {
@@ -1469,10 +1481,11 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         return;
       }
 
-      // Shift+1…5 excludes the same answer the bare digit would select. Matched
-      // on event.code because the shifted digit is a symbol ("!", "&", …) that
-      // varies by keyboard layout; the number row and the keypad both count.
-      if (event.shiftKey) {
+      // Shift+1…5 (or ^ held with the digit) excludes the same answer the bare
+      // digit would select. Matched on event.code because the shifted digit is
+      // a symbol ("!", "&", …) that varies by keyboard layout; the number row
+      // and the keypad both count.
+      if (event.shiftKey || excludeKeyRef.current) {
         const shiftedDigit = /^(?:Digit|Numpad)([1-5])$/.exec(event.code);
 
         if (shiftedDigit) {
@@ -1530,9 +1543,28 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       }
     }
 
-    window.addEventListener("keydown", onKeyDown);
+    function onKeyUp(event: KeyboardEvent) {
+      if (event.code === "Backquote") {
+        excludeKeyRef.current = false;
+      }
+    }
 
-    return () => window.removeEventListener("keydown", onKeyDown);
+    // Losing focus (tab switch, alt-tab) swallows the keyup, which would leave
+    // the modifier stuck on and turn later digits into exclusions.
+    function releaseExcludeKey() {
+      excludeKeyRef.current = false;
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+    window.addEventListener("blur", releaseExcludeKey);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+      window.removeEventListener("blur", releaseExcludeKey);
+      releaseExcludeKey();
+    };
   }, [
     activeQuestion,
     draftAnswers,
@@ -4807,7 +4839,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       ["N / →", "Nächste Frage"],
       ["P / ←", "Vorherige Frage"],
       ["Q, W, E, R, T", "Antwort ausschließen"],
-      ["Umschalt+1…5", "Antwort ausschließen"],
+      ["Umschalt+1…5 / ^+1…5", "Antwort ausschließen"],
       ["C", "Frage kopieren (2× als Bild)"],
       ["B", "In erste Pocket speichern"],
       ["⌘K / Ctrl+K", "Befehlspalette"],
