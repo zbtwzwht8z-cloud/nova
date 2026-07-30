@@ -41,6 +41,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import PapersView from "@/components/PapersView";
+import ScoreSummary from "@/components/ScoreSummary";
 import StoaLanding from "@/components/StoaLanding";
 import {
   Button,
@@ -297,7 +298,8 @@ function emptyProgress(): StoredProgress {
     bookmarks: [],
     bookmarkFolders: [defaultFolder()],
     activeFolderId: "default",
-    sessionLog: []
+    sessionLog: [],
+    completedSubjects: []
   };
 }
 
@@ -335,6 +337,9 @@ function normalizeProgress(progress?: StoredProgress | null): StoredProgress {
     ],
     activeFolderId: base.activeFolderId || folders[0]?.id || "default",
     sessionLog: Array.isArray(base.sessionLog) ? base.sessionLog : [],
+    completedSubjects: Array.isArray(base.completedSubjects)
+      ? Array.from(new Set(base.completedSubjects))
+      : [],
     updatedAt: base.updatedAt
   };
 }
@@ -906,6 +911,33 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         ),
     [progress.answers, questionById]
   );
+  // Everything crossed since local midnight. freeText reveals have no `correct`
+  // flag, so they count as answered but as neither right nor wrong.
+  const todayStats = useMemo(() => {
+    const midnight = new Date();
+    midnight.setHours(0, 0, 0, 0);
+    const since = midnight.getTime();
+
+    let answered = 0;
+    let correct = 0;
+    let wrong = 0;
+
+    for (const answer of Object.values(progress.answers || {})) {
+      if (new Date(answer.answeredAt).getTime() < since) {
+        continue;
+      }
+
+      answered += 1;
+
+      if (answer.correct === true) {
+        correct += 1;
+      } else if (answer.correct === false) {
+        wrong += 1;
+      }
+    }
+
+    return { answered, correct, wrong };
+  }, [progress.answers]);
   const sessionLogs = useMemo(() => progress.sessionLog || [], [progress.sessionLog]);
   const curriculum = useMemo(
     () => buildCurriculum(questions, progress),
@@ -2120,6 +2152,20 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     });
   }
 
+  function toggleSubjectCompleted(subject: string) {
+    patchProgress((current) => {
+      const done = new Set(current.completedSubjects || []);
+
+      if (done.has(subject)) {
+        done.delete(subject);
+      } else {
+        done.add(subject);
+      }
+
+      return { ...current, completedSubjects: Array.from(done) };
+    });
+  }
+
   // Wipes one exam's progress so it can be taken fresh: the stored answers for
   // its questions, and the sessions that were run on it (which is what
   // "Letztes Ergebnis" reads). Bookmarks and highlights are deliberately kept —
@@ -2852,9 +2898,11 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   function renderSubjects() {
     return (
       <PapersView
+        completedSubjects={progress.completedSubjects || []}
         mode={mode === "exam" ? "exam" : "study"}
         onModeChange={setMode}
         onResetPaper={resetPaperProgress}
+        onToggleSubjectCompleted={toggleSubjectCompleted}
         onSemesterChange={setPapersSemester}
         onStartPaper={startPaper}
         onStartPapers={startPapers}
@@ -3326,64 +3374,6 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     );
   }
 
-  // Score ring for the end of a session: the colour carries the verdict at a
-  // glance — green from 80%, amber from 60%, red below.
-  function renderScoreRing(accuracy: number) {
-    const RADIUS = 52;
-    const STROKE = 10;
-    const circumference = 2 * Math.PI * RADIUS;
-    const clamped = Math.max(0, Math.min(100, accuracy));
-    const band =
-      clamped >= 80
-        ? { color: "var(--accent)", label: "Stark" }
-        : clamped >= 60
-          ? { color: "#b8860b", label: "Solide" }
-          : { color: "var(--danger)", label: "Ausbaufähig" };
-
-    return (
-      <div className="grid justify-items-center gap-2">
-        <div className="relative h-[128px] w-[128px]">
-          <svg className="h-full w-full -rotate-90" viewBox="0 0 128 128">
-            <circle
-              cx="64"
-              cy="64"
-              fill="none"
-              r={RADIUS}
-              stroke="var(--surface-muted)"
-              strokeWidth={STROKE}
-            />
-            <circle
-              cx="64"
-              cy="64"
-              fill="none"
-              r={RADIUS}
-              stroke={band.color}
-              strokeDasharray={circumference}
-              strokeDashoffset={circumference * (1 - clamped / 100)}
-              strokeLinecap="round"
-              strokeWidth={STROKE}
-              style={{ transition: "stroke-dashoffset 600ms ease-out" }}
-            />
-          </svg>
-          <div className="absolute inset-0 grid place-items-center">
-            <strong
-              className="text-h1 font-semibold tabular-nums"
-              style={{ color: band.color }}
-            >
-              {accuracy}%
-            </strong>
-          </div>
-        </div>
-        <span
-          className="text-body-sm font-medium"
-          style={{ color: band.color }}
-        >
-          {band.label}
-        </span>
-      </div>
-    );
-  }
-
   function renderStudyResults() {
     const activeSession = sessionLogs.find(
       (session) => session.id === activeSessionLogId
@@ -3420,16 +3410,17 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
     return (
       <section className="grid gap-6 rounded border border-border bg-surface p-6">
-        <div className="grid justify-items-center gap-3 text-center">
-          <span className="text-label text-text-subtle">
-            {isExam ? "Prüfung abgeschlossen" : "Sitzung abgeschlossen"}
-          </span>
-          {renderScoreRing(accuracy)}
-          <p className="m-0 text-body-sm text-text-muted">
-            {correct} von {answered} bewertet richtig · {total} Fragen insgesamt
-            {isExam && Number.isFinite(elapsed) ? ` · ${formatElapsed(elapsed)}` : ""}
-          </p>
-        </div>
+        <ScoreSummary
+          accuracy={accuracy}
+          answered={answered}
+          correct={correct}
+          elapsed={
+            isExam && Number.isFinite(elapsed) ? formatElapsed(elapsed) : undefined
+          }
+          title={isExam ? "Prüfung abgeschlossen" : "Sitzung abgeschlossen"}
+          today={todayStats}
+          total={total}
+        />
 
         {breakdown.length > 1 ? (
           <div className="grid gap-1">

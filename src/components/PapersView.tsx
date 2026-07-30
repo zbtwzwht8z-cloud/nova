@@ -1,7 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Play, RotateCcw } from "lucide-react";
+import {
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  Circle,
+  Play,
+  RotateCcw
+} from "lucide-react";
 
 import { Button, Segmented, Select } from "@/components/ui";
 import type { Translate } from "@/lib/i18n";
@@ -16,6 +23,8 @@ type PapersViewProps = {
   onStartPaper: (paper: PaperSummary, mode: "study" | "exam") => void;
   onStartPapers: (papers: PaperSummary[], mode: "study" | "exam") => void;
   onResetPaper: (paper: PaperSummary) => void;
+  onToggleSubjectCompleted: (subject: string) => void;
+  completedSubjects: string[];
   t: Translate;
 };
 
@@ -97,10 +106,16 @@ export default function PapersView({
   onStartPaper,
   onStartPapers,
   onResetPaper,
+  onToggleSubjectCompleted,
+  completedSubjects,
   t
 }: PapersViewProps) {
   const [openSubjectKey, setOpenSubjectKey] = useState<string | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const completedSet = useMemo(
+    () => new Set(completedSubjects),
+    [completedSubjects]
+  );
 
   const papersByKey = useMemo(() => {
     const map = new Map<string, PaperSummary>();
@@ -243,9 +258,11 @@ export default function PapersView({
                 />
               ) : (
                 <SubjectList
+                  completedSubjects={completedSet}
                   isPaperSelected={(key) => selected.has(key)}
                   onOpenSubject={(subject) => setOpenSubjectKey(subject.key)}
                   onToggleSubject={toggleSubject}
+                  onToggleSubjectCompleted={onToggleSubjectCompleted}
                   semester={activeSemester}
                   t={t}
                 />
@@ -284,12 +301,16 @@ function SubjectList({
   semester,
   onOpenSubject,
   onToggleSubject,
+  onToggleSubjectCompleted,
+  completedSubjects,
   isPaperSelected,
   t
 }: {
   semester: SemesterGroup | null;
   onOpenSubject: (subject: SubjectSummary) => void;
   onToggleSubject: (subject: SubjectSummary) => void;
+  onToggleSubjectCompleted: (subject: string) => void;
+  completedSubjects: Set<string>;
   isPaperSelected: (key: string) => boolean;
   t: Translate;
 }) {
@@ -313,6 +334,8 @@ function SubjectList({
             const allSelected =
               keys.length > 0 && keys.every((key) => isPaperSelected(key));
 
+            const done = completedSubjects.has(subject.subject);
+
             return (
               <div className="flex items-center gap-3 py-3" key={subject.key}>
                 <input
@@ -327,8 +350,21 @@ function SubjectList({
                   onClick={() => onOpenSubject(subject)}
                   type="button"
                 >
-                  <span className="text-body font-medium text-text">
-                    {subject.subject}
+                  <span className="flex items-center gap-2">
+                    <span
+                      className={
+                        done
+                          ? "text-body font-medium text-text-muted line-through"
+                          : "text-body font-medium text-text"
+                      }
+                    >
+                      {subject.subject}
+                    </span>
+                    {done ? (
+                      <span className="rounded-full bg-[color-mix(in_srgb,var(--accent)_12%,var(--surface))] px-2 py-0.5 text-label font-medium text-accent">
+                        Fertig
+                      </span>
+                    ) : null}
                   </span>
                   <span className="flex flex-wrap items-center gap-x-4 gap-y-1 text-body-sm text-text-muted">
                     <span>{countLabel(subject.total, "question", t)}</span>
@@ -339,6 +375,24 @@ function SubjectList({
                     </span>
                   </span>
                 </button>
+                <Button
+                  aria-label={
+                    done
+                      ? `${subject.subject} als offen markieren`
+                      : `${subject.subject} als fertig markieren`
+                  }
+                  aria-pressed={done}
+                  className={done ? "px-3 text-accent" : "px-3 text-text-subtle hover:text-accent"}
+                  onClick={() => onToggleSubjectCompleted(subject.subject)}
+                  title={done ? "Als offen markieren" : "Als fertig markieren"}
+                  variant="ghost"
+                >
+                  {done ? (
+                    <CheckCircle2 aria-hidden="true" className="h-4 w-4" />
+                  ) : (
+                    <Circle aria-hidden="true" className="h-4 w-4" />
+                  )}
+                </Button>
                 <Button
                   aria-label={subject.subject}
                   className="px-3"

@@ -79,6 +79,9 @@ export type StoredProgress = {
   bookmarkFolders?: BookmarkFolder[];
   activeFolderId?: string;
   sessionLog?: StudySessionLog[];
+  // Subjects the user ticked off by hand. Independent of how many questions
+  // they answered — "I'm done with this" is a judgement, not a percentage.
+  completedSubjects?: string[];
   updatedAt?: string;
 };
 
