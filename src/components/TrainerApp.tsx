@@ -1408,22 +1408,18 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         return;
       }
 
-      // Shift+1…9 files the question in that pocket. Read off event.code so it
-      // works regardless of what the shifted digit produces on the layout, and
-      // leaves the plain digits to answer selection below.
-      if (event.shiftKey) {
-        const pocketMatch = /^Digit([1-9])$/.exec(event.code);
+      // B files the question in the first pocket — the common "save this for
+      // later" case. The rest are one click away in the row under the question,
+      // since Shift+digit belongs to excluding answers.
+      if (key === "b") {
+        const pocket = folders[0];
 
-        if (pocketMatch) {
-          const pocket = folders[Number(pocketMatch[1]) - 1];
-
-          if (pocket) {
-            event.preventDefault();
-            toggleQuestionInFolder(question.id, pocket.id);
-          }
-
-          return;
+        if (pocket) {
+          event.preventDefault();
+          toggleQuestionInFolder(question.id, pocket.id);
         }
+
+        return;
       }
 
       if (question.kind === "freeText") {
@@ -1439,6 +1435,24 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         event.preventDefault();
         submitChoice(question);
         return;
+      }
+
+      // Shift+1…5 excludes the same answer the bare digit would select. Matched
+      // on event.code because the shifted digit is a symbol ("!", "&", …) that
+      // varies by keyboard layout.
+      if (event.shiftKey) {
+        const shiftedDigit = /^Digit([1-5])$/.exec(event.code);
+
+        if (shiftedDigit) {
+          const target = question.choices[Number(shiftedDigit[1]) - 1];
+
+          if (target) {
+            event.preventDefault();
+            toggleExcludedChoice(question, target.id);
+          }
+
+          return;
+        }
       }
 
       const exclusionIndex = "qwert".indexOf(key);
@@ -3073,15 +3087,15 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   }
 
   // One-click row for filing the current question, so the common case doesn't
-  // need the full picker dialog. Mirrors the picker's state, and the first nine
-  // pockets are reachable with Shift+1…9 (plain digits pick answers).
+  // need the full picker dialog. Mirrors the picker's state; the first pocket
+  // also has the B shortcut (digits, shifted or not, belong to the answers).
   function renderPocketQuickSelect(question: Question) {
     return (
       <div className="flex flex-wrap items-center gap-2 border-t border-border pt-4">
         <span className="mr-1 text-label font-medium text-text-subtle">Pockets</span>
         {folders.map((folder, index) => {
           const inFolder = (folder.questionIds || []).includes(question.id);
-          const hotkey = index < 9 ? `Umschalt+${index + 1}` : null;
+          const hotkey = index === 0 ? "B" : null;
 
           return (
             <button
@@ -4801,8 +4815,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       ["N / →", "Nächste Frage"],
       ["P / ←", "Vorherige Frage"],
       ["Q, W, E, R, T", "Antwort ausschließen"],
+      ["Umschalt+1…5", "Antwort ausschließen"],
       ["C", "Frage kopieren (2× als Bild)"],
-      ["Umschalt+1…9", "In Pocket speichern"],
+      ["B", "In erste Pocket speichern"],
       ["⌘K / Ctrl+K", "Befehlspalette"],
       ["?", "Diese Hilfe"]
     ];
