@@ -727,6 +727,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [activeSessionLogId, setActiveSessionLogId] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [examAnswers, setExamAnswers] = useState<Record<string, string>>({});
+  // Answers given during the current review session. Review questions have all
+  // been answered before, so the stored answer can't decide whether to reveal —
+  // that would hand back the solution instead of letting them be re-attempted.
+  const [reviewAnswers, setReviewAnswers] = useState<Record<string, string>>({});
   const [draftAnswers, setDraftAnswers] = useState<Record<string, string>>({});
   const [excludedChoices, setExcludedChoices] = useState<Record<string, string[]>>({});
   const [questionHighlights, setQuestionHighlights] = useState<Record<string, string[]>>(
@@ -1096,7 +1100,26 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       return draftAnswers[question.id] || examAnswers[question.id];
     }
 
+    if (mode === "review") {
+      return reviewAnswers[question.id] || draftAnswers[question.id];
+    }
+
     return progress.answers[question.id]?.selected || draftAnswers[question.id];
+  }
+
+  // Whether the question is done *for the running session*. Review sessions
+  // re-ask questions that already have a stored answer, so only an answer given
+  // in this session counts there.
+  function isSettledInSession(questionId: string) {
+    if (mode === "exam") {
+      return Boolean(examAnswers[questionId]);
+    }
+
+    if (mode === "review") {
+      return Boolean(reviewAnswers[questionId]);
+    }
+
+    return Boolean(progress.answers[questionId]);
   }
 
   function isChoiceExcluded(questionId: string, choiceId: string) {
@@ -1125,7 +1148,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       return;
     }
 
-    if (mode !== "exam" && progress.answers[question.id]) {
+    if (mode === "review" && reviewAnswers[question.id]) {
+      goToNextQuestion();
+      return;
+    }
+
+    if (mode === "study" && progress.answers[question.id]) {
       goToNextQuestion();
       return;
     }
@@ -1149,12 +1177,16 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     if (mode === "exam" && !examFinished) {
       setExamAnswers((current) => ({ ...current, [question.id]: selected }));
     } else {
+      if (mode === "review") {
+        setReviewAnswers((current) => ({ ...current, [question.id]: selected }));
+      }
+
       recordAnswer(question, selected);
     }
   }
 
   function toggleExcludedChoice(question: Question, choiceId: string) {
-    if (mode !== "exam" && progress.answers[question.id]) {
+    if (mode !== "exam" && isSettledInSession(question.id)) {
       return;
     }
 
@@ -1541,6 +1573,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setActiveSessionLogId(null);
     setActiveIndex(0);
     setExamAnswers({});
+    setReviewAnswers({});
     setDraftAnswers({});
     setExcludedChoices({});
     setQuestionHighlights({});
@@ -1631,6 +1664,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setSessionIds(ids);
     setActiveIndex(0);
     setExamAnswers({});
+    setReviewAnswers({});
     setDraftAnswers({});
     setExcludedChoices({});
     setQuestionHighlights({});
@@ -3256,6 +3290,64 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     );
   }
 
+  // Score ring for the end of a session: the colour carries the verdict at a
+  // glance — green from 80%, amber from 60%, red below.
+  function renderScoreRing(accuracy: number) {
+    const RADIUS = 52;
+    const STROKE = 10;
+    const circumference = 2 * Math.PI * RADIUS;
+    const clamped = Math.max(0, Math.min(100, accuracy));
+    const band =
+      clamped >= 80
+        ? { color: "var(--accent)", label: "Stark" }
+        : clamped >= 60
+          ? { color: "#b8860b", label: "Solide" }
+          : { color: "var(--danger)", label: "Ausbaufähig" };
+
+    return (
+      <div className="grid justify-items-center gap-2">
+        <div className="relative h-[128px] w-[128px]">
+          <svg className="h-full w-full -rotate-90" viewBox="0 0 128 128">
+            <circle
+              cx="64"
+              cy="64"
+              fill="none"
+              r={RADIUS}
+              stroke="var(--surface-muted)"
+              strokeWidth={STROKE}
+            />
+            <circle
+              cx="64"
+              cy="64"
+              fill="none"
+              r={RADIUS}
+              stroke={band.color}
+              strokeDasharray={circumference}
+              strokeDashoffset={circumference * (1 - clamped / 100)}
+              strokeLinecap="round"
+              strokeWidth={STROKE}
+              style={{ transition: "stroke-dashoffset 600ms ease-out" }}
+            />
+          </svg>
+          <div className="absolute inset-0 grid place-items-center">
+            <strong
+              className="text-h1 font-semibold tabular-nums"
+              style={{ color: band.color }}
+            >
+              {accuracy}%
+            </strong>
+          </div>
+        </div>
+        <span
+          className="text-body-sm font-medium"
+          style={{ color: band.color }}
+        >
+          {band.label}
+        </span>
+      </div>
+    );
+  }
+
   function renderStudyResults() {
     const activeSession = sessionLogs.find(
       (session) => session.id === activeSessionLogId
@@ -3267,8 +3359,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     const accuracy = answered ? Math.round((correct / answered) * 100) : 0;
     const elapsed = Date.parse(activeSession?.finishedAt || now()) - Date.parse(sessionStartedAt);
     const isExam = mode === "exam" || activeSession?.mode === "exam";
-    const unansweredIndex = sessionQuestions.findIndex((question) =>
-      isExam ? !examAnswers[question.id] : !progress.answers[question.id]
+    const unansweredIndex = sessionQuestions.findIndex(
+      (question) => !isSettledInSession(question.id)
     );
 
     // Per-subject breakdown: group session questions by subject and show
@@ -3292,11 +3384,11 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
     return (
       <section className="grid gap-6 rounded border border-border bg-surface p-6">
-        <div className="grid gap-1 text-center">
+        <div className="grid justify-items-center gap-3 text-center">
           <span className="text-label text-text-subtle">
             {isExam ? "Prüfung abgeschlossen" : "Sitzung abgeschlossen"}
           </span>
-          <strong className="text-h1 font-semibold text-accent">{accuracy}%</strong>
+          {renderScoreRing(accuracy)}
           <p className="m-0 text-body-sm text-text-muted">
             {correct} von {answered} bewertet richtig · {total} Fragen insgesamt
             {isExam && Number.isFinite(elapsed) ? ` · ${formatElapsed(elapsed)}` : ""}
@@ -3395,10 +3487,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           </div>
           <div className="grid gap-1 overflow-y-auto p-3">
             {sessionQuestions.map((question, index) => {
-              const answered =
-                mode === "exam" && !examFinished
-                  ? Boolean(examAnswers[question.id])
-                  : Boolean(progress.answers[question.id]);
+              const answered = isSettledInSession(question.id);
               const missed =
                 mode !== "exam" || examFinished
                   ? progress.answers[question.id]?.correct === false
@@ -3547,8 +3636,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
     const storedAnswer = progress.answers[question.id];
     const currentSelected = selectedChoiceFor(question);
-    const revealed = mode === "exam" ? examFinished : Boolean(storedAnswer);
-    const locked = mode !== "exam" && Boolean(storedAnswer);
+    // In review the question counts as open until it's answered again in this
+    // session, so the old (wrong) answer and the solution stay hidden.
+    const settled =
+      mode === "review" ? Boolean(reviewAnswers[question.id]) : Boolean(storedAnswer);
+    const revealed = mode === "exam" ? examFinished : settled;
+    const locked = mode !== "exam" && settled;
     const image = proxiedImage(question.imageUrl);
     const isBookmarked = bookmarkedIds.has(question.id);
     const highlights = questionHighlights[question.id] || [];
