@@ -59,7 +59,7 @@ import {
   UNASSIGNED_SEMESTER,
   semesterForSubject
 } from "@/lib/curriculum";
-import { buildCurriculum } from "@/lib/papers";
+import { buildCurriculum, sessionMatchesPaper } from "@/lib/papers";
 import { compareTopicBySemester, questionSemesterKey } from "@/lib/semesters";
 import { t } from "@/lib/i18n";
 import type {
@@ -2106,6 +2106,27 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     });
   }
 
+  // Wipes one exam's progress so it can be taken fresh: the stored answers for
+  // its questions, and the sessions that were run on it (which is what
+  // "Letztes Ergebnis" reads). Bookmarks and highlights are deliberately kept —
+  // they aren't progress. Destructive, so the caller confirms first.
+  function resetPaperProgress(paper: PaperSummary) {
+    const ids = new Set(paper.questionIds);
+
+    patchProgress((current) => {
+      const answers = Object.fromEntries(
+        Object.entries(current.answers || {}).filter(([questionId]) => !ids.has(questionId))
+      );
+      const sessionLog = (current.sessionLog || []).filter(
+        (session) => !sessionMatchesPaper(session, paper)
+      );
+
+      return { ...current, answers, sessionLog };
+    });
+
+    setNotice(`${paper.examTerm} zurückgesetzt`);
+  }
+
   async function submitReport(questionId: string) {
     if (!reportText.trim()) {
       return;
@@ -2819,6 +2840,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       <PapersView
         mode={mode === "exam" ? "exam" : "study"}
         onModeChange={setMode}
+        onResetPaper={resetPaperProgress}
         onSemesterChange={setPapersSemester}
         onStartPaper={startPaper}
         onStartPapers={startPapers}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, RotateCcw } from "lucide-react";
 
 import { Button, Segmented, Select } from "@/components/ui";
 import type { Translate } from "@/lib/i18n";
@@ -15,6 +15,7 @@ type PapersViewProps = {
   onModeChange: (mode: "study" | "exam") => void;
   onStartPaper: (paper: PaperSummary, mode: "study" | "exam") => void;
   onStartPapers: (papers: PaperSummary[], mode: "study" | "exam") => void;
+  onResetPaper: (paper: PaperSummary) => void;
   t: Translate;
 };
 
@@ -95,6 +96,7 @@ export default function PapersView({
   onModeChange,
   onStartPaper,
   onStartPapers,
+  onResetPaper,
   t
 }: PapersViewProps) {
   const [openSubjectKey, setOpenSubjectKey] = useState<string | null>(null);
@@ -233,6 +235,7 @@ export default function PapersView({
                   isSelected={(key) => selected.has(key)}
                   mode={mode}
                   onBack={() => setOpenSubjectKey(null)}
+                  onResetPaper={onResetPaper}
                   onStartPaper={onStartPaper}
                   onTogglePaper={togglePaper}
                   subject={openSubject}
@@ -362,6 +365,7 @@ function SubjectPapers({
   mode,
   onBack,
   onStartPaper,
+  onResetPaper,
   onTogglePaper,
   isSelected,
   t
@@ -370,6 +374,7 @@ function SubjectPapers({
   mode: "study" | "exam";
   onBack: () => void;
   onStartPaper: (paper: PaperSummary, mode: "study" | "exam") => void;
+  onResetPaper: (paper: PaperSummary) => void;
   onTogglePaper: (key: string) => void;
   isSelected: (key: string) => boolean;
   t: Translate;
@@ -420,6 +425,25 @@ function SubjectPapers({
                   </span>
                 </span>
               </div>
+              {paper.answered > 0 || paper.recentScores.length ? (
+                <Button
+                  aria-label={`Fortschritt ${paper.examTerm} zurücksetzen`}
+                  className="px-3 text-text-subtle hover:text-danger"
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        `Fortschritt für ${paper.examTerm} zurücksetzen? Deine Antworten und Ergebnisse für diese Klausur werden gelöscht.`
+                      )
+                    ) {
+                      onResetPaper(paper);
+                    }
+                  }}
+                  title="Fortschritt zurücksetzen"
+                  variant="ghost"
+                >
+                  <RotateCcw aria-hidden="true" className="h-4 w-4" />
+                </Button>
+              ) : null}
               <Button
                 aria-label={`${subject.subject} ${paper.examTerm}`}
                 className="px-3"
