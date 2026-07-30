@@ -1471,9 +1471,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
       // Shift+1…5 excludes the same answer the bare digit would select. Matched
       // on event.code because the shifted digit is a symbol ("!", "&", …) that
-      // varies by keyboard layout.
+      // varies by keyboard layout; the number row and the keypad both count.
       if (event.shiftKey) {
-        const shiftedDigit = /^Digit([1-5])$/.exec(event.code);
+        const shiftedDigit = /^(?:Digit|Numpad)([1-5])$/.exec(event.code);
 
         if (shiftedDigit) {
           const target = question.choices[Number(shiftedDigit[1]) - 1];
@@ -1545,6 +1545,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     progress.answers,
     queueOpen,
     reportOpen,
+    reviewAnswers,
     sessionQuestions.length,
     studyFinished,
     view
