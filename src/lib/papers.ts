@@ -3,7 +3,7 @@ import {
   UNASSIGNED_SEMESTER,
   semesterForSubject
 } from "./curriculum";
-import { semesterInfoFromText } from "./semesters";
+import { type SemesterInfo, semesterInfoFromText } from "./semesters";
 import type {
   PaperSummary,
   Question,
@@ -21,30 +21,47 @@ function cleanText(value?: string) {
   return value?.replace(/\s+/g, " ").trim() || "";
 }
 
+// Builds the paper identity from the label the term was actually parsed out of.
+// A label can carry wording beyond the bare term ("Moodle Fragen SS 24",
+// "SS 22 GP"); the source site lists those as their own exams, so keying only by
+// the parsed term fused distinct papers into one. Keep the extra wording, and
+// fall back to the pretty term label only when the label is nothing but a term.
+function examTermFrom(label: string, info: SemesterInfo) {
+  const extra = label
+    .replace(/\b(WiSe|WS|SS)\s*[0-9]{2,4}(?:\s*\/\s*[0-9]{2,4})?/i, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!extra) {
+    return { key: info.key, label: info.label, sort: info.sort };
+  }
+
+  return { key: `topic:${label.toLocaleLowerCase("de")}`, label, sort: info.sort };
+}
+
 // The exam term a question belongs to. Topic is the primary signal ("SS 18",
 // "WS 20/21", "Moodle Fragen SS 24", …); when it can't be parsed as a term we
 // keep the raw label, falling back to "Sonstige" for subject-name placeholders.
 function examTermInfo(question: Question) {
   const topic = cleanText(question.topic);
-  const info = semesterInfoFromText(topic) || semesterInfoFromText(question.source);
+  const topicInfo = semesterInfoFromText(topic);
 
-  if (info) {
-    // A topic can carry wording beyond the bare term ("Moodle Fragen SS 24",
-    // "SS 22 GP"). The source site lists those as their own exams, so keying
-    // only by the parsed term fused two distinct papers into one — e.g.
-    // "Moodle Fragen SS 22" (186) + "SS 22 GP" (24) collapsed to a single 210.
-    // Keep the extra wording distinct; fall back to the pretty term label only
-    // when the topic is nothing but the term.
-    const extra = topic
-      .replace(/\b(WiSe|WS|SS)\s*[0-9]{2,4}(?:\s*\/\s*[0-9]{2,4})?/i, " ")
-      .replace(/\s+/g, " ")
-      .trim();
+  if (topicInfo) {
+    return examTermFrom(topic, topicInfo);
+  }
 
-    if (!extra) {
-      return { key: info.key, label: info.label, sort: info.sort };
-    }
+  // The topic can be a theme instead ("Adipositas", "Neonatologie") once the
+  // source site files questions by subject area, with the exam term left in
+  // source ("Kinderheilkunde / Moodle Fragen SS 26"). Group by the exam, not
+  // the theme — otherwise every theme shows up as its own paper.
+  const source = cleanText(question.source);
+  const sourceLabel = source.includes("/")
+    ? source.slice(source.indexOf("/") + 1).trim()
+    : source;
+  const sourceInfo = semesterInfoFromText(sourceLabel);
 
-    return { key: `topic:${topic.toLocaleLowerCase("de")}`, label: topic, sort: info.sort };
+  if (sourceInfo) {
+    return examTermFrom(sourceLabel, sourceInfo);
   }
 
   const subject = cleanText(question.subject);
