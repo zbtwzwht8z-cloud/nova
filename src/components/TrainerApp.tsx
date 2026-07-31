@@ -14,6 +14,8 @@ import {
   Copy,
   Download,
   Eraser,
+  Eye,
+  EyeOff,
   FileWarning,
   Gauge,
   History,
@@ -99,6 +101,7 @@ const STORAGE_KEY = "private-mcq-trainer-progress-v2";
 const LEGACY_STORAGE_KEY = "private-mcq-trainer-progress";
 const DEFAULT_COUNT = 40;
 const READER_FONT_KEY = "nova-reader-font";
+const HIDE_COUNTER_KEY = "nova-hide-counter";
 const MIN_READER_FONT = 13;
 const MAX_READER_FONT = 28;
 
@@ -701,6 +704,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [navOpen, setNavOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [readerFontPx, setReaderFontPx] = useState(16);
+  // Long sessions drag when you can watch the remaining count. Hiding it is
+  // remembered across reloads so it survives a refresh mid-session.
+  const [counterHidden, setCounterHidden] = useState(false);
   const [user, setUser] = useState<TrainerUser | null>(null);
   const [users, setUsers] = useState<TrainerUser[]>([]);
   const [devLogin, setDevLogin] = useState<null | { username: string; password: string }>(
@@ -1598,6 +1604,14 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   useEffect(() => {
     window.localStorage.setItem(READER_FONT_KEY, String(readerFontPx));
   }, [readerFontPx]);
+
+  useEffect(() => {
+    setCounterHidden(window.localStorage.getItem(HIDE_COUNTER_KEY) === "1");
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(HIDE_COUNTER_KEY, counterHidden ? "1" : "0");
+  }, [counterHidden]);
 
   function adjustReaderFont(delta: number) {
     setReaderFontPx((current) =>
@@ -3068,8 +3082,30 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
               <p className="m-0 truncate text-body font-medium">
                 {activeSession?.label || "Sitzung"}
               </p>
-              <p className="m-0 text-body-sm text-text-muted">
-                {total ? activeIndex + 1 : 0} von {total}
+              <p className="m-0 flex items-center gap-1 text-body-sm text-text-muted">
+                <span>
+                  {counterHidden
+                    ? "Fortschritt ausgeblendet"
+                    : `${total ? activeIndex + 1 : 0} von ${total}`}
+                </span>
+                <button
+                  aria-label={
+                    counterHidden ? "Fortschritt einblenden" : "Fortschritt ausblenden"
+                  }
+                  aria-pressed={counterHidden}
+                  className="rounded p-1 text-text-subtle transition-colors hover:bg-surface-muted hover:text-text"
+                  onClick={() => setCounterHidden((current) => !current)}
+                  title={
+                    counterHidden ? "Fortschritt einblenden" : "Fortschritt ausblenden"
+                  }
+                  type="button"
+                >
+                  {counterHidden ? (
+                    <EyeOff size={14} aria-hidden="true" />
+                  ) : (
+                    <Eye size={14} aria-hidden="true" />
+                  )}
+                </button>
               </p>
             </div>
           </div>
@@ -3115,7 +3151,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
               <span>Zurück</span>
             </Button>
             <span className="text-body-sm text-text-muted">
-              {total ? activeIndex + 1 : 0} / {total}
+              {counterHidden ? "···" : `${total ? activeIndex + 1 : 0} / ${total}`}
             </span>
             <Button
               disabled={activeIndex >= total - 1}
