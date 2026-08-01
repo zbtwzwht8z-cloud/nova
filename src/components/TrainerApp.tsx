@@ -1448,9 +1448,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         return;
       }
 
-      // Cmd/Ctrl+1…9 files the question in that pocket. Checked before the
-      // modifier guard below, which otherwise drops every combination.
-      if ((event.metaKey || event.ctrlKey) && !event.altKey) {
+      // Alt/Option+1…9 files the question in that pocket. Cmd+digit can't be
+      // used: the browser keeps it for switching tabs and won't let the page
+      // preventDefault it. Matched on event.code because Option+digit produces
+      // symbols (¡™£) on macOS. Checked before the modifier guard below, which
+      // otherwise drops every combination.
+      if (event.altKey && !event.metaKey && !event.ctrlKey) {
         const pocketDigit = /^(?:Digit|Numpad)([1-9])$/.exec(event.code);
 
         if (pocketDigit) {
@@ -3423,7 +3426,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         <span className="mr-1 text-label font-medium text-text-subtle">Pockets</span>
         {folders.map((folder, index) => {
           const inFolder = (folder.questionIds || []).includes(question.id);
-          const hotkey = index < 9 ? `⌘${index + 1}` : null;
+          const hotkey = index < 9 ? `Alt+${index + 1}` : null;
 
           return (
             <button
@@ -5122,7 +5125,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       ["Umschalt+1…5 / ^+1…5", "Antwort ausschließen"],
       ["C", "Frage kopieren (2× als Bild)"],
       ["B", "In erste Pocket speichern"],
-      ["⌘1…9 / Ctrl+1…9", "In Pocket 1…9 speichern"],
+      ["Alt+1…9", "In Pocket 1…9 speichern"],
       ["⌘K / Ctrl+K", "Befehlspalette"],
       ["?", "Diese Hilfe"]
     ];
