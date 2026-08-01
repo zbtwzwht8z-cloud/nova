@@ -27,6 +27,7 @@ import {
   ListChecks,
   LogOut,
   Menu,
+  Moon,
   MoreHorizontal,
   NotebookPen,
   Pencil,
@@ -35,6 +36,7 @@ import {
   RotateCcw,
   Search,
   Shield,
+  Sun,
   Timer,
   Trash2,
   Upload,
@@ -105,6 +107,7 @@ const READER_FONT_KEY = "nova-reader-font";
 const HIDE_COUNTER_KEY = "nova-hide-counter";
 const QUESTION_TIMER_KEY = "nova-question-timer";
 const QUESTION_TIMER_LIMIT_KEY = "nova-question-timer-limit";
+const THEME_KEY = "nova-theme";
 const MIN_READER_FONT = 13;
 const MAX_READER_FONT = 28;
 
@@ -716,6 +719,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [counterHidden, setCounterHidden] = useState(false);
   const [questionTimerOn, setQuestionTimerOn] = useState(false);
   const [questionTimerLimit, setQuestionTimerLimit] = useState(60);
+  // "system" until the user picks a side; the inline script in layout.tsx has
+  // already applied any stored choice by the time this mounts.
+  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
   const [user, setUser] = useState<TrainerUser | null>(null);
   const [users, setUsers] = useState<TrainerUser[]>([]);
   const [devLogin, setDevLogin] = useState<null | { username: string; password: string }>(
@@ -1626,6 +1632,29 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   useEffect(() => {
     window.localStorage.setItem(HIDE_COUNTER_KEY, counterHidden ? "1" : "0");
   }, [counterHidden]);
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem(THEME_KEY);
+
+    if (stored === "dark" || stored === "light") {
+      setTheme(stored);
+      return;
+    }
+
+    // No stored choice: mirror the system so the button shows the right icon.
+    setTheme(
+      window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+    );
+  }, []);
+
+  useEffect(() => {
+    if (theme === "system") {
+      return;
+    }
+
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem(THEME_KEY, theme);
+  }, [theme]);
 
   useEffect(() => {
     setQuestionTimerOn(window.localStorage.getItem(QUESTION_TIMER_KEY) === "1");
@@ -2669,6 +2698,19 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             <Menu size={20} aria-hidden="true" />
           </Button>
           <h1 className="m-0 text-h2 font-semibold">{titleForView(view)}</h1>
+          <Button
+            aria-label={theme === "dark" ? "Helles Design" : "Dunkles Design"}
+            className="ml-auto px-2"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            title={theme === "dark" ? "Helles Design" : "Dunkles Design"}
+            variant="ghost"
+          >
+            {theme === "dark" ? (
+              <Sun size={18} aria-hidden="true" />
+            ) : (
+              <Moon size={18} aria-hidden="true" />
+            )}
+          </Button>
         </header>
 
         {notice ? (
@@ -3343,7 +3385,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                   : {
                       backgroundColor: `color-mix(in srgb, ${folder.color} 10%, var(--surface))`,
                       borderColor: `color-mix(in srgb, ${folder.color} 35%, var(--surface))`,
-                      color: folder.color
+                      // Pocket colours are user data and are picked for a light
+                      // background; pull them toward the text colour so they
+                      // stay legible when that background goes dark.
+                      color: `color-mix(in srgb, ${folder.color} 62%, var(--text))`
                     }
               }
               title={
@@ -3438,7 +3483,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                     className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
                     style={{
                       backgroundColor: `color-mix(in srgb, ${folder.color} 16%, var(--surface))`,
-                      color: folder.color
+                      color: `color-mix(in srgb, ${folder.color} 62%, var(--text))`
                     }}
                   >
                     <Bookmark size={16} />

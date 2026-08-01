@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  color-scheme: light;
   --bg: #f5f7f5;
   --surface: #ffffff;
   --surface-muted: #edf2ef;
@@ -15,4 +16,63 @@
   --danger: #a33a36;
   --highlight: #f1d77a;
   --highlight-soft: rgba(241, 215, 122, 0.45);
+  --warning: #9a7008;
+  --ring-good-from: #2f9a86;
+  --ring-good-to: #1d6558;
+  --ring-mid-from: #d9a520;
+  --ring-mid-to: #a97a09;
+  --ring-bad-from: #c25a55;
+  --ring-bad-to: #8e2f2c;
+}
+
+/* Dark theme. The accent is lifted well above the deep-green brand colour —
+   #216e62 on a dark surface fails contrast and reads as muddy. Highlighter
+   yellow keeps its hue but drops in opacity so marked text stays readable. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101613;
+  --surface: #171f1b;
+  --surface-muted: #1f2a25;
+  --border: #2d3a34;
+  --text: #e7ede9;
+  --text-muted: #a4b1ab;
+  --text-subtle: #7f8d87;
+  --accent: #4fb9a3;
+  --accent-foreground: #08130f;
+  --danger: #e2776f;
+  --highlight: #d8bf62;
+  --highlight-soft: rgba(216, 191, 98, 0.3);
+  --warning: #e0b64a;
+  --ring-good-from: #63d4b8;
+  --ring-good-to: #2f9a86;
+  --ring-mid-from: #efc35c;
+  --ring-mid-to: #c9962a;
+  --ring-bad-from: #ef9089;
+  --ring-bad-to: #c25a55;
+}
+
+/* Follow the system until the user picks a side explicitly. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #101613;
+    --surface: #171f1b;
+    --surface-muted: #1f2a25;
+    --border: #2d3a34;
+    --text: #e7ede9;
+    --text-muted: #a4b1ab;
+    --text-subtle: #7f8d87;
+    --accent: #4fb9a3;
+    --accent-foreground: #08130f;
+    --danger: #e2776f;
+    --highlight: #d8bf62;
+    --highlight-soft: rgba(216, 191, 98, 0.3);
+    --warning: #e0b64a;
+    --ring-good-from: #63d4b8;
+    --ring-good-to: #2f9a86;
+    --ring-mid-from: #efc35c;
+    --ring-mid-to: #c9962a;
+    --ring-bad-from: #ef9089;
+    --ring-bad-to: #c25a55;
+  }
 }

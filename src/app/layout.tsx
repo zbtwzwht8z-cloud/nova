@@ -28,6 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
+      <head>
+        {/* Applies the saved theme before first paint. Without it the page
+            renders light and then flips, which is worse than no dark mode. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("nova-theme");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t}}catch(e){}`
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

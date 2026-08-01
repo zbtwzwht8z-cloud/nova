@@ -25,14 +25,29 @@ const DURATION = 1100;
 
 function band(accuracy: number) {
   if (accuracy >= 80) {
-    return { from: "#2f9a86", to: "#1d6558", text: "var(--accent)", label: "Stark" };
+    return {
+      from: "var(--ring-good-from)",
+      to: "var(--ring-good-to)",
+      text: "var(--accent)",
+      label: "Stark"
+    };
   }
 
   if (accuracy >= 60) {
-    return { from: "#d9a520", to: "#a97a09", text: "#9a7008", label: "Solide" };
+    return {
+      from: "var(--ring-mid-from)",
+      to: "var(--ring-mid-to)",
+      text: "var(--warning)",
+      label: "Solide"
+    };
   }
 
-  return { from: "#c25a55", to: "#8e2f2c", text: "var(--danger)", label: "Ausbaufähig" };
+  return {
+    from: "var(--ring-bad-from)",
+    to: "var(--ring-bad-to)",
+    text: "var(--danger)",
+    label: "Ausbaufähig"
+  };
 }
 
 function prefersReducedMotion() {

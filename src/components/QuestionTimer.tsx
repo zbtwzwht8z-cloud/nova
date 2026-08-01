@@ -50,7 +50,7 @@ export default function QuestionTimer({
   const tone = over
     ? "var(--danger)"
     : remaining <= Math.max(5, limit * 0.15)
-      ? "#b8860b"
+      ? "var(--warning)"
       : "var(--accent)";
 
   return (
