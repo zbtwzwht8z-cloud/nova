@@ -904,6 +904,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   }, [filteredPool, questionById, sessionIds]);
 
   const activeQuestion = sessionQuestions[activeIndex] || sessionQuestions[0];
+  // Actively working through questions — not the results screen, where the app
+  // header is wanted again for navigating away.
+  const solvingChrome = view === "trainer" && sessionIds.length > 0 && !studyFinished;
 
   const searchResults = useMemo(() => {
     const normalized = clean(searchQuery);
@@ -2683,11 +2686,28 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         className="flex min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-contain"
         ref={scrollAreaRef}
       >
-        {/* Liquid glass: a heavy, saturated backdrop blur over a mostly-clear
-            surface, so scrolled content dissolves instead of showing through as
-            the half-opaque ghost the old bg-bg/90 + light blur produced. The
-            hairline is a soft shadow rather than a hard border. */}
-        <header className="sticky top-0 z-20 flex items-center gap-3 bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] px-6 py-4 shadow-[0_1px_0_color-mix(in_srgb,var(--border)_60%,transparent)] backdrop-blur-xl backdrop-saturate-150 md:px-8 md:py-5 lg:px-12">
+        {/* While solving, the app header is redundant — the session bar below it
+            already carries the controls — so it slides out of the way and comes
+            back when the top edge is hovered or something in it takes focus. It
+            leaves the flow entirely so the question gains the space. Pointer-less
+            devices keep it pinned: there'd be no way to bring it back. */}
+        <div
+          className={cn(
+            "sticky top-0 z-20",
+            solvingChrome && "group/header h-2 [@media(hover:none)]:h-auto"
+          )}
+        >
+          {/* Liquid glass: a heavy, saturated backdrop blur over a mostly-clear
+              surface, so scrolled content dissolves instead of showing through as
+              the half-opaque ghost the old bg-bg/90 + light blur produced. The
+              hairline is a soft shadow rather than a hard border. */}
+          <header
+            className={cn(
+              "flex items-center gap-3 bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] px-6 py-4 shadow-[0_1px_0_color-mix(in_srgb,var(--border)_60%,transparent)] backdrop-blur-xl backdrop-saturate-150 md:px-8 md:py-5 lg:px-12",
+              solvingChrome &&
+                "absolute inset-x-0 top-0 -translate-y-full opacity-0 transition-[opacity,transform] duration-200 group-hover/header:translate-y-0 group-hover/header:opacity-100 group-focus-within/header:translate-y-0 group-focus-within/header:opacity-100 [@media(hover:none)]:static [@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100"
+            )}
+          >
           <Button
             aria-label={sidebarCollapsed ? "Seitenleiste einblenden" : "Seitenleiste ausblenden"}
             aria-pressed={sidebarCollapsed}
@@ -2711,7 +2731,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
               <Moon size={18} aria-hidden="true" />
             )}
           </Button>
-        </header>
+          </header>
+        </div>
 
         {notice ? (
           <div
