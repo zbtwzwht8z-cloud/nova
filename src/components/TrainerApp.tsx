@@ -315,17 +315,15 @@ function emptyProgress(): StoredProgress {
 
 function normalizeProgress(progress?: StoredProgress | null): StoredProgress {
   const base = progress || emptyProgress();
-  const folders =
-    base.bookmarkFolders && base.bookmarkFolders.length
-      ? base.bookmarkFolders
-      : [defaultFolder()];
-  const legacyBookmarks = Array.isArray(base.bookmarks) ? base.bookmarks : [];
-  const firstFolder = folders[0] || defaultFolder();
-  const folderIds = new Set(firstFolder.questionIds || []);
-
-  for (const questionId of legacyBookmarks) {
-    folderIds.add(questionId);
-  }
+  const hasFolders = Boolean(base.bookmarkFolders && base.bookmarkFolders.length);
+  const folders = hasFolders ? base.bookmarkFolders! : [defaultFolder()];
+  // `bookmarks` is a flat union of every pocket, kept only for the pre-pocket
+  // format. Folding it into the first pocket is a *migration*, so it must run
+  // only when there are no pockets yet — doing it on every normalize drained
+  // every other pocket into the first one, since anything filed anywhere
+  // reappeared in the union and got merged back.
+  const legacyBookmarks =
+    !hasFolders && Array.isArray(base.bookmarks) ? base.bookmarks : [];
 
   return {
     answers: base.answers || {},
@@ -337,8 +335,10 @@ function normalizeProgress(progress?: StoredProgress | null): StoredProgress {
     ),
     bookmarkFolders: [
       {
-        ...firstFolder,
-        questionIds: Array.from(folderIds)
+        ...folders[0],
+        questionIds: Array.from(
+          new Set([...(folders[0]?.questionIds || []), ...legacyBookmarks])
+        )
       },
       ...folders.slice(1).map((folder) => ({
         ...folder,
@@ -1444,12 +1444,33 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     function onKeyDown(event: KeyboardEvent) {
       const target = event.target as HTMLElement | null;
 
-      if (
-        event.altKey ||
-        event.ctrlKey ||
-        event.metaKey ||
-        (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))
-      ) {
+      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) {
+        return;
+      }
+
+      // Cmd/Ctrl+1…9 files the question in that pocket. Checked before the
+      // modifier guard below, which otherwise drops every combination.
+      if ((event.metaKey || event.ctrlKey) && !event.altKey) {
+        const pocketDigit = /^(?:Digit|Numpad)([1-9])$/.exec(event.code);
+
+        if (pocketDigit) {
+          const pocket = folders[Number(pocketDigit[1]) - 1];
+
+          if (pocket) {
+            event.preventDefault();
+            toggleQuestionInFolder(question.id, pocket.id);
+            setNotice(
+              (pocket.questionIds || []).includes(question.id)
+                ? `Aus „${pocket.name}" entfernt`
+                : `In „${pocket.name}" gespeichert`
+            );
+          }
+        }
+
+        return;
+      }
+
+      if (event.altKey || event.ctrlKey || event.metaKey) {
         return;
       }
 
@@ -2697,6 +2718,24 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             solvingChrome && "group/header h-2 [@media(hover:none)]:h-auto"
           )}
         >
+          {/* The sidebar toggle is the one control worth keeping reachable while
+              the header is away, so it stays pinned on its own and fades out as
+              the header slides in to avoid showing two burgers at once. */}
+          {solvingChrome ? (
+            <Button
+              aria-label={
+                sidebarCollapsed ? "Seitenleiste einblenden" : "Seitenleiste ausblenden"
+              }
+              aria-pressed={sidebarCollapsed}
+              className="absolute left-4 top-2 hidden px-2 opacity-60 transition-opacity duration-200 hover:opacity-100 group-hover/header:pointer-events-none group-hover/header:opacity-0 md:inline-flex lg:left-10 [@media(hover:none)]:hidden"
+              onClick={() => setSidebarCollapsed((current) => !current)}
+              title={sidebarCollapsed ? "Seitenleiste einblenden" : "Seitenleiste ausblenden"}
+              variant="ghost"
+            >
+              <Menu size={20} aria-hidden="true" />
+            </Button>
+          ) : null}
+
           {/* Liquid glass: a heavy, saturated backdrop blur over a mostly-clear
               surface, so scrolled content dissolves instead of showing through as
               the half-opaque ghost the old bg-bg/90 + light blur produced. The
@@ -3384,7 +3423,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         <span className="mr-1 text-label font-medium text-text-subtle">Pockets</span>
         {folders.map((folder, index) => {
           const inFolder = (folder.questionIds || []).includes(question.id);
-          const hotkey = index === 0 ? "B" : null;
+          const hotkey = index < 9 ? `⌘${index + 1}` : null;
 
           return (
             <button
@@ -5083,6 +5122,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       ["Umschalt+1…5 / ^+1…5", "Antwort ausschließen"],
       ["C", "Frage kopieren (2× als Bild)"],
       ["B", "In erste Pocket speichern"],
+      ["⌘1…9 / Ctrl+1…9", "In Pocket 1…9 speichern"],
       ["⌘K / Ctrl+K", "Befehlspalette"],
       ["?", "Diese Hilfe"]
     ];
