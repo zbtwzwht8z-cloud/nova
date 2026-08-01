@@ -366,11 +366,33 @@ export function buildCurriculum(
     }
   }
 
+  // Order: manually arranged subjects first (so the list can follow the exam
+  // timetable), then the rest alphabetically — and everything ticked off sinks
+  // below everything still open, whichever group it came from.
+  const manualOrder = new Map(
+    (progress.subjectOrder || []).map((subject, index) => [subject, index])
+  );
+  const done = new Set(progress.completedSubjects || []);
+
   return Array.from(semesters.values())
     .map((group) => {
-      group.subjects.sort((left, right) =>
-        left.subject.localeCompare(right.subject, "de")
-      );
+      group.subjects.sort((left, right) => {
+        const leftDone = done.has(left.subject);
+        const rightDone = done.has(right.subject);
+
+        if (leftDone !== rightDone) {
+          return leftDone ? 1 : -1;
+        }
+
+        const leftRank = manualOrder.get(left.subject) ?? Number.POSITIVE_INFINITY;
+        const rightRank = manualOrder.get(right.subject) ?? Number.POSITIVE_INFINITY;
+
+        if (leftRank !== rightRank) {
+          return leftRank - rightRank;
+        }
+
+        return left.subject.localeCompare(right.subject, "de");
+      });
       group.subjectCount = group.subjects.length;
       return group;
     })

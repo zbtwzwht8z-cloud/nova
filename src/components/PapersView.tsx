@@ -3,8 +3,10 @@
 import { useMemo, useState } from "react";
 import {
   CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
   Circle,
   Play,
   RotateCcw
@@ -25,6 +27,7 @@ type PapersViewProps = {
   onStartPapers: (papers: PaperSummary[], mode: "study" | "exam") => void;
   onResetPaper: (paper: PaperSummary) => void;
   onToggleSubjectCompleted: (subject: string) => void;
+  onMoveSubject: (semesterKey: string, subject: string, direction: -1 | 1) => void;
   completedSubjects: string[];
   t: Translate;
 };
@@ -108,6 +111,7 @@ export default function PapersView({
   onStartPapers,
   onResetPaper,
   onToggleSubjectCompleted,
+  onMoveSubject,
   completedSubjects,
   t
 }: PapersViewProps) {
@@ -262,6 +266,7 @@ export default function PapersView({
                   completedSubjects={completedSet}
                   isPaperSelected={(key) => selected.has(key)}
                   onOpenSubject={(subject) => setOpenSubjectKey(subject.key)}
+                  onMoveSubject={onMoveSubject}
                   onToggleSubject={toggleSubject}
                   onToggleSubjectCompleted={onToggleSubjectCompleted}
                   semester={activeSemester}
@@ -303,6 +308,7 @@ function SubjectList({
   onOpenSubject,
   onToggleSubject,
   onToggleSubjectCompleted,
+  onMoveSubject,
   completedSubjects,
   isPaperSelected,
   t
@@ -311,6 +317,7 @@ function SubjectList({
   onOpenSubject: (subject: SubjectSummary) => void;
   onToggleSubject: (subject: SubjectSummary) => void;
   onToggleSubjectCompleted: (subject: string) => void;
+  onMoveSubject: (semesterKey: string, subject: string, direction: -1 | 1) => void;
   completedSubjects: Set<string>;
   isPaperSelected: (key: string) => boolean;
   t: Translate;
@@ -330,7 +337,7 @@ function SubjectList({
 
       {semester && semester.subjects.length ? (
         <div className="divide-y divide-border border-y border-border">
-          {semester.subjects.map((subject) => {
+          {semester.subjects.map((subject, index) => {
             const keys = subject.papers.map((paper) => paper.key);
             const allSelected =
               keys.length > 0 && keys.every((key) => isPaperSelected(key));
@@ -339,6 +346,28 @@ function SubjectList({
 
             return (
               <div className="flex items-center gap-3 py-3" key={subject.key}>
+                <div className="flex shrink-0 flex-col">
+                  <button
+                    aria-label={`${subject.subject} nach oben`}
+                    className="rounded px-1 text-text-subtle transition-colors hover:bg-surface-muted hover:text-text disabled:opacity-30 disabled:hover:bg-transparent"
+                    disabled={index === 0}
+                    onClick={() => onMoveSubject(subject.semesterKey, subject.subject, -1)}
+                    title="Nach oben"
+                    type="button"
+                  >
+                    <ChevronUp aria-hidden="true" className="h-3.5 w-3.5" />
+                  </button>
+                  <button
+                    aria-label={`${subject.subject} nach unten`}
+                    className="rounded px-1 text-text-subtle transition-colors hover:bg-surface-muted hover:text-text disabled:opacity-30 disabled:hover:bg-transparent"
+                    disabled={index === (semester?.subjects.length || 0) - 1}
+                    onClick={() => onMoveSubject(subject.semesterKey, subject.subject, 1)}
+                    title="Nach unten"
+                    type="button"
+                  >
+                    <ChevronDown aria-hidden="true" className="h-3.5 w-3.5" />
+                  </button>
+                </div>
                 <input
                   aria-label={`${subject.subject}`}
                   checked={allSelected}

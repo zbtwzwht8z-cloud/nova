@@ -82,6 +82,10 @@ export type StoredProgress = {
   // Subjects the user ticked off by hand. Independent of how many questions
   // they answered — "I'm done with this" is a judgement, not a percentage.
   completedSubjects?: string[];
+  // Manual subject order, so the list can follow the exam timetable rather than
+  // the alphabet. Subjects missing from it keep the default order behind those
+  // listed here.
+  subjectOrder?: string[];
   updatedAt?: string;
 };
 

@@ -43,6 +43,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import PapersView from "@/components/PapersView";
+import QuestionTimer, { TIMER_CHOICES } from "@/components/QuestionTimer";
 import ScoreSummary from "@/components/ScoreSummary";
 import StoaLanding from "@/components/StoaLanding";
 import {
@@ -102,6 +103,8 @@ const LEGACY_STORAGE_KEY = "private-mcq-trainer-progress";
 const DEFAULT_COUNT = 40;
 const READER_FONT_KEY = "nova-reader-font";
 const HIDE_COUNTER_KEY = "nova-hide-counter";
+const QUESTION_TIMER_KEY = "nova-question-timer";
+const QUESTION_TIMER_LIMIT_KEY = "nova-question-timer-limit";
 const MIN_READER_FONT = 13;
 const MAX_READER_FONT = 28;
 
@@ -302,7 +305,8 @@ function emptyProgress(): StoredProgress {
     bookmarkFolders: [defaultFolder()],
     activeFolderId: "default",
     sessionLog: [],
-    completedSubjects: []
+    completedSubjects: [],
+    subjectOrder: []
   };
 }
 
@@ -342,6 +346,9 @@ function normalizeProgress(progress?: StoredProgress | null): StoredProgress {
     sessionLog: Array.isArray(base.sessionLog) ? base.sessionLog : [],
     completedSubjects: Array.isArray(base.completedSubjects)
       ? Array.from(new Set(base.completedSubjects))
+      : [],
+    subjectOrder: Array.isArray(base.subjectOrder)
+      ? Array.from(new Set(base.subjectOrder))
       : [],
     updatedAt: base.updatedAt
   };
@@ -707,6 +714,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   // Long sessions drag when you can watch the remaining count. Hiding it is
   // remembered across reloads so it survives a refresh mid-session.
   const [counterHidden, setCounterHidden] = useState(false);
+  const [questionTimerOn, setQuestionTimerOn] = useState(false);
+  const [questionTimerLimit, setQuestionTimerLimit] = useState(60);
   const [user, setUser] = useState<TrainerUser | null>(null);
   const [users, setUsers] = useState<TrainerUser[]>([]);
   const [devLogin, setDevLogin] = useState<null | { username: string; password: string }>(
@@ -770,8 +779,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [commandOpen, setCommandOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const syncTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const stemRef = useRef<HTMLDivElement>(null);
   const questionContentRef = useRef<HTMLElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const lastChoiceKeyRef = useRef<{
     questionId: string;
     choiceId: string;
@@ -1399,8 +1408,13 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setPocketPickerOpen(false);
     lastChoiceKeyRef.current = null;
 
+    // Start every question at the very top. Scrolling the stem into view left
+    // the page wherever the previous question's explanation had been read to,
+    // which on long questions in a large font showed the answers with the stem
+    // already scrolled off.
     if (view === "trainer" && sessionIds.length) {
-      stemRef.current?.scrollIntoView({ block: "start" });
+      scrollAreaRef.current?.scrollTo({ top: 0 });
+      window.scrollTo({ top: 0 });
     }
   }, [activeIndex, sessionIds.length, view]);
 
@@ -1612,6 +1626,21 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   useEffect(() => {
     window.localStorage.setItem(HIDE_COUNTER_KEY, counterHidden ? "1" : "0");
   }, [counterHidden]);
+
+  useEffect(() => {
+    setQuestionTimerOn(window.localStorage.getItem(QUESTION_TIMER_KEY) === "1");
+
+    const storedLimit = Number(window.localStorage.getItem(QUESTION_TIMER_LIMIT_KEY));
+
+    if (TIMER_CHOICES.includes(storedLimit as (typeof TIMER_CHOICES)[number])) {
+      setQuestionTimerLimit(storedLimit);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(QUESTION_TIMER_KEY, questionTimerOn ? "1" : "0");
+    window.localStorage.setItem(QUESTION_TIMER_LIMIT_KEY, String(questionTimerLimit));
+  }, [questionTimerOn, questionTimerLimit]);
 
   function adjustReaderFont(delta: number) {
     setReaderFontPx((current) =>
@@ -2097,6 +2126,36 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     });
   }
 
+  // Bulk-adds to a pocket (used for "file this session's mistakes"). Additive on
+  // purpose: re-running it must not remove what's already filed.
+  function addQuestionsToFolder(questionIds: string[], folderId: string) {
+    if (!questionIds.length) {
+      return;
+    }
+
+    patchProgress((current) => {
+      const source = current.bookmarkFolders?.length
+        ? current.bookmarkFolders
+        : [defaultFolder()];
+      const nextFolders = source.map((folder) =>
+        folder.id === folderId
+          ? {
+              ...folder,
+              questionIds: Array.from(
+                new Set([...(folder.questionIds || []), ...questionIds])
+              )
+            }
+          : folder
+      );
+
+      return {
+        ...current,
+        bookmarkFolders: nextFolders,
+        bookmarks: Array.from(new Set(nextFolders.flatMap((item) => item.questionIds)))
+      };
+    });
+  }
+
   // Starts a study session from a pocket's questions.
   function practicePocket(folder: BookmarkFolder) {
     const ids = (folder.questionIds || []).filter((questionId) =>
@@ -2202,6 +2261,37 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         ...current,
         answers
       };
+    });
+  }
+
+  // Moves a subject within its semester. The stored order only lists what the
+  // user has actually arranged, so the first move has to seed it from the order
+  // currently on screen — otherwise the subject would jump past everything that
+  // was still sorted alphabetically.
+  function moveSubject(semesterKey: string, subject: string, direction: -1 | 1) {
+    const group = curriculum.find((entry) => entry.key === semesterKey);
+
+    if (!group) {
+      return;
+    }
+
+    const visible = group.subjects.map((entry) => entry.subject);
+    const from = visible.indexOf(subject);
+    const to = from + direction;
+
+    if (from === -1 || to < 0 || to >= visible.length) {
+      return;
+    }
+
+    const reordered = [...visible];
+    [reordered[from], reordered[to]] = [reordered[to], reordered[from]];
+
+    patchProgress((current) => {
+      const others = (current.subjectOrder || []).filter(
+        (entry) => !reordered.includes(entry)
+      );
+
+      return { ...current, subjectOrder: [...others, ...reordered] };
     });
   }
 
@@ -2560,7 +2650,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
       {navOpen ? renderMoreSheet() : null}
 
-      <div className="flex min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-contain">
+      <div
+        className="flex min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-contain"
+        ref={scrollAreaRef}
+      >
         {/* Liquid glass: a heavy, saturated backdrop blur over a mostly-clear
             surface, so scrolled content dissolves instead of showing through as
             the half-opaque ghost the old bg-bg/90 + light blur produced. The
@@ -2954,6 +3047,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         completedSubjects={progress.completedSubjects || []}
         mode={mode === "exam" ? "exam" : "study"}
         onModeChange={setMode}
+        onMoveSubject={moveSubject}
         onResetPaper={resetPaperProgress}
         onToggleSubjectCompleted={toggleSubjectCompleted}
         onSemesterChange={setPapersSemester}
@@ -3134,6 +3228,15 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             ) : null}
           </div>
         </div>
+
+        {questionTimerOn && activeQuestion && !studyFinished ? (
+          <QuestionTimer
+            limit={questionTimerLimit}
+            onDisable={() => setQuestionTimerOn(false)}
+            onLimitChange={setQuestionTimerLimit}
+            resetKey={activeQuestion.id}
+          />
+        ) : null}
 
         {studyFinished
           ? renderStudyResults()
@@ -3556,6 +3659,26 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
               <span>{mistakeIds.length} Fehler üben</span>
             </Button>
           ) : null}
+          {mistakeIds.length && folders[0] ? (
+            <Button
+              onClick={() => {
+                const target = folders[0];
+                const fresh = mistakeIds.filter(
+                  (questionId) => !(target.questionIds || []).includes(questionId)
+                );
+                addQuestionsToFolder(mistakeIds, target.id);
+                setNotice(
+                  fresh.length
+                    ? `${fresh.length} ${fresh.length === 1 ? "Fehler" : "Fehler"} in „${target.name}" gespeichert`
+                    : `Alle Fehler sind bereits in „${target.name}"`
+                );
+              }}
+              variant="secondary"
+            >
+              <Bookmark size={18} aria-hidden="true" />
+              <span>Fehler in „{folders[0].name}"</span>
+            </Button>
+          ) : null}
           <Button onClick={endSession} variant="ghost">
             Sitzung verlassen
           </Button>
@@ -3683,6 +3806,16 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           </Button>
         ) : null}
         <Button
+          aria-label="Timer pro Frage"
+          aria-pressed={questionTimerOn}
+          className="min-h-[44px] min-w-[44px] px-2"
+          onClick={() => setQuestionTimerOn((current) => !current)}
+          title={questionTimerOn ? "Timer ausschalten" : "Timer pro Frage"}
+          variant={questionTimerOn ? "secondary" : "ghost"}
+        >
+          <Timer size={18} aria-hidden="true" />
+        </Button>
+        <Button
           aria-label="Textmarker"
           aria-pressed={highlightMode}
           className="min-h-[44px] min-w-[44px] px-3"
@@ -3772,7 +3905,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           {renderQuestionActions(question, isBookmarked)}
         </div>
 
-        <div className="grid gap-4" ref={stemRef}>
+        <div className="grid gap-4">
           <p
             className="m-0 whitespace-pre-line leading-relaxed text-text"
             style={{ fontSize: readerFontPx }}
@@ -4032,7 +4165,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           {renderQuestionActions(question, isBookmarked)}
         </div>
 
-        <div className="grid gap-4" ref={stemRef}>
+        <div className="grid gap-4">
           <span className="inline-flex w-fit items-center rounded border border-border px-2 py-0.5 text-label text-text-subtle">
             Freitext
           </span>
