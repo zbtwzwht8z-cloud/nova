@@ -29,12 +29,10 @@ import {
   Menu,
   Moon,
   MoreHorizontal,
-  NotebookPen,
   Pencil,
   Play,
   Plus,
   RotateCcw,
-  Search,
   Shield,
   Sun,
   Timer,
@@ -44,6 +42,7 @@ import {
   X
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import Dashboard from "@/components/Dashboard";
 import PapersView from "@/components/PapersView";
 import QuestionTimer, { TIMER_CHOICES } from "@/components/QuestionTimer";
 import ScoreSummary from "@/components/ScoreSummary";
@@ -70,6 +69,7 @@ import { compareTopicBySemester, questionSemesterKey } from "@/lib/semesters";
 import { t } from "@/lib/i18n";
 import type {
   BookmarkFolder,
+  ExamDate,
   LeaderboardEntry,
   Question,
   QuestionIndex,
@@ -120,8 +120,6 @@ const navItems: Array<{
   { view: "dashboard", label: "Übersicht", icon: LayoutDashboard },
   { view: "subjects", label: "Klausuren", icon: BookOpenCheck },
   { view: "trainer", label: "Sitzungen", icon: History },
-  { view: "search", label: "Suche", icon: Search },
-  { view: "mistakes", label: "Fehler", icon: NotebookPen },
   { view: "bookmarks", label: "Pockets", icon: BookMarked },
   { view: "admin", label: "Admin", icon: Shield, admin: true }
 ];
@@ -159,10 +157,6 @@ function sortUnique(values: string[]) {
   return Array.from(new Set(values.filter(Boolean))).sort((a, b) =>
     a.localeCompare(b)
   );
-}
-
-function formatPercent(value: number) {
-  return `${Math.round(Number.isFinite(value) ? value : 0)}%`;
 }
 
 function formatNumber(value: number) {
@@ -301,6 +295,24 @@ function defaultFolder(): BookmarkFolder {
   };
 }
 
+// Seeded once so the countdown is useful on first load; editable in the
+// dashboard, and only applied when the field has never been set (an empty list
+// means the user cleared it).
+const DEFAULT_EXAM_DATES: ExamDate[] = [
+  {
+    id: "exam-seed-1",
+    date: "2026-08-03",
+    time: "14:00",
+    subjects: ["Klinische Umweltmedizin", "Sozialmedizin", "Schmerzmedizin"]
+  },
+  {
+    id: "exam-seed-2",
+    date: "2026-08-05",
+    time: "14:00",
+    subjects: ["Humangenetik", "Klinische Pharmakologie"]
+  }
+];
+
 function emptyProgress(): StoredProgress {
   return {
     answers: {},
@@ -309,7 +321,8 @@ function emptyProgress(): StoredProgress {
     activeFolderId: "default",
     sessionLog: [],
     completedSubjects: [],
-    subjectOrder: []
+    subjectOrder: [],
+    examDates: DEFAULT_EXAM_DATES
   };
 }
 
@@ -353,6 +366,7 @@ function normalizeProgress(progress?: StoredProgress | null): StoredProgress {
     subjectOrder: Array.isArray(base.subjectOrder)
       ? Array.from(new Set(base.subjectOrder))
       : [],
+    examDates: Array.isArray(base.examDates) ? base.examDates : DEFAULT_EXAM_DATES,
     updatedAt: base.updatedAt
   };
 }
@@ -2924,231 +2938,23 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   }
 
   function renderDashboard() {
-    const openSession = sessionLogs.find(isOpenSession);
-    const recentSessions = sessionLogs.slice(0, 4);
-    const activeLeaders = leaderboard.filter((entry) => entry.weeklyAnswered > 0);
-    const coverage = questions.length ? (stats.answered / questions.length) * 100 : 0;
-    const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    const answeredThisWeek = Object.values(progress.answers).filter(
-      (answer) => new Date(answer.answeredAt).getTime() >= weekAgo
-    ).length;
-    const mistakeCount = missedQuestions.length;
-
-    const perf = new Map<string, { graded: number; correct: number }>();
-    for (const question of questions) {
-      const answer = progress.answers[question.id];
-
-      if (!answer || answer.correct === undefined) {
-        continue;
-      }
-
-      const entry = perf.get(question.subject) || { graded: 0, correct: 0 };
-      entry.graded += 1;
-      entry.correct += answer.correct ? 1 : 0;
-      perf.set(question.subject, entry);
-    }
-    const weakSubjects = Array.from(perf.entries())
-      .filter(([, entry]) => entry.graded >= 8)
-      .map(([subject, entry]) => ({
-        subject,
-        accuracy: Math.round((entry.correct / entry.graded) * 100)
-      }))
-      .sort((left, right) => left.accuracy - right.accuracy)
-      .slice(0, 4);
-
     return (
-      <div className="mx-auto grid max-w-content gap-8">
-        <section className="grid gap-4 sm:grid-cols-3">
-          {openSession ? (
-            <button
-              className="flex items-center gap-3 rounded border border-accent bg-accent p-4 text-left text-accent-foreground transition-opacity hover:opacity-90"
-              onClick={() => resumeSession(openSession)}
-              type="button"
-            >
-              <Play className="shrink-0" size={22} aria-hidden="true" />
-              <span className="grid min-w-0 gap-0.5">
-                <span className="text-body font-medium">Sitzung fortsetzen</span>
-                <span className="truncate text-body-sm opacity-90">
-                  {openSession.answered}/{openSession.questionIds.length} ·{" "}
-                  {openSession.label}
-                </span>
-              </span>
-            </button>
-          ) : (
-            <button
-              className="flex items-center gap-3 rounded border border-accent bg-accent p-4 text-left text-accent-foreground transition-opacity hover:opacity-90"
-              onClick={() => setView("subjects")}
-              type="button"
-            >
-              <Play className="shrink-0" size={22} aria-hidden="true" />
-              <span className="grid min-w-0 gap-0.5">
-                <span className="text-body font-medium">Klausur starten</span>
-                <span className="truncate text-body-sm opacity-90">
-                  Wähle ein Fach oder eine Klausur
-                </span>
-              </span>
-            </button>
-          )}
-
-          <button
-            className="flex items-center gap-3 rounded border border-border bg-surface p-4 text-left transition-colors hover:bg-surface-muted disabled:opacity-50"
-            disabled={!mistakeCount}
-            onClick={reviewAllMistakes}
-            type="button"
-          >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--danger)_12%,var(--surface))] text-danger">
-              <ListChecks size={20} aria-hidden="true" />
-            </span>
-            <span className="grid min-w-0 gap-0.5">
-              <span className="text-body font-medium text-text">Fehler üben</span>
-              <span className="text-body-sm text-text-muted">
-                {mistakeCount} {mistakeCount === 1 ? "offener Fehler" : "offene Fehler"}
-              </span>
-            </span>
-          </button>
-
-          <button
-            className="flex items-center gap-3 rounded border border-border bg-surface p-4 text-left transition-colors hover:bg-surface-muted"
-            onClick={() => setView("subjects")}
-            type="button"
-          >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--accent)_12%,var(--surface))] text-accent">
-              <BookOpenCheck size={20} aria-hidden="true" />
-            </span>
-            <span className="grid min-w-0 gap-0.5">
-              <span className="text-body font-medium text-text">Klausuren</span>
-              <span className="text-body-sm text-text-muted">Nach Fach &amp; Semester</span>
-            </span>
-          </button>
-        </section>
-
-        <section className="grid gap-4">
-          <h2 className="m-0 text-h3 font-semibold">Fortschritt</h2>
-          <div className="grid gap-4 rounded border border-border bg-surface p-6">
-            <div className="flex items-end justify-between gap-4">
-              <div className="grid gap-1">
-                <span className="text-label text-text-subtle">Bearbeitet</span>
-                <strong className="text-h2 font-semibold text-text">
-                  {formatNumber(stats.answered)}
-                  <span className="text-body font-normal text-text-muted">
-                    {" "}
-                    / {formatNumber(questions.length)}
-                  </span>
-                </strong>
-              </div>
-              <span className="text-h2 font-semibold text-accent">
-                {coverage < 1 && coverage > 0 ? "<1" : Math.round(coverage)}%
-              </span>
-            </div>
-            <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
-              <div
-                className="h-full rounded-full bg-accent"
-                style={{ width: `${Math.min(100, Math.max(coverage, coverage > 0 ? 2 : 0))}%` }}
-              />
-            </div>
-            <div className="flex flex-wrap gap-x-8 gap-y-2 text-body-sm text-text-muted">
-              <span>
-                Trefferquote{" "}
-                <strong className="font-medium text-text">
-                  {formatPercent(stats.accuracy)}
-                </strong>
-              </span>
-              <span>
-                Diese Woche{" "}
-                <strong className="font-medium text-text">{answeredThisWeek}</strong> Fragen
-              </span>
-              <span>
-                Offene Fehler{" "}
-                <strong className="font-medium text-text">{mistakeCount}</strong>
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {weakSubjects.length ? (
-          <section className="grid gap-4">
-            <h2 className="m-0 text-h3 font-semibold">Schwächste Fächer</h2>
-            <div className="grid gap-3">
-              {weakSubjects.map((item) => (
-                <div
-                  className="flex items-center gap-4 rounded border border-border bg-surface px-4 py-3"
-                  key={item.subject}
-                >
-                  <div className="grid min-w-0 flex-1 gap-2">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="truncate text-body font-medium text-text">
-                        {item.subject}
-                      </span>
-                      <span className="shrink-0 text-body-sm text-text-muted">
-                        {item.accuracy}%
-                      </span>
-                    </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
-                      <div
-                        className="h-full rounded-full bg-accent"
-                        style={{ width: `${Math.max(item.accuracy, 2)}%` }}
-                      />
-                    </div>
-                  </div>
-                  <Button
-                    className="shrink-0 px-3"
-                    onClick={() => practiceSubject(item.subject)}
-                    variant="secondary"
-                  >
-                    Üben
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </section>
-        ) : null}
-
-        {recentSessions.length ? (
-          <section className="grid gap-4">
-            <h2 className="m-0 text-h3 font-semibold">{t("dashboard.recent")}</h2>
-            <div className="grid gap-4">
-              {recentSessions.map((session) => (
-                <button
-                  className="flex w-full items-center justify-between gap-4 rounded border border-border bg-surface px-4 py-4 text-left transition-colors hover:bg-surface-muted"
-                  key={session.id}
-                  onClick={() => setView("trainer")}
-                  type="button"
-                >
-                  <span className="min-w-0 truncate text-body font-medium text-text">
-                    {session.label}
-                  </span>
-                  <span className="shrink-0 text-body-sm text-text-muted">
-                    {session.answered
-                      ? `${Math.round((session.correct / session.answered) * 100)}%`
-                      : "—"}{" "}
-                    · {new Date(session.finishedAt).toLocaleDateString("de-DE")}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </section>
-        ) : null}
-
-        {activeLeaders.length ? (
-          <section className="grid gap-4">
-            <h2 className="m-0 text-h3 font-semibold">{t("dashboard.week")}</h2>
-            <List>
-              {activeLeaders.slice(0, 8).map((entry, index) => (
-                <ListRow
-                  key={entry.userId}
-                  meta={
-                    <>
-                      <span>{entry.weeklyAnswered} beantwortet</span>
-                      <span>{entry.accuracy}% Trefferquote</span>
-                    </>
-                  }
-                  title={`${index + 1}. ${entry.name}`}
-                />
-              ))}
-            </List>
-          </section>
-        ) : null}
-      </div>
+      <Dashboard
+        leaderboard={leaderboard}
+        mistakeCount={missedQuestions.length}
+        onOpenSessions={() => setView("trainer")}
+        onOpenSubjects={() => setView("subjects")}
+        onPracticeSubject={practiceSubject}
+        onResume={resumeSession}
+        onSaveExams={(examDates) =>
+          patchProgress((current) => ({ ...current, examDates }))
+        }
+        onStartMistakes={reviewAllMistakes}
+        openSession={sessionLogs.find(isOpenSession) || null}
+        progress={progress}
+        questions={questions}
+        sessionLogs={sessionLogs}
+      />
     );
   }
 

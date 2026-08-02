@@ -65,6 +65,16 @@ export type StoredAnswer = {
   confidence?: "low" | "medium" | "high";
 };
 
+// A sitting on the exam timetable. `date` is a local YYYY-MM-DD and `time` an
+// HH:MM, both as typed — these are calendar appointments, not instants, so they
+// must not shift with the timezone.
+export type ExamDate = {
+  id: string;
+  date: string;
+  time?: string;
+  subjects: string[];
+};
+
 export type BookmarkFolder = {
   id: string;
   name: string;
@@ -86,6 +96,7 @@ export type StoredProgress = {
   // the alphabet. Subjects missing from it keep the default order behind those
   // listed here.
   subjectOrder?: string[];
+  examDates?: ExamDate[];
   updatedAt?: string;
 };
 
