@@ -107,6 +107,57 @@
   --ring-bad-to: #c25a55;
 }
 
+/* Nachtblau — the same low-halation approach as "gedämpft", in indigo. A cool
+   accent that isn't the brand green, for when the green gets tiring. */
+:root[data-theme="nachtblau"] {
+  color-scheme: dark;
+  --bg: #161b28;
+  --surface: #1d2333;
+  --surface-muted: #262e42;
+  --border: #343d55;
+  --text: #dde2f0;
+  --text-muted: #a1aac2;
+  --text-subtle: #828ba2;
+  --accent: #7fa6f5;
+  --accent-foreground: #101524;
+  --danger: #ef8b90;
+  --highlight: #d6c06c;
+  --highlight-soft: rgba(214, 192, 108, 0.26);
+  --warning: #dfb055;
+  --ring-good-from: #9dbcff;
+  --ring-good-to: #5b83d6;
+  --ring-mid-from: #e6bd60;
+  --ring-mid-to: #bf8f2e;
+  --ring-bad-from: #f29ba0;
+  --ring-bad-to: #c4666c;
+}
+
+/* Rosé — warm light in dusty rose. The accent stays a deep teal rather than
+   going pink: it marks correct answers, so it has to stay clearly apart from
+   the red used for wrong ones. */
+:root[data-theme="rose"] {
+  color-scheme: light;
+  --bg: #f6eeee;
+  --surface: #fdf8f8;
+  --surface-muted: #eee1e2;
+  --border: #dcc8ca;
+  --text: #2c2327;
+  --text-muted: #6e5d62;
+  --text-subtle: #927f85;
+  --accent: #1d6f6a;
+  --accent-foreground: #fdf8f8;
+  --danger: #b03a44;
+  --highlight: #eecf89;
+  --highlight-soft: rgba(214, 160, 74, 0.32);
+  --warning: #8c6408;
+  --ring-good-from: #2f9a90;
+  --ring-good-to: #1a635e;
+  --ring-mid-from: #d3a02a;
+  --ring-mid-to: #a2760c;
+  --ring-bad-from: #c4606a;
+  --ring-bad-to: #8e2f38;
+}
+
 /* With no explicit choice, a system set to dark gets the softer "gedämpft"
    rather than the darkest option. */
 @media (prefers-color-scheme: dark) {

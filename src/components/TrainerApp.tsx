@@ -297,6 +297,19 @@ function defaultFolder(): BookmarkFolder {
 // Seeded once so the countdown is useful on first load; editable in the
 // dashboard, and only applied when the field has never been set (an empty list
 // means the user cleared it).
+// Pocket colours. Chosen to stay legible on every palette's surface, and to
+// read apart from each other at chip size.
+const POCKET_COLORS = [
+  "#216e62",
+  "#315d9f",
+  "#8f4d38",
+  "#6f5b9d",
+  "#9c3b63",
+  "#3d7a4a",
+  "#a06a12",
+  "#3f6f88"
+] as const;
+
 const DEFAULT_EXAM_DATES: ExamDate[] = [
   {
     id: "exam-seed-1",
@@ -782,6 +795,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [sessionStartedAt, setSessionStartedAt] = useState(now());
   const [searchQuery, setSearchQuery] = useState("");
   const [newFolderName, setNewFolderName] = useState("");
+  const [newFolderColor, setNewFolderColor] = useState<string>(POCKET_COLORS[0]);
   const [reportType, setReportType] = useState<ReportType>("wrong-answer");
   const [reportText, setReportText] = useState("");
   const [newUserName, setNewUserName] = useState("");
@@ -2164,9 +2178,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     const folder: BookmarkFolder = {
       id: id("folder"),
       name: newFolderName.trim(),
-      color: ["#216e62", "#315d9f", "#8f4d38", "#6f5b9d"][
-        folders.length % 4
-      ],
+      color: newFolderColor,
       questionIds: [],
       createdAt: now()
     };
@@ -2177,6 +2189,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       activeFolderId: folder.id
     }));
     setNewFolderName("");
+    advanceFolderColor();
   }
 
   // Adds/removes a question from a specific pocket (bookmark folder).
@@ -2299,7 +2312,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     const folder: BookmarkFolder = {
       id: id("folder"),
       name: trimmed,
-      color: ["#216e62", "#315d9f", "#8f4d38", "#6f5b9d"][folders.length % 4],
+      color: newFolderColor,
       questionIds: [questionId],
       createdAt: now()
     };
@@ -2315,6 +2328,17 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       };
     });
     setNewFolderName("");
+    advanceFolderColor();
+  }
+
+  // Steps the default on to the next unused colour, so a user who never opens
+  // the swatches still gets pockets that look different from one another.
+  function advanceFolderColor() {
+    const used = new Set(folders.map((folder) => folder.color));
+    setNewFolderColor(
+      POCKET_COLORS.find((color) => !used.has(color)) ||
+        POCKET_COLORS[(folders.length + 1) % POCKET_COLORS.length]
+    );
   }
 
   function clearCurrentAnswer() {
@@ -3404,6 +3428,28 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
           <div className="grid gap-2 border-t border-border pt-4">
             <span className="text-label font-medium text-text-subtle">Neue Pocket</span>
+            <div className="flex flex-wrap items-center gap-1.5">
+              {POCKET_COLORS.map((color) => (
+                <button
+                  aria-label={`Farbe ${color}`}
+                  aria-pressed={newFolderColor === color}
+                  className={cn(
+                    "h-6 w-6 rounded-full transition-transform",
+                    newFolderColor === color
+                      ? "ring-2 ring-offset-2 ring-offset-surface"
+                      : "hover:scale-110"
+                  )}
+                  key={color}
+                  onClick={() => setNewFolderColor(color)}
+                  style={{
+                    backgroundColor: color,
+                    ...(newFolderColor === color ? { boxShadow: `0 0 0 2px ${color}` } : {})
+                  }}
+                  title={`Farbe ${color}`}
+                  type="button"
+                />
+              ))}
+            </div>
             <div className="flex gap-2">
               <Input
                 onChange={(event) => setNewFolderName(event.target.value)}
@@ -4579,20 +4625,44 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
               );
             })}
           </div>
-          <div className="flex gap-2">
-            <Input
-              onChange={(event) => setNewFolderName(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  createFolder();
-                }
-              }}
-              placeholder="Neue Pocket"
-              value={newFolderName}
-            />
-            <Button onClick={createFolder} variant="secondary">
-              Hinzufügen
-            </Button>
+          <div className="grid gap-2">
+            <div className="flex flex-wrap items-center gap-1.5">
+              {POCKET_COLORS.map((color) => (
+                <button
+                  aria-label={`Farbe ${color}`}
+                  aria-pressed={newFolderColor === color}
+                  className={cn(
+                    "h-6 w-6 rounded-full transition-transform",
+                    newFolderColor === color
+                      ? "ring-2 ring-offset-2 ring-offset-surface"
+                      : "hover:scale-110"
+                  )}
+                  key={color}
+                  onClick={() => setNewFolderColor(color)}
+                  style={{
+                    backgroundColor: color,
+                    ...(newFolderColor === color ? { boxShadow: `0 0 0 2px ${color}` } : {})
+                  }}
+                  title={`Farbe ${color}`}
+                  type="button"
+                />
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <Input
+                onChange={(event) => setNewFolderName(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    createFolder();
+                  }
+                }}
+                placeholder="Neue Pocket"
+                value={newFolderName}
+              />
+              <Button onClick={createFolder} variant="secondary">
+                Hinzufügen
+              </Button>
+            </div>
           </div>
         </section>
         <section className="grid content-start gap-4">

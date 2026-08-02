@@ -19,10 +19,22 @@ export const THEMES = [
     swatch: ["#f0eade", "#faf6ed", "#1f6b5e"]
   },
   {
+    id: "rose",
+    label: "Rosé",
+    hint: "Warm, gedeckt",
+    swatch: ["#f6eeee", "#fdf8f8", "#1d6f6a"]
+  },
+  {
     id: "dim",
     label: "Gedämpft",
     hint: "Dunkel ohne Nachleuchten",
     swatch: ["#222927", "#2a322f", "#5cc0a8"]
+  },
+  {
+    id: "nachtblau",
+    label: "Nachtblau",
+    hint: "Kühl, indigo",
+    swatch: ["#161b28", "#1d2333", "#7fa6f5"]
   },
   {
     id: "dark",
