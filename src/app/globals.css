@@ -99,6 +99,49 @@ textarea {
   color: inherit;
 }
 
+/* Tailwind's preflight is off, so nothing strips the native control styling.
+   Safari draws its own inset bevel and rounding inside text, date and time
+   fields, which showed through as a dark shadow along the top and left edge of
+   every input. `appearance: none` removes it; the select re-adds an arrow below,
+   since dropping the appearance drops the built-in one too. */
+input,
+select,
+textarea {
+  -webkit-appearance: none;
+  appearance: none;
+  background-clip: padding-box;
+  box-shadow: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  -webkit-appearance: auto;
+  appearance: auto;
+}
+
+/* Safari centres the date/time text in a taller box than the value needs. */
+input[type="date"],
+input[type="time"] {
+  min-height: 0;
+  text-align: left;
+}
+
+input[type="date"]::-webkit-date-and-time-value,
+input[type="time"]::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
 img,
 svg,
 video {

@@ -5,6 +5,8 @@ import {
   BookOpenCheck,
   CalendarClock,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Flame,
   ListChecks,
   Play,
@@ -123,7 +125,7 @@ function StatTile({
 
   return (
     <div
-      className="dash-enter grid gap-2 rounded-xl border border-border bg-surface p-4"
+      className="dash-enter grid gap-2 rounded-2xl border border-border bg-surface p-4"
       style={{ animationDelay: `${delay}ms` }}
     >
       <span className="flex items-center gap-2 text-label font-medium text-text-subtle">
@@ -252,31 +254,47 @@ export default function Dashboard({
     return map;
   }, [questions, answers]);
 
-  const nextExam = useMemo(() => {
+  // Index of the soonest sitting that hasn't finished, so the arrows can page
+  // through the whole timetable — past ones included — starting from there.
+  const upcomingIndex = useMemo(() => {
     const now = Date.now();
+    const found = exams.findIndex((exam) => {
+      const start = parseExamStart(exam);
+      // Still "next" while it's running today, not the moment it starts.
+      return start ? start.getTime() + 3 * 60 * 60 * 1000 >= now : false;
+    });
 
-    return (
-      exams.find((exam) => {
-        const start = parseExamStart(exam);
-        // Still "next" while it's running today, not the moment it starts.
-        return start ? start.getTime() + 3 * 60 * 60 * 1000 >= now : false;
-      }) || null
-    );
+    return found === -1 ? Math.max(0, exams.length - 1) : found;
   }, [exams]);
 
+  const [examOffset, setExamOffset] = useState(0);
+
+  // A changed timetable (added, removed, saved) invalidates the offset.
+  useEffect(() => {
+    setExamOffset(0);
+  }, [exams]);
+
+  const shownIndex = Math.min(
+    Math.max(0, upcomingIndex + examOffset),
+    Math.max(0, exams.length - 1)
+  );
+  const shownExam = exams[shownIndex] || null;
+  const isUpcoming = shownIndex === upcomingIndex;
+
   const countdown = useMemo(() => {
-    const start = nextExam ? parseExamStart(nextExam) : null;
+    const start = shownExam ? parseExamStart(shownExam) : null;
 
     if (!start) {
       return null;
     }
 
     const diff = start.getTime() - Date.now();
-    const days = Math.floor(diff / DAY);
-    const hours = Math.floor((diff % DAY) / (60 * 60 * 1000));
+    const past = diff < 0;
+    const days = Math.floor(Math.abs(diff) / DAY);
+    const hours = Math.floor((Math.abs(diff) % DAY) / (60 * 60 * 1000));
 
-    return { days, hours, past: diff < 0, start };
-  }, [nextExam]);
+    return { days, hours, past, start };
+  }, [shownExam]);
 
   const maxDay = Math.max(1, ...activity.days.map((day) => day.answered));
   const weekAccuracy = activity.weekAnswered
@@ -289,7 +307,7 @@ export default function Dashboard({
     <div className="mx-auto grid max-w-content gap-6">
       {/* Countdown first: everything else is in service of the next sitting. */}
       <section
-        className="dash-enter relative overflow-hidden rounded-2xl border border-border bg-surface p-6"
+        className="dash-enter relative overflow-hidden rounded-[22px] border border-border bg-surface p-6"
         style={{ animationDelay: "0ms" }}
       >
         <div
@@ -305,21 +323,67 @@ export default function Dashboard({
           <div className="flex flex-wrap items-start justify-between gap-3">
             <span className="flex items-center gap-2 text-label font-medium text-text-subtle">
               <CalendarClock size={15} aria-hidden="true" />
-              Nächste Klausur
+              {isUpcoming
+                ? "Nächste Klausur"
+                : countdown?.past
+                  ? "Vergangene Klausur"
+                  : "Spätere Klausur"}
+              {exams.length > 1 ? (
+                <span className="tabular-nums text-text-subtle">
+                  {shownIndex + 1}/{exams.length}
+                </span>
+              ) : null}
             </span>
-            <Button
-              className="px-2 text-text-subtle"
-              onClick={() => setEditingExams((current) => !current)}
-              variant="ghost"
-            >
-              {editingExams ? <X size={15} /> : <Plus size={15} />}
-              <span className="text-label">
-                {editingExams ? "Fertig" : "Termine"}
-              </span>
-            </Button>
+
+            <div className="flex items-center gap-1">
+              {exams.length > 1 ? (
+                <>
+                  <Button
+                    aria-label="Vorherige Klausur"
+                    className="px-2 text-text-subtle"
+                    disabled={shownIndex === 0}
+                    onClick={() => setExamOffset((current) => current - 1)}
+                    title="Vorherige Klausur"
+                    variant="ghost"
+                  >
+                    <ChevronLeft size={16} aria-hidden="true" />
+                  </Button>
+                  <Button
+                    aria-label="Nächste Klausur"
+                    className="px-2 text-text-subtle"
+                    disabled={shownIndex >= exams.length - 1}
+                    onClick={() => setExamOffset((current) => current + 1)}
+                    title="Nächste Klausur"
+                    variant="ghost"
+                  >
+                    <ChevronRight size={16} aria-hidden="true" />
+                  </Button>
+                  {!isUpcoming ? (
+                    <Button
+                      className="px-2 text-text-subtle"
+                      onClick={() => setExamOffset(0)}
+                      title="Zurück zur nächsten Klausur"
+                      variant="ghost"
+                    >
+                      <span className="text-label">Heute</span>
+                    </Button>
+                  ) : null}
+                </>
+              ) : null}
+              <Button
+                className="px-2 text-text-subtle"
+                onClick={() => setEditingExams((current) => !current)}
+                variant="ghost"
+              >
+                {editingExams ? <X size={15} /> : <Plus size={15} />}
+                <span className="text-label">
+                  {editingExams ? "Fertig" : "Termine"}
+                </span>
+              </Button>
+            </div>
           </div>
 
-          {nextExam && countdown ? (
+          {shownExam && countdown ? (
             <>
               <div className="flex flex-wrap items-end gap-x-8 gap-y-4">
                 <div className="grid gap-1">
@@ -347,12 +411,12 @@ export default function Dashboard({
                       day: "2-digit",
                       month: "2-digit"
                     })}
-                    {nextExam.time ? ` · ${nextExam.time} Uhr` : ""}
+                    {shownExam.time ? ` · ${shownExam.time} Uhr` : ""}
                   </span>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
-                  {nextExam.subjects.map((subject) => (
+                  {shownExam.subjects.map((subject) => (
                     <span
                       className="rounded-full border border-border bg-surface-muted px-3 py-1 text-body-sm text-text"
                       key={subject}
@@ -366,7 +430,7 @@ export default function Dashboard({
               {/* Readiness for exactly the subjects being examined — the only
                   coverage number that means anything before a sitting. */}
               <div className="grid gap-3">
-                {nextExam.subjects.map((subject, index) => {
+                {shownExam.subjects.map((subject, index) => {
                   const entry = bySubject.get(subject);
 
                   if (!entry || !entry.total) {
@@ -435,7 +499,7 @@ export default function Dashboard({
           ) : exams.length > 1 ? (
             <div className="grid gap-1 border-t border-border pt-4">
               {exams
-                .filter((exam) => exam.id !== nextExam?.id)
+                .filter((exam) => exam.id !== shownExam?.id)
                 .slice(0, 3)
                 .map((exam) => {
                   const start = parseExamStart(exam);
@@ -504,7 +568,7 @@ export default function Dashboard({
 
       <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div
-          className="dash-enter grid gap-4 rounded-xl border border-border bg-surface p-5"
+          className="dash-enter grid gap-4 rounded-2xl border border-border bg-surface p-5"
           style={{ animationDelay: "300ms" }}
         >
           <div className="flex items-baseline justify-between gap-3">
@@ -555,7 +619,7 @@ export default function Dashboard({
         <div className="grid gap-3 content-start">
           {openSession ? (
             <button
-              className="dash-enter flex items-center gap-3 rounded-xl border border-accent bg-accent p-4 text-left text-accent-foreground transition-opacity hover:opacity-90"
+              className="dash-enter flex items-center gap-3 rounded-2xl border border-accent bg-accent p-4 text-left text-accent-foreground transition-opacity hover:opacity-90"
               onClick={() => onResume(openSession)}
               style={{ animationDelay: "340ms" }}
               type="button"
@@ -571,7 +635,7 @@ export default function Dashboard({
             </button>
           ) : (
             <button
-              className="dash-enter flex items-center gap-3 rounded-xl border border-accent bg-accent p-4 text-left text-accent-foreground transition-opacity hover:opacity-90"
+              className="dash-enter flex items-center gap-3 rounded-2xl border border-accent bg-accent p-4 text-left text-accent-foreground transition-opacity hover:opacity-90"
               onClick={onOpenSubjects}
               style={{ animationDelay: "340ms" }}
               type="button"
@@ -585,7 +649,7 @@ export default function Dashboard({
           )}
 
           <button
-            className="dash-enter flex items-center gap-3 rounded-xl border border-border bg-surface p-4 text-left transition-colors hover:bg-surface-muted disabled:opacity-50"
+            className="dash-enter flex items-center gap-3 rounded-2xl border border-border bg-surface p-4 text-left transition-colors hover:bg-surface-muted disabled:opacity-50"
             disabled={!mistakeCount}
             onClick={onStartMistakes}
             style={{ animationDelay: "380ms" }}
@@ -603,7 +667,7 @@ export default function Dashboard({
           </button>
 
           <button
-            className="dash-enter flex items-center gap-3 rounded-xl border border-border bg-surface p-4 text-left transition-colors hover:bg-surface-muted"
+            className="dash-enter flex items-center gap-3 rounded-2xl border border-border bg-surface p-4 text-left transition-colors hover:bg-surface-muted"
             onClick={onOpenSubjects}
             style={{ animationDelay: "420ms" }}
             type="button"
@@ -625,7 +689,7 @@ export default function Dashboard({
           style={{ animationDelay: "460ms" }}
         >
           <h2 className="m-0 text-body font-semibold">Letzte Sitzungen</h2>
-          <div className="overflow-hidden rounded-xl border border-border">
+          <div className="overflow-hidden rounded-2xl border border-border">
             {recentSessions.map((session, index) => {
               const score = session.answered
                 ? Math.round((session.correct / session.answered) * 100)
@@ -689,7 +753,7 @@ export default function Dashboard({
           style={{ animationDelay: "500ms" }}
         >
           <h2 className="m-0 text-body font-semibold">Diese Woche</h2>
-          <div className="overflow-hidden rounded-xl border border-border">
+          <div className="overflow-hidden rounded-2xl border border-border">
             {activeLeaders.slice(0, 8).map((entry, index) => (
               <div
                 className={cn(

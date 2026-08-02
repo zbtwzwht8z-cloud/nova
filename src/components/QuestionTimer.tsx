@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Timer, X } from "lucide-react";
+import { ChevronDown, Timer, X } from "lucide-react";
 
 export const TIMER_CHOICES = [30, 60, 90, 120, 180] as const;
 
@@ -88,18 +88,26 @@ export default function QuestionTimer({
       <label className="sr-only" htmlFor="question-timer-limit">
         Zeit pro Frage
       </label>
-      <select
-        className="h-7 rounded-md border border-border bg-surface px-1.5 text-label text-text-muted outline-none transition-[border-color,box-shadow] duration-150 hover:border-[color-mix(in_srgb,var(--accent)_30%,var(--border))] focus:border-accent focus:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--accent)_16%,transparent)] focus-visible:outline-none"
-        id="question-timer-limit"
-        onChange={(event) => onLimitChange(Number(event.target.value))}
-        value={limit}
-      >
-        {TIMER_CHOICES.map((choice) => (
-          <option key={choice} value={choice}>
-            {choice < 60 ? `${choice}s` : `${choice / 60} min`}
-          </option>
-        ))}
-      </select>
+      {/* Compact inline variant; the arrow is drawn here for the same reason as
+          in the shared Select — appearance:none removes the native one. */}
+      <div className="relative">
+        <select
+          className="h-7 rounded-md border border-border bg-surface pl-2 pr-6 text-label text-text-muted outline-none transition-[border-color,box-shadow] duration-150 hover:border-[color-mix(in_srgb,var(--accent)_30%,var(--border))] focus:border-accent focus:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--accent)_16%,transparent)] focus-visible:outline-none"
+          id="question-timer-limit"
+          onChange={(event) => onLimitChange(Number(event.target.value))}
+          value={limit}
+        >
+          {TIMER_CHOICES.map((choice) => (
+            <option key={choice} value={choice}>
+              {choice < 60 ? `${choice}s` : `${choice / 60} min`}
+            </option>
+          ))}
+        </select>
+        <ChevronDown
+          aria-hidden="true"
+          className="pointer-events-none absolute right-1.5 top-1/2 h-3 w-3 -translate-y-1/2 text-text-subtle"
+        />
+      </div>
 
       <button
         aria-label="Timer ausschalten"
