@@ -27,6 +27,10 @@ const config: Config = {
       danger: "var(--danger)",
       highlight: "var(--highlight)"
     },
+    // NOTE: this replaces Tailwind's scale rather than extending it, so any
+    // step missing here emits no CSS at all and the corners come out square —
+    // `rounded-2xl` did exactly that. Keep the ladder complete when adding
+    // sizes, or use an arbitrary value like rounded-[22px].
     borderRadius: {
       none: "0px",
       sm: "4px",
@@ -34,6 +38,8 @@ const config: Config = {
       md: "8px",
       lg: "12px",
       xl: "16px",
+      "2xl": "20px",
+      "3xl": "26px",
       full: "9999px"
     },
     fontFamily: {

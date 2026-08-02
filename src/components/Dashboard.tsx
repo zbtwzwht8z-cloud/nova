@@ -297,6 +297,10 @@ export default function Dashboard({
   }, [shownExam]);
 
   const maxDay = Math.max(1, ...activity.days.map((day) => day.answered));
+  // Round the top of the axis to a clean step so the ticks read 0/40/80 rather
+  // than 0/37/74, and keep it even so the midpoint is a whole number.
+  const axisStep = maxDay <= 20 ? 5 : maxDay <= 60 ? 10 : maxDay <= 200 ? 20 : 50;
+  const axisMax = Math.max(axisStep * 2, Math.ceil(maxDay / (axisStep * 2)) * axisStep * 2);
   const weekAccuracy = activity.weekAnswered
     ? Math.round((activity.weekCorrect / activity.weekAnswered) * 100)
     : 0;
@@ -578,40 +582,76 @@ export default function Dashboard({
             </span>
           </div>
 
-          <div className="flex h-28 items-end gap-1.5">
-            {activity.days.map((day, index) => {
-              const height = (day.answered / maxDay) * 100;
-              const isToday = index === activity.days.length - 1;
+          {/* Scale rounded up to something readable so the axis reads 0 / 40 /
+              80 rather than 0 / 37 / 74. */}
+          <div className="flex gap-2">
+            <div className="flex h-32 w-8 shrink-0 flex-col justify-between text-right text-label tabular-nums text-text-subtle">
+              {[axisMax, Math.round(axisMax / 2), 0].map((tick) => (
+                <span className="leading-none" key={tick}>
+                  {tick}
+                </span>
+              ))}
+            </div>
 
-              return (
+            <div className="relative h-32 flex-1">
+              {[0, 50, 100].map((position) => (
                 <div
-                  className="group relative flex h-full flex-1 flex-col justify-end"
-                  key={day.date.toISOString()}
-                  title={`${day.date.toLocaleDateString("de-DE", {
-                    weekday: "short",
-                    day: "2-digit",
-                    month: "2-digit"
-                  })}: ${day.answered} Fragen`}
-                >
-                  <div
-                    className="w-full rounded-t-[3px]"
-                    style={{
-                      height: `${day.answered ? Math.max(height, 4) : 2}%`,
-                      backgroundColor: day.answered
-                        ? isToday
-                          ? "var(--accent)"
-                          : "color-mix(in srgb, var(--accent) 45%, var(--surface-muted))"
-                        : "var(--surface-muted)",
-                      transition: `height 700ms cubic-bezier(.16,1,.3,1) ${index * 35}ms`
-                    }}
-                  />
-                </div>
-              );
-            })}
+                  aria-hidden="true"
+                  className="absolute inset-x-0 border-t border-border"
+                  key={position}
+                  style={{ top: `${position}%`, opacity: position === 100 ? 1 : 0.5 }}
+                />
+              ))}
+
+              <div className="absolute inset-0 flex items-end gap-1.5">
+                {activity.days.map((day, index) => {
+                  const height = (day.answered / axisMax) * 100;
+                  const isToday = index === activity.days.length - 1;
+
+                  return (
+                    <div
+                      className="group relative flex h-full flex-1 flex-col justify-end"
+                      key={day.date.toISOString()}
+                      title={`${day.date.toLocaleDateString("de-DE", {
+                        weekday: "short",
+                        day: "2-digit",
+                        month: "2-digit"
+                      })}: ${day.answered} Fragen`}
+                    >
+                      {day.answered ? (
+                        <span
+                          className="mb-0.5 text-center text-[10px] leading-none tabular-nums text-text-subtle"
+                          style={{ color: isToday ? "var(--accent)" : undefined }}
+                        >
+                          {day.answered}
+                        </span>
+                      ) : null}
+                      <div
+                        className="w-full rounded-t-[3px]"
+                        style={{
+                          height: `${day.answered ? Math.max(height, 3) : 1.5}%`,
+                          backgroundColor: day.answered
+                            ? isToday
+                              ? "var(--accent)"
+                              : "color-mix(in srgb, var(--accent) 45%, var(--surface-muted))"
+                            : "var(--surface-muted)",
+                          transition: `height 700ms cubic-bezier(.16,1,.3,1) ${index * 35}ms`
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
-          <div className="flex justify-between text-label text-text-subtle">
-            <span>vor 14 Tagen</span>
+          <div className="flex justify-between pl-10 text-label text-text-subtle">
+            <span>
+              {activity.days[0].date.toLocaleDateString("de-DE", {
+                day: "2-digit",
+                month: "2-digit"
+              })}
+            </span>
             <span>heute</span>
           </div>
         </div>
