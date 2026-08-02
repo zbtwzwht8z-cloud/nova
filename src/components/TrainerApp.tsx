@@ -27,14 +27,12 @@ import {
   ListChecks,
   LogOut,
   Menu,
-  Moon,
   MoreHorizontal,
   Pencil,
   Play,
   Plus,
   RotateCcw,
   Shield,
-  Sun,
   Timer,
   Trash2,
   Upload,
@@ -46,6 +44,7 @@ import Dashboard from "@/components/Dashboard";
 import PapersView from "@/components/PapersView";
 import QuestionTimer, { TIMER_CHOICES } from "@/components/QuestionTimer";
 import ScoreSummary from "@/components/ScoreSummary";
+import ThemePicker, { isThemeId, type ThemeId } from "@/components/ThemePicker";
 import StoaLanding from "@/components/StoaLanding";
 import {
   Button,
@@ -733,9 +732,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [counterHidden, setCounterHidden] = useState(false);
   const [questionTimerOn, setQuestionTimerOn] = useState(false);
   const [questionTimerLimit, setQuestionTimerLimit] = useState(60);
-  // "system" until the user picks a side; the inline script in layout.tsx has
+  // Undefined until read from storage; the inline script in layout.tsx has
   // already applied any stored choice by the time this mounts.
-  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
+  const [theme, setTheme] = useState<ThemeId | null>(null);
+  const [themeOpen, setThemeOpen] = useState(false);
   const [user, setUser] = useState<TrainerUser | null>(null);
   const [users, setUsers] = useState<TrainerUser[]>([]);
   const [devLogin, setDevLogin] = useState<null | { username: string; password: string }>(
@@ -1689,19 +1689,20 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   useEffect(() => {
     const stored = window.localStorage.getItem(THEME_KEY);
 
-    if (stored === "dark" || stored === "light") {
+    if (isThemeId(stored)) {
       setTheme(stored);
       return;
     }
 
-    // No stored choice: mirror the system so the button shows the right icon.
+    // No stored choice: mirror what the media query is already showing, so the
+    // picker opens on the right entry.
     setTheme(
-      window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      window.matchMedia("(prefers-color-scheme: dark)").matches ? "dim" : "light"
     );
   }, []);
 
   useEffect(() => {
-    if (theme === "system") {
+    if (!theme) {
       return;
     }
 
@@ -2773,19 +2774,14 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             <Menu size={20} aria-hidden="true" />
           </Button>
           <h1 className="m-0 text-h2 font-semibold">{titleForView(view)}</h1>
-          <Button
-            aria-label={theme === "dark" ? "Helles Design" : "Dunkles Design"}
-            className="ml-auto px-2"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            title={theme === "dark" ? "Helles Design" : "Dunkles Design"}
-            variant="ghost"
-          >
-            {theme === "dark" ? (
-              <Sun size={18} aria-hidden="true" />
-            ) : (
-              <Moon size={18} aria-hidden="true" />
-            )}
-          </Button>
+          <div className="ml-auto">
+            <ThemePicker
+              onChange={setTheme}
+              onOpenChange={setThemeOpen}
+              open={themeOpen}
+              theme={theme || "light"}
+            />
+          </div>
           </header>
         </div>
 

@@ -33,7 +33,7 @@ export default function RootLayout({
             renders light and then flips, which is worse than no dark mode. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("nova-theme");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t}}catch(e){}`
+            __html: `try{var t=localStorage.getItem("nova-theme");if(["light","papier","dim","dark"].indexOf(t)>-1){document.documentElement.dataset.theme=t}}catch(e){}`
           }}
         />
       </head>

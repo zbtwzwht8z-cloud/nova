@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Four palettes, brightest to darkest: hell → papier → gedämpft → dunkel.
+   The two in the middle exist because the ends are hard on the eyes — plain
+   white glares, and near-black with near-white text causes halation, where the
+   text blooms and leaves an afterimage. Both middle themes keep the contrast
+   between text and background nearer 10:1 than 16:1, which is what stops that. */
+
 :root {
   color-scheme: light;
   --bg: #f5f7f5;
@@ -25,18 +31,68 @@
   --ring-bad-to: #8e2f2c;
 }
 
-/* Dark theme. The accent is lifted well above the deep-green brand colour —
-   #216e62 on a dark surface fails contrast and reads as muddy. Highlighter
-   yellow keeps its hue but drops in opacity so marked text stays readable. */
+/* Papier — warm paper instead of white. Same brightness range as light, but
+   the blue is taken out, which is the part that makes a screen feel like a
+   lamp. Text is a warm near-black rather than true black. */
+:root[data-theme="papier"] {
+  color-scheme: light;
+  --bg: #f0eade;
+  --surface: #faf6ed;
+  --surface-muted: #e8e0d0;
+  --border: #d5cab4;
+  --text: #2a251d;
+  --text-muted: #6a6153;
+  --text-subtle: #8d8474;
+  --accent: #1f6b5e;
+  --accent-foreground: #fdfbf6;
+  --danger: #a03c30;
+  --highlight: #efd684;
+  --highlight-soft: rgba(214, 176, 74, 0.38);
+  --warning: #8d6606;
+  --ring-good-from: #2f9a86;
+  --ring-good-to: #1d6558;
+  --ring-mid-from: #d3a02a;
+  --ring-mid-to: #a2760c;
+  --ring-bad-from: #bf5c50;
+  --ring-bad-to: #8a3227;
+}
+
+/* Gedämpft — the in-between. Mid-slate surfaces rather than near-black, and
+   text held back from white, so nothing blooms. */
+:root[data-theme="dim"] {
+  color-scheme: dark;
+  --bg: #222927;
+  --surface: #2a322f;
+  --surface-muted: #333c38;
+  --border: #414c47;
+  --text: #d9e0dc;
+  --text-muted: #a3aea8;
+  --text-subtle: #86918b;
+  --accent: #5cc0a8;
+  --accent-foreground: #14231e;
+  --danger: #e0857d;
+  --highlight: #d6bd68;
+  --highlight-soft: rgba(214, 189, 104, 0.28);
+  --warning: #ddb356;
+  --ring-good-from: #6ed0b7;
+  --ring-good-to: #3a9c88;
+  --ring-mid-from: #e6bd60;
+  --ring-mid-to: #bf8f2e;
+  --ring-bad-from: #ea948d;
+  --ring-bad-to: #bd6058;
+}
+
+/* Dunkel — still properly dark, but lifted off black and with the text pulled
+   back from white; both reduce the bloom that pure contrast produces. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #101613;
-  --surface: #171f1b;
-  --surface-muted: #1f2a25;
-  --border: #2d3a34;
-  --text: #e7ede9;
-  --text-muted: #a4b1ab;
-  --text-subtle: #7f8d87;
+  --bg: #141a17;
+  --surface: #1b2320;
+  --surface-muted: #232d29;
+  --border: #313d38;
+  --text: #dce3df;
+  --text-muted: #9faba5;
+  --text-subtle: #7d8a84;
   --accent: #4fb9a3;
   --accent-foreground: #08130f;
   --danger: #e2776f;
@@ -51,28 +107,29 @@
   --ring-bad-to: #c25a55;
 }
 
-/* Follow the system until the user picks a side explicitly. */
+/* With no explicit choice, a system set to dark gets the softer "gedämpft"
+   rather than the darkest option. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     color-scheme: dark;
-    --bg: #101613;
-    --surface: #171f1b;
-    --surface-muted: #1f2a25;
-    --border: #2d3a34;
-    --text: #e7ede9;
-    --text-muted: #a4b1ab;
-    --text-subtle: #7f8d87;
-    --accent: #4fb9a3;
-    --accent-foreground: #08130f;
-    --danger: #e2776f;
-    --highlight: #d8bf62;
-    --highlight-soft: rgba(216, 191, 98, 0.3);
-    --warning: #e0b64a;
-    --ring-good-from: #63d4b8;
-    --ring-good-to: #2f9a86;
-    --ring-mid-from: #efc35c;
-    --ring-mid-to: #c9962a;
-    --ring-bad-from: #ef9089;
-    --ring-bad-to: #c25a55;
+    --bg: #222927;
+    --surface: #2a322f;
+    --surface-muted: #333c38;
+    --border: #414c47;
+    --text: #d9e0dc;
+    --text-muted: #a3aea8;
+    --text-subtle: #86918b;
+    --accent: #5cc0a8;
+    --accent-foreground: #14231e;
+    --danger: #e0857d;
+    --highlight: #d6bd68;
+    --highlight-soft: rgba(214, 189, 104, 0.28);
+    --warning: #ddb356;
+    --ring-good-from: #6ed0b7;
+    --ring-good-to: #3a9c88;
+    --ring-mid-from: #e6bd60;
+    --ring-mid-to: #bf8f2e;
+    --ring-bad-from: #ea948d;
+    --ring-bad-to: #bd6058;
   }
 }
