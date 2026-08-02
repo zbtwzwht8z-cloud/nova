@@ -2721,24 +2721,6 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             solvingChrome && "group/header h-2 [@media(hover:none)]:h-auto"
           )}
         >
-          {/* The sidebar toggle is the one control worth keeping reachable while
-              the header is away, so it stays pinned on its own and fades out as
-              the header slides in to avoid showing two burgers at once. */}
-          {solvingChrome ? (
-            <Button
-              aria-label={
-                sidebarCollapsed ? "Seitenleiste einblenden" : "Seitenleiste ausblenden"
-              }
-              aria-pressed={sidebarCollapsed}
-              className="absolute left-4 top-2 hidden px-2 opacity-60 transition-opacity duration-200 hover:opacity-100 group-hover/header:pointer-events-none group-hover/header:opacity-0 md:inline-flex lg:left-10 [@media(hover:none)]:hidden"
-              onClick={() => setSidebarCollapsed((current) => !current)}
-              title={sidebarCollapsed ? "Seitenleiste einblenden" : "Seitenleiste ausblenden"}
-              variant="ghost"
-            >
-              <Menu size={20} aria-hidden="true" />
-            </Button>
-          ) : null}
-
           {/* Liquid glass: a heavy, saturated backdrop blur over a mostly-clear
               surface, so scrolled content dissolves instead of showing through as
               the half-opaque ghost the old bg-bg/90 + light blur produced. The
@@ -2750,10 +2732,15 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                 "absolute inset-x-0 top-0 -translate-y-full opacity-0 transition-[opacity,transform] duration-200 group-hover/header:translate-y-0 group-hover/header:opacity-100 group-focus-within/header:translate-y-0 group-focus-within/header:opacity-100 [@media(hover:none)]:static [@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100"
             )}
           >
+          {/* Handed to the pinned copy above while solving. On touch the header
+              never hides, so the pinned copy is absent and this one stays. */}
           <Button
             aria-label={sidebarCollapsed ? "Seitenleiste einblenden" : "Seitenleiste ausblenden"}
             aria-pressed={sidebarCollapsed}
-            className="hidden px-2 md:inline-flex"
+            className={cn(
+              "hidden px-2 md:inline-flex",
+              solvingChrome && "md:hidden [@media(hover:none)]:md:inline-flex"
+            )}
             onClick={() => setSidebarCollapsed((current) => !current)}
             variant="ghost"
           >
@@ -3269,6 +3256,25 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       <div className="mx-auto grid max-w-content gap-6">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
           <div className="flex min-w-0 items-center gap-2">
+            {/* The app header hides itself while solving, so its sidebar toggle
+                lives here for the duration rather than floating over the page,
+                where it collided with the button beside it. */}
+            {solvingChrome ? (
+              <Button
+                aria-label={
+                  sidebarCollapsed ? "Seitenleiste einblenden" : "Seitenleiste ausblenden"
+                }
+                aria-pressed={sidebarCollapsed}
+                className="hidden px-2 md:inline-flex [@media(hover:none)]:md:hidden"
+                onClick={() => setSidebarCollapsed((current) => !current)}
+                title={
+                  sidebarCollapsed ? "Seitenleiste einblenden" : "Seitenleiste ausblenden"
+                }
+                variant="ghost"
+              >
+                <Menu size={20} aria-hidden="true" />
+              </Button>
+            ) : null}
             <Button
               aria-label="Sitzung verlassen"
               className="px-2"
