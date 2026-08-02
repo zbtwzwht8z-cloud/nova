@@ -1640,6 +1640,18 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     document.documentElement.lang = "de";
   }, []);
 
+  // Notices are confirmations, not decisions — they clear themselves. The timer
+  // restarts on each new message so a burst doesn't cut the last one short.
+  useEffect(() => {
+    if (!notice) {
+      return;
+    }
+
+    const timer = setTimeout(() => setNotice(""), 3200);
+
+    return () => clearTimeout(timer);
+  }, [notice]);
+
   useEffect(() => {
     const stored = Number(window.localStorage.getItem(READER_FONT_KEY));
 
@@ -2763,20 +2775,27 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           </header>
         </div>
 
+        {/* Floating, not in the flow: as a banner this pushed the whole page
+            down every time a question was filed. Keyed on the text so repeating
+            the same message replays the animation. */}
         {notice ? (
           <div
-            className="mx-8 mt-6 flex items-center justify-between gap-4 rounded border border-border bg-surface px-4 py-3 text-body-sm text-text lg:mx-12"
+            aria-live="polite"
+            className="toast-enter pointer-events-none fixed inset-x-4 bottom-24 z-50 flex justify-center md:inset-x-auto md:bottom-6 md:right-6 md:justify-end"
+            key={notice}
             role="status"
           >
-            <span>{notice}</span>
-            <Button
-              aria-label="Schließen"
-              className="px-2"
-              onClick={() => setNotice("")}
-              variant="ghost"
-            >
-              <X size={16} aria-hidden="true" />
-            </Button>
+            <div className="pointer-events-auto flex max-w-sm items-center gap-3 rounded-lg border border-border bg-surface px-4 py-2.5 text-body-sm text-text shadow-popover">
+              <span className="min-w-0">{notice}</span>
+              <button
+                aria-label="Schließen"
+                className="-mr-1 shrink-0 rounded p-1 text-text-subtle transition-colors hover:bg-surface-muted hover:text-text"
+                onClick={() => setNotice("")}
+                type="button"
+              >
+                <X size={14} aria-hidden="true" />
+              </button>
+            </div>
           </div>
         ) : null}
 

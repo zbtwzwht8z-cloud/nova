@@ -89,7 +89,7 @@ export default function QuestionTimer({
         Zeit pro Frage
       </label>
       <select
-        className="h-7 rounded border border-border bg-surface px-1 text-label text-text-muted"
+        className="h-7 rounded-md border border-border bg-surface px-1.5 text-label text-text-muted outline-none transition-[border-color,box-shadow] duration-150 hover:border-[color-mix(in_srgb,var(--accent)_30%,var(--border))] focus:border-accent focus:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--accent)_16%,transparent)] focus-visible:outline-none"
         id="question-timer-limit"
         onChange={(event) => onLimitChange(Number(event.target.value))}
         value={limit}
