@@ -165,6 +165,340 @@
         "D": "Die Arthritis psoriatica beginnt subakut über Tage bis Wochen, meist mit Hautbefund oder Daktylitis.",
         "E": "Die rheumatoide Arthritis beginnt typischerweise schleichend über Wochen mit symmetrischer Beteiligung kleiner Gelenke und Morgensteifigkeit."
       }
+    },
+    "01f0-707e-ddeab0be-9300-cbf739571e32": {
+      "correct": "Bläschen an der Stirn, dann i.v.-Therapie, und nach Abheilen erneut zunehmender Schmerz: eine Post-Zoster-Neuralgie im Versorgungsgebiet des N. ophthalmicus. Das 5%-Lidocainpflaster ist bei lokalisiertem neuropathischem Schmerz Mittel der Wahl — es wirkt topisch, praktisch ohne systemische Nebenwirkungen, was bei einer 82-Jährigen entscheidend ist.",
+      "choices": {
+        "A": "Amitriptylin wirkt zwar bei neuropathischem Schmerz, ist im Alter aber ein klassisches Problemmedikament (Priscus-Liste): anticholinerg mit Delir, Harnverhalt, Sturzgefahr und Herzrhythmusstörungen. Wenn überhaupt, dann einschleichend niedrig dosiert zur Nacht — nicht hochdosiert zweimal täglich.",
+        "B": "Die Bläschen sind abgeheilt, die akute Virusreplikation ist vorbei. Virostatika wirken auf die Post-Zoster-Neuralgie nicht mehr; sie hätten das Auftreten nur in der Akutphase verringern können.",
+        "C": "Opioide sind bei neuropathischem Schmerz zweite Wahl und im Alter mit Sedierung, Sturz, Obstipation und Delir belastet. Vor einer systemischen Therapie steht die lokale Option.",
+        "E": "NSAR wirken auf nozizeptiv-entzündlichen Schmerz, nicht auf neuropathischen. Bei einer 82-Jährigen kämen Nieren-, Magen- und Herzrisiken dazu."
+      }
+    },
+    "01f0-707f-57e57a0c-b000-f8d2d56fc97e": {
+      "correct": "Tramadol hemmt die Serotonin-Wiederaufnahme. Zusammen mit einem SSRI wie Sertralin kann daraus ein Serotonin-Syndrom entstehen — Unruhe, Fieber, Tremor, Myoklonien. Gerade bei Älteren mit vielen Medikamenten eine relevante Wechselwirkung.",
+      "choices": {
+        "A": "Genau umgekehrt: Die Kombination eines Nicht-Opioids mit einem Opioid ist erwünscht, weil sie den Opioidbedarf senkt. Das ist der Kern der multimodalen Analgesie.",
+        "B": "Höheres Alter ist ein anerkannter Risikofaktor für Chronifizierung — unter anderem durch verzögerte Therapie, Begleiterkrankungen und Immobilität.",
+        "C": "Morphin ist bei Niereninsuffizienz gerade problematisch: Der aktive Metabolit Morphin-6-Glucuronid kumuliert und führt zu Überdosierung. Bevorzugt werden Hydromorphon oder Buprenorphin.",
+        "D": "Auch hier das Gegenteil: Der höhere Fettanteil im Alter vergrößert das Verteilungsvolumen lipophiler Substanzen und erzeugt genau dadurch einen Depoteffekt mit verlängerter Wirkung."
+      }
+    },
+    "01f0-707f-841e042c-8a00-3d6d7acbe41f": {
+      "correct": "Neurochirurgie ist ein operatives Fachgebiet, kein pathophysiologisches Erklärungsmodell. Die anderen vier beschreiben Ebenen, auf denen der Zusammenhang von Depression und Schmerz untersucht wird.",
+      "choices": {
+        "A": "Die Neurochemie ist zentral: Serotonin und Noradrenalin wirken auf Stimmung und auf die absteigende Schmerzhemmung — deshalb helfen Antidepressiva bei beidem.",
+        "C": "Die Neurobiologie liefert Modelle wie Stressachse und Neuroplastizität.",
+        "D": "Die Molekularbiologie untersucht Entzündungsmediatoren, BDNF und genetische Faktoren.",
+        "E": "Die Neuroanatomie zeigt gemeinsame Strukturen — Amygdala, Inselrinde, cingulärer Cortex sind an Schmerz und Affekt beteiligt."
+      }
+    },
+    "01f0-707f-b497e38e-b000-d2d1eb6a4e47": {
+      "correct": "Der entzündliche Gelenkschmerz ist ein Ruhe- und Nachtschmerz mit Maximum in den frühen Morgenstunden — passend zum Tagesrhythmus von Cortisol und Zytokinen.",
+      "choices": {
+        "A": "Unter 30 Minuten spricht für eine Arthrose. Die entzündliche Morgensteifigkeit dauert länger als 30 bis 60 Minuten.",
+        "C": "Das ist das Muster der Arthrose. Bei der Arthritis bessert Bewegung den Schmerz („Einlaufschmerz\"), Ruhe verschlechtert ihn.",
+        "D": "Fieber gehört zur septischen Arthritis und zu systemischen Verläufen, ist aber kein obligates Merkmal — schon das Wort „immer\" macht die Aussage falsch.",
+        "E": "Schwellung, Überwärmung und Rötung sind Kardinalzeichen der Entzündung und damit gerade typisch."
+      }
+    },
+    "01f0-7080-4906f82a-9900-547ec0aa3812": {
+      "correct": "Kern des Konzepts ist eine feste Basisanalgesie nach Zeitschema, ergänzt um eine Bedarfsmedikation für Belastungsspitzen — kombiniert mit Substanzen unterschiedlicher Angriffspunkte.",
+      "choices": {
+        "B": "Regionalverfahren wie Periduralkatheter oder periphere Blockaden sind ein tragender Bestandteil, gerade weil sie Opioide einsparen.",
+        "C": "Die individuelle Abwägung ist der Punkt: Nieren-, Magen- und Herzsituation entscheiden, welche Komponente überhaupt infrage kommt.",
+        "D": "„Multimodal\" heißt gerade nicht Monotherapie, sondern die bewusste Kombination mehrerer Wirkprinzipien in niedrigerer Einzeldosis.",
+        "E": "Nicht-medikamentöse Maßnahmen — Lagerung, Kälte, Physiotherapie, Aufklärung — sind fester Bestandteil, nicht überflüssig."
+      }
+    },
+    "01f0-7080-73e62f48-bb00-179dcca26af8": {
+      "correct": "Nach einem Thalamusinfarkt links entsteht rechtsseitig ein zentraler neuropathischer Schmerz (Déjerine-Roussy). Die Läsion liegt im somatosensorischen System selbst — genau das definiert neuropathischen Schmerz.",
+      "choices": {
+        "A": "Nackenschmerz bei Parkinson entsteht durch Rigor und Fehlhaltung, ist also muskuloskelettal-nozizeptiv. Das Parkinson-Syndrom betrifft das motorische, nicht das somatosensorische System.",
+        "B": "Arthroseschmerz ist der Prototyp des nozizeptiven Schmerzes: Reizung von Nozizeptoren in Kapsel und Knochen bei intaktem Nervensystem.",
+        "C": "Ein Bänderriss verletzt Bindegewebe, nicht Nervengewebe — nozizeptiver Schmerz."
+      }
+    },
+    "01f0-7080-ae3f404e-be00-adab8f991414": {
+      "correct": "Gesucht war die Falschaussage. Glucocorticoide sind sehr wohl Teil der Leitlinie — in der floriden Entzündungsphase des CRPS werden sie als Kurzzeittherapie empfohlen.",
+      "choices": {
+        "A": "Das stimmt weitgehend und ist deshalb nicht die gesuchte Antwort: Nicht-Opioid-Analgetika sind nach Prüfung der Kontraindikationen einsetzbar. Ihre Wirkung beim CRPS ist allerdings begrenzt — den größeren Effekt haben Physio- und Ergotherapie, Spiegeltherapie und die Behandlung der neuropathischen Komponente."
+      }
+    },
+    "01f0-7081-5499f2ea-ae00-7da99be46cdf": {
+      "correct": "Der Eisenmangel ist die wichtigste sekundäre Ursache des Restless-Legs-Syndroms — Eisen ist Kofaktor der Tyrosinhydroxylase und damit der Dopaminsynthese. Deshalb gehört Ferritin an den Anfang jeder Abklärung, mit Substitution unter etwa 75 µg/l.",
+      "choices": {
+        "A": "Genau andersherum: Levodopa verursacht besonders häufig eine Augmentation, also eine Verschlimmerung mit früherem Beginn und Ausbreitung. Deshalb wird es nur kurzfristig oder bedarfsweise eingesetzt, in der Dauertherapie Dopaminagonisten oder Gabapentinoide.",
+        "B": "Pregabalin und Gabapentin sind gerade eine gute Alternative, besonders bei begleitendem Schmerz oder Schlafstörung — und sie verursachen keine Augmentation.",
+        "C": "Das ist die gefährlichste Falschaussage: Metoclopramid, Risperidon und Olanzapin sind Dopaminantagonisten und lösen ein RLS aus oder verschlimmern es massiv. Sie gehören zu den auslösenden Medikamenten, nicht zur Therapie."
+      }
+    },
+    "01f0-7081-e78346c4-8400-66ecc8aa2a97": {
+      "correct": "Bei der peripheren Sensibilisierung senken Entzündungsmediatoren die Reizschwelle der Nozizeptoren. Vermehrte und veränderte Natriumkanäle in der Nervenendigung führen zu Spontanentladungen ohne äußeren Reiz — die ektope Aktivität.",
+      "choices": {
+        "B": "Umgekehrt: Allodynie ist Schmerz auf einen normalerweise nicht schmerzhaften Reiz — schon leichte Berührung tut weh. Eine verminderte Wahrnehmung wäre eine Hypästhesie.",
+        "C": "Die absteigenden Bahnen aus dem Hirnstamm sind bei chronischem Schmerz zentral: Ihre hemmende Wirkung ist oft geschwächt, die bahnende verstärkt. Genau dort greifen Antidepressiva an.",
+        "D": "Das ist die Definition der Allodynie. Hyperalgesie ist die verstärkte Reaktion auf einen ohnehin schmerzhaften Reiz — die beiden werden hier vertauscht.",
+        "E": "Die zentrale Sensibilisierung ist ein allgemeiner Mechanismus der Chronifizierung und tritt auch bei anhaltendem nozizeptivem Input auf, etwa bei Arthrose oder Rückenschmerz."
+      }
+    },
+    "01f0-7082-31248676-bc00-ba3b37780d51": {
+      "correct": "Seit 2017 ist die Verordnung von Cannabisarzneimitteln möglich, in der Regel wenn anerkannte Therapien ausgeschöpft sind oder im Einzelfall nicht infrage kommen.",
+      "choices": {
+        "A": "Ohne Einschränkung ist es gerade nicht: Es gilt die Betäubungsmittel-Verschreibungsverordnung, und für die Kostenübernahme braucht es bei Erstverordnung die Genehmigung der Krankenkasse."
+      }
+    },
+    "01ef-9042-5fc4d3bc-9100-9e78cb0216ae": {
+      "correct": "Kern des multimodalen Konzepts ist die feste Basisanalgesie nach Zeitschema plus Bedarfsmedikation für Belastungsspitzen, kombiniert mit Substanzen unterschiedlicher Angriffspunkte.",
+      "choices": {
+        "A": "„Multimodal\" heißt gerade das Gegenteil von Monotherapie: mehrere Wirkprinzipien in jeweils niedrigerer Dosis.",
+        "B": "Regionalverfahren sind ein tragender Bestandteil, weil sie Opioide einsparen.",
+        "D": "Nicht-medikamentöse Maßnahmen — Lagerung, Kälte, Physiotherapie, Aufklärung — gehören fest dazu.",
+        "E": "Psychologische Begleitung ist bei chronischem Schmerz nicht kontraindiziert, sondern Bestandteil der multimodalen Therapie."
+      }
+    },
+    "01ef-9042-8242311e-9300-37f3d78b82ff": {
+      "correct": "Wirksam ist die Kombination aus Medikamenten und nicht-medikamentösen Verfahren, geplant und vorausschauend statt reaktiv.",
+      "choices": {
+        "A": "Rein medikamentös verschenkt den Effekt von Lagerung, Kälte, Frühmobilisation und Regionalverfahren.",
+        "C": "Maßstab ist die Selbsteinschätzung des Patienten, nicht die Einschätzung des Personals — das ist Grundprinzip der Schmerzmessung.",
+        "D": "Postoperative Schmerztherapie wird gerade geplant, idealerweise schon präoperativ festgelegt. Erst auf Schmerz zu reagieren, führt zu unnötigen Spitzen.",
+        "E": "Schmerz zu belassen, um Komplikationen zu erkennen, ist überholt. Unbehandelter Schmerz behindert Atmung und Mobilisation und fördert die Chronifizierung."
+      }
+    },
+    "01ef-9042-bb32d5aa-9400-d880331e2f31": {
+      "correct": "Myoklonien und Haltetremor sind bekannte Nebenwirkungen von Pregabalin — sowohl beim Eindosieren als auch unter Dauertherapie, besonders bei eingeschränkter Nierenfunktion im Alter.",
+      "choices": {
+        "A": "Trizyklika wirken anticholinerg und machen deshalb Mundtrockenheit, nicht Hypersalivation.",
+        "B": "Die gefürchtete Nebenwirkung von Metamizol ist die Agranulozytose — kontrolliert wird das Blutbild, nicht die QTc-Zeit.",
+        "D": "COX-2-Hemmer entschärfen den „Triple Whammy\" nicht: Die Nierendurchblutung hängt an COX-2-vermittelten Prostaglandinen, das Risiko des akuten Nierenversagens bleibt.",
+        "E": "Opioide unterscheiden sich deutlich: Morphin kumuliert bei Niereninsuffizienz, Buprenorphin und Hydromorphon sind günstiger. Genau deshalb ist die Organfunktion für die Rotation entscheidend."
+      }
+    },
+    "01ef-9042-fae2730e-9e00-bed48701ebf0": {
+      "correct": "Leichtes Ausdauertraining ist die am besten belegte Einzelmaßnahme beim Fibromyalgiesyndrom und wird leitliniengerecht empfohlen.",
+      "choices": {
+        "A": "Starke Opioide sind bei Fibromyalgie ausdrücklich nicht empfohlen — sie wirken nicht und schaden langfristig.",
+        "B": "Psychotherapeutische Verfahren, allen voran die kognitive Verhaltenstherapie, sind zentraler Bestandteil.",
+        "C": "Amitriptylin in niedriger Dosis ist gerade eine der wenigen medikamentösen Optionen mit belegtem Effekt.",
+        "D": "Umgekehrt: Die nicht-medikamentösen Verfahren tragen die Therapie, Medikamente sind allenfalls unterstützend."
+      }
+    },
+    "01ef-9043-2320b5ce-a100-7b2a16b6e1cd": {
+      "correct": "Sensibilitätsstörung im Versorgungsgebiet plus elektrisierender Schmerz bei Berührung der Narbe sprechen für eine Nervenläsion, häufig mit Neurombildung — das braucht eine gezielte Behandlung statt unspezifischer Analgesie.",
+      "choices": {
+        "B": "Eine operative Revision ist auch nach Monaten möglich, etwa Neuromresektion oder Nervenrekonstruktion.",
+        "C": "Gegen ein CRPS I spricht schon die Definition: Dort liegt gerade keine nachweisbare Nervenläsion vor. Mit Nervenschaden hieße es CRPS II. Zudem fehlen die autonomen und trophischen Störungen.",
+        "D": "NSAR wirken auf entzündlich-nozizeptiven Schmerz. Neuropathischer Schmerz spricht darauf kaum an.",
+        "E": "Die Überweisung ist richtig, der zweite Halbsatz nicht: Eine operative Versorgung kann bei symptomatischem Neurom sehr wohl nötig werden."
+      }
+    },
+    "01ef-9043-3d984a0c-9900-7e791522b794": {
+      "correct": "Sekundär heißt: begleitend zu einer anderen Erkrankung, klassischerweise einer aktiven entzündlich-rheumatischen wie der rheumatoiden Arthritis oder dem Lupus.",
+      "choices": {
+        "A": "Die Fibromyalgie ist keine Myositis — CK und Entzündungsparameter sind normal, es liegt keine Muskelentzündung vor.",
+        "B": "Eine Fibromyalgie ohne Schmerzen gibt es nicht; der generalisierte Schmerz ist das Definitionsmerkmal.",
+        "C": "Der Unterschied liegt nicht in der Schwere, sondern im Auslöser.",
+        "E": "Eine Verschlimmerung unter Therapie beschreibt keine eigene Form; bei Opioiden spräche man von opioidinduzierter Hyperalgesie."
+      }
+    },
+    "01ef-9043-537bf882-8700-11b7abcc9628": {
+      "correct": "Bei jungen Erwachsenen sind Gelenkbeschwerden ganz überwiegend traumatisch bedingt — auch ohne erinnerliches Einzelereignis, etwa durch wiederholte Mikrotraumen beim Sport.",
+      "choices": {
+        "A": "Neoplasien sind in diesem Alter selten, müssen aber bei Nacht- und Ruheschmerz mit B-Symptomatik bedacht werden.",
+        "B": "Arthrose ist eine Erkrankung des höheren Alters; mit 23 Jahren käme sie allenfalls nach schwerer Vorschädigung infrage.",
+        "C": "Infektiöse Arthritiden sind selten und liefen akut mit Fieber, Überwärmung und Bewegungsunfähigkeit ab — nicht rezidivierend über längere Zeit.",
+        "E": "Gicht und ähnliche Stoffwechselursachen betreffen typischerweise ältere Patienten und andere Gelenke."
+      }
+    },
+    "01ef-904b-b66ef8ce-bb00-9698d5d306d1": {
+      "correct": "Bei bekannter axialer Spondyloarthritis und plötzlich verändertem Schmerz muss zuerst eine Wirbelfraktur ausgeschlossen werden: Die versteifte, osteoporotische Wirbelsäule bricht schon bei geringem Trauma, und die Fraktur wird leicht als Krankheitsschub verkannt.",
+      "choices": {
+        "A": "Ein TNF-Blocker ist erst nach unzureichendem Ansprechen auf NSAR und nach Ausschluss anderer Ursachen sinnvoll — und keinesfalls, solange eine Fraktur im Raum steht.",
+        "B": "Klassische Basistherapeutika wirken bei axialer Spondyloarthritis am Achsenskelett ohnehin nicht.",
+        "C": "Physiotherapie ist tragende Säule der Dauertherapie, klärt aber die akute Verschlechterung nicht.",
+        "D": "NSAR hochzudosieren würde eine übersehene Fraktur maskieren."
+      }
+    },
+    "01ef-904c-04e8c1c4-b500-1718ab11bcc7": {
+      "correct": "Neun Wochen nach abgeheiltem Zoster besteht eine Post-Zoster-Neuralgie. Das 5%-Lidocain-Pflaster ist bei lokalisiertem neuropathischem Schmerz erste Wahl — topisch wirksam und im Alter gut verträglich.",
+      "choices": {
+        "A": "Die Bläschen sind abgeheilt, die Virusreplikation vorbei. Virostatika helfen dann nicht mehr.",
+        "B": "Abwarten ist falsch: Je länger der Schmerz besteht, desto stärker die Chronifizierung. Behandelt wird sofort.",
+        "C": "NSAR wirken auf neuropathischen Schmerz kaum und bringen im Alter Nieren-, Magen- und Herzrisiken.",
+        "E": "Die Zoster-Impfung wird in Deutschland ab 60 Jahren empfohlen, bei Risikofaktoren schon ab 50."
+      }
+    },
+    "01ef-904c-ae462bf8-8800-202f9821dfa9": {
+      "correct": "Der wechselseitige Gesäßschmerz durch Sakroiliitis ist ein klassisches Merkmal des entzündlichen Rückenschmerzes bei axialer Spondyloarthritis.",
+      "choices": {
+        "A": "Der Beginn liegt typischerweise lumbal und im Sakroiliakalgelenk; die Halswirbelsäule ist erst im Spätverlauf betroffen.",
+        "C": "Genau umgekehrt: Entzündlicher Rückenschmerz bessert sich bei Bewegung und verschlechtert sich in Ruhe, besonders nachts und in der zweiten Nachthälfte.",
+        "D": "Ein umschriebener Druckschmerz der Brustwirbelsäule ist unspezifisch und eher mechanisch.",
+        "E": "Eine Schwellung der sternokostalen Übergänge spricht für ein Tietze-Syndrom."
+      }
+    },
+    "01ef-904c-c418fe9c-ac00-c4d347acdd12": {
+      "correct": "Die Agranulozytose ist die gefürchtete, seltene Nebenwirkung von Metamizol. Patienten müssen auf Fieber und Halsschmerzen als Warnzeichen hingewiesen werden; dann sofort Blutbild.",
+      "choices": {
+        "A": "Gabapentin und Pregabalin wirken nicht anticholinerg — typisch sind Müdigkeit, Schwindel, Ödeme und Gewichtszunahme. Anticholinerg sind die Trizyklika.",
+        "C": "Das Gegenteil ist richtig: Mehrere zentral dämpfende Substanzen addieren ihre Nebenwirkungen — Sedierung, Atemdepression, Sturzgefahr.",
+        "D": "Ein Protonenpumpenhemmer schützt nur den Magen. Nierenschädigung, Blutdruckanstieg und kardiovaskuläre Risiken der NSAR bleiben bestehen.",
+        "E": "Inhaltlich identisch mit C und aus demselben Grund falsch."
+      }
+    },
+    "01ef-904c-ee76d402-aa00-214719db1a55": {
+      "correct": "Die KUSS ist für Kinder bis etwa vier Jahre validiert und beobachtet Weinen, Mimik, Rumpf- und Beinhaltung sowie motorische Unruhe — passend für ein zweijähriges Kind, das seinen Schmerz nicht angeben kann.",
+      "choices": {
+        "A": "Gesichterskalen setzen Selbsteinschätzung voraus und sind erst ab etwa vier Jahren sinnvoll.",
+        "C": "Codein ist bei Kindern nach Tonsillektomie kontraindiziert — Todesfälle bei ultraschnellen CYP2D6-Metabolisierern. Tramadol ist als Prodrug aus demselben Grund kritisch.",
+        "D": "Metamizol ist ab drei Monaten zugelassen und nach HNO-Eingriffen sogar bevorzugt, weil es die Thrombozytenfunktion nicht hemmt.",
+        "E": "Motorische Unruhe ist beim Kleinkind unspezifisch: Sie kann Schmerz bedeuten, ebenso Hypoxie, volle Blase oder Aufwachdelir. Diese Ursachen gehören vor jede weitere Opioidgabe ausgeschlossen."
+      }
+    },
+    "01ef-904d-09976f62-b600-f0c47c38af49": {
+      "correct": "Fentanyl diffundiert durch die Haut und wird über die subkutanen Gefäße systemisch aufgenommen. In der Haut bildet sich ein Depot — daher der verzögerte Wirkbeginn und das Nachwirken nach Entfernen.",
+      "choices": {
+        "A": "Das ist der Vorteil des Pflasters: Es umgeht den Magen-Darm-Trakt vollständig.",
+        "B": "Unter konstanten Bedingungen ist die Abgabe gut vorhersehbar — deshalb überhaupt die feste Wechselfrequenz.",
+        "D": "Umgekehrt: Nur ausreichend lipophile Substanzen durchdringen die Hornschicht. Genau deshalb eignen sich Fentanyl und Buprenorphin, Morphin dagegen nicht.",
+        "E": "Fieber, Wärmflasche oder Sauna steigern Durchblutung und Freisetzung erheblich und können eine Überdosierung auslösen — die Steuerbarkeit ist gerade nicht unabhängig davon."
+      }
+    },
+    "01ef-904d-22693962-af00-71a75c257b92": {
+      "correct": "Nalbuphin ist ein gemischter Agonist-Antagonist: κ-Agonist und µ-Antagonist. Dadurch kann es die Wirkung reiner µ-Agonisten aufheben — nützlich bei opioidbedingtem Juckreiz oder Übersedierung, riskant bei laufender Opioidtherapie.",
+      "choices": {
+        "A": "Buprenorphin ist ein Partialagonist am µ-Rezeptor und wird sublingual sowie transdermal gegeben, nicht ausschließlich intravenös.",
+        "B": "Fentanyl, Sufentanil und Remifentanil sind vollsynthetisch. Natürliche Alkaloide des Schlafmohns sind Morphin und Codein.",
+        "C": "Fentanyl-Pflaster sind für Säuglinge nicht zugelassen; sie setzen eine bestehende Opioidtoleranz voraus.",
+        "D": "Der Ceiling-Effekt ist zwar real, aber die Frage zielt auf das Rezeptorprofil — und praktisch bedeutet die Deckelung eine Begrenzung der Wirksamkeit, nicht generell einen Vorteil."
+      }
+    },
+    "01ef-904d-3b663230-8b00-5e0fad839719": {
+      "correct": "Bei einem 81-Jährigen mit seit Monaten zunehmender, ins Bein ausstrahlender Schmerzsymptomatik liegt eine neuropathische Komponente vor. Antikonvulsiva wie Gabapentin oder Pregabalin und niedrig dosierte Trizyklika sind hier die passende Schmerzmodulation.",
+      "choices": {
+        "A": "NSAR wirken auf den neuropathischen Anteil kaum und sind im hohen Alter wegen Nieren-, Magen- und Herzrisiken problematisch.",
+        "B": "Infiltrationen können vorübergehend helfen, sind aber keine Dauerlösung und nicht der erste Schritt bei einer über Monate bestehenden Symptomatik.",
+        "C": "Operiert wird bei relevanter Parese, Blasen-Mastdarm-Störung oder unerträglichem, konservativ nicht beherrschbarem Schmerz — nicht primär.",
+        "D": "Systemische Glukokortikoide sind bei degenerativen Wirbelsäulenbeschwerden keine Dauertherapie und im Alter mit Diabetes, Osteoporose und Delir belastet."
+      }
+    },
+    "01ef-904d-632fddca-b900-90ee94ff6a17": {
+      "correct": "Gesucht war das, was **keine** Red Flag ist. Häufiger werdende, aber unveränderte Migräneanfälle ohne neue Symptome sprechen für eine Zunahme des bekannten Leidens — bedenkenswert wegen Übergebrauchskopfschmerz, aber kein Alarmzeichen.",
+      "choices": {
+        "A": "Fokale neurologische Ausfälle sind eine klare Red Flag und erfordern sofortige Bildgebung.",
+        "B": "Ein erstmaliger, ungewohnter Kopfschmerz ist immer abklärungsbedürftig — besonders schlagartig einsetzend (Subarachnoidalblutung).",
+        "C": "Übelkeit und Erbrechen ohne Migräne können auf Hirndruck hinweisen.",
+        "D": "Nach einem Schädel-Hirn-Trauma kann sich auch ohne äußere Verletzung ein chronisch subdurales Hämatom entwickeln, gerade bei Älteren und unter Antikoagulation."
+      }
+    },
+    "01ef-904d-85fd846a-af00-593f2dcd977d": {
+      "correct": "Sumatriptan und Zolmitriptan als Nasenspray sind ab zwölf Jahren zur Akuttherapie zugelassen — die Standardoption in dieser Altersgruppe.",
+      "choices": {
+        "A": "„Immer medikamentös\" ist falsch: Reizabschirmung, Ruhe, Schlaf und Kälte gehören dazu, bei Kindern oft sogar an erster Stelle.",
+        "B": "Fentanylpflaster sind ein starkes Opioid für chronische Schmerzen — bei Migräne grob falsch.",
+        "C": "Domperidon ist ein Antiemetikum gegen die Begleitübelkeit, kein Migränemittel. Die Dosisangabe wäre zudem grotesk hoch.",
+        "D": "Opioide sind bei Migräne nicht indiziert: Sie wirken schlecht, fördern Übergebrauchskopfschmerz und die Chronifizierung."
+      }
+    },
+    "01ef-904d-b4bec174-8200-0b2f424f4bee": {
+      "correct": "Die mikrovaskuläre Dekompression nach Jannetta beseitigt die Ursache — den Gefäß-Nerven-Kontakt — und ist damit das einzige kausale Verfahren. Alle anderen Optionen sind symptomatisch oder destruierend.",
+      "choices": {
+        "A": "Umgekehrt: Carbamazepin ist Mittel der ersten Wahl und steht am Anfang, lange vor jeder Operation.",
+        "B": "Opioide wirken bei der Trigeminusneuralgie schlecht und sind nicht erste Wahl. Alternativen sind Oxcarbazepin, Lamotrigin oder Baclofen.",
+        "C": "Ein fehlender Kontakt im MRT schließt die klassische Form nicht aus — die Auflösung reicht nicht immer, und die Diagnose ist primär klinisch.",
+        "D": "Die perkutane Rhizotomie ist zwar weniger invasiv, aber weniger langzeiteffektiv und geht mit Sensibilitätsverlust bis hin zur Anaesthesia dolorosa einher."
+      }
+    },
+    "01f0-413d-b918f6d0-a400-364b2611a979": {
+      "correct": "Das CRPS kann zu schwersten motorischen Störungen führen — Kraftverlust, Dystonie, Tremor und Kontrakturen bis zur funktionslosen Extremität.",
+      "choices": {
+        "A": "Das CRPS ist keine Folge fehlerhafter Behandlung, sondern eine eigenständige Komplikation, die auch nach korrekt versorgten Verletzungen auftritt.",
+        "C": "Nach distaler Radiusfraktur liegt die Häufigkeit bei mehreren Prozent, je nach Studie bis über 10 % — deutlich mehr als 1 %.",
+        "D": "Gerade die Frühphase ist entzündlich geprägt: Schwellung, Überwärmung, Rötung, erhöhte Zytokine — deshalb wirken Glukokortikoide früh.",
+        "E": "Das ist ein Kernmerkmal: Die Symptomatik steht in keinem Verhältnis zum auslösenden Trauma. Eine Bagatellverletzung kann ein schweres CRPS auslösen."
+      }
+    },
+    "01f0-413e-71d7b0e4-9a00-4d1e8877a6a9": {
+      "correct": "Eine Arthritis gehört nicht zur Fibromyalgie: Es fehlen Gelenkschwellung, Überwärmung und erhöhte Entzündungswerte. Die Gelenke sind schmerzhaft, aber nicht entzündet.",
+      "choices": {
+        "B": "Tender Points waren das klassische Kriterium — heute durch den Widespread Pain Index ersetzt, gehören aber zum Bild.",
+        "C": "Der generalisierte Schmerz in mehreren Körperregionen über mindestens drei Monate ist das Definitionsmerkmal.",
+        "D": "Erschöpfung und nicht erholsamer Schlaf sind Kernsymptome.",
+        "E": "Depressive Symptome und Angst sind häufige Begleiter."
+      }
+    },
+    "01f0-413f-ffb99134-9400-3dbdefd54061": {
+      "correct": "Cicely Saunders' „Total Pain\" beschreibt Schmerz als Summe aus körperlicher, seelischer, sozialer und spiritueller Dimension — Grundgedanke der Palliativmedizin und Begründung dafür, warum Analgetika allein oft nicht ausreichen.",
+      "choices": {
+        "A": "Das beschreibt die multimodale oder balancierte Analgesie, ein rein pharmakologisches Prinzip.",
+        "B": "Einen „Ganzkörperschmerz\" als Diagnose meint das Konzept nicht — „total\" bezieht sich auf die Dimensionen des Erlebens, nicht auf die Ausdehnung am Körper.",
+        "D": "Palliative Sedierung ist eine eigene, klar geregelte Maßnahme am Lebensende und hat mit dem Konzept nichts zu tun.",
+        "E": "Es ist keine Alternative zum WHO-Stufenschema, sondern ein übergeordnetes Verständnismodell."
+      }
+    },
+    "01f0-4140-84d49aa2-9300-9ec54b8b968c": {
+      "correct": "Schmerz ist ein subjektives Erleben und von außen nur schwer objektivierbar — deshalb ist die Selbsteinschätzung des Patienten der Maßstab und wird mit Skalen wiederholt erhoben.",
+      "choices": {
+        "B": "Eine Monotherapie mit Paracetamol reicht postoperativ nicht aus; Paracetamol ist das schwächste Nicht-Opioid.",
+        "C": "Postoperative Schmerztherapie wird geplant, idealerweise schon vor dem Eingriff.",
+        "D": "Gerade weil die Wirkung nicht sicher ist, gehört die Reevaluation zum Standard — messen, behandeln, erneut messen.",
+        "E": "Schmerz zu belassen ist überholt: Unbehandelter Schmerz behindert Atmung und Mobilisation und fördert die Chronifizierung."
+      }
+    },
+    "01f0-5114-da78ecc2-a100-68e6bc19f011": {
+      "correct": "Monatelanger Schmerz ohne ausreichenden organischen Befund, beginnend im zeitlichen Zusammenhang mit einer belastenden Lebensveränderung, entspricht der anhaltenden somatoformen Schmerzstörung.",
+      "choices": {
+        "A": "Für eine Alkoholabhängigkeit fehlen die Kriterien — Kontrollverlust, Toleranz, Entzug.",
+        "C": "Die histrionische Persönlichkeitsstörung ist ein überdauerndes Muster von Dramatisierung und Aufmerksamkeitssuche, keine Schmerzdiagnose.",
+        "D": "Eine depressive Störung kann begleitend bestehen, erklärt aber den im Vordergrund stehenden Schmerz nicht als Leitsymptom.",
+        "E": "Die somatoforme autonome Funktionsstörung betrifft vegetativ innervierte Organe — Herz, Magen, Darm —, nicht den Bewegungsapparat."
+      }
+    },
+    "01f0-5115-859d1de4-8d00-7ca9eff8989a": {
+      "correct": "Gesucht war die falsche Aussage. Depressive Symptome sind bei psychosomatischen Schmerzsyndromen gerade häufig — Schmerz und Depression verstärken sich gegenseitig und teilen Botenstoffsysteme.",
+      "choices": {
+        "A": "Das stimmt: Nicht ausgedrückte Wut und Angst können sich körperlich äußern.",
+        "B": "Das stimmt und ist therapeutisch zentral: Die einseitig organische Deutung führt zu immer neuer Diagnostik.",
+        "C": "Das stimmt: Übermäßiger Analgetikagebrauch ist häufig und kann selbst zum Problem werden.",
+        "E": "Das stimmt: Überfürsorgliches Verhalten verstärkt Schonung und Krankheitsverhalten — operante Konditionierung."
+      }
+    },
+    "01f0-5116-10fb7dea-bd00-6be4eef21225": {
+      "correct": "Intraartikuläre Glukokortikoide wirken kurzfristig gut auf Entzündung und Schmerz, ein anhaltender Langzeiteffekt bleibt aber meist aus — deshalb begrenzte Wiederholung und Kombination mit Physiotherapie.",
+      "choices": {
+        "A": "Eine Vollnarkose ist nicht nötig; die Punktion erfolgt in Lokalanästhesie oder ganz ohne.",
+        "B": "Das Gegenteil gilt: Sterile Kautelen sind Pflicht, da eine iatrogene Gelenkinfektion eine schwere Komplikation ist.",
+        "D": "Aufklärung über Risiken wie Infektion, Blutung und Knorpelschaden ist rechtlich zwingend.",
+        "E": "Trübes Punktat ist der wichtigste Hinweis auf eine septische Arthritis und muss zu Zellzahl, Gram-Präparat und Kultur — keinesfalls verworfen werden."
+      }
+    },
+    "01f0-5116-f52f86b4-ac00-96f53bcf7753": {
+      "correct": "Gesucht war die falsche Aussage. Opioide sind bei neuropathischem Schmerz nicht erste Wahl — das sind Antikonvulsiva wie Gabapentin und Pregabalin sowie Antidepressiva wie Amitriptylin oder Duloxetin.",
+      "choices": {
+        "A": "Das stimmt: Zentrale Ursachen wie Schlaganfall oder MS erzeugen neuropathischen Schmerz.",
+        "B": "Das stimmt: Kompressionssyndrome und Polyneuropathien, allen voran die diabetische, sind die häufigsten Ursachen.",
+        "D": "Das stimmt: Capsaicin-Pflaster sind eine etablierte topische Option bei lokalisiertem neuropathischem Schmerz.",
+        "E": "Das stimmt: Die Störung kann auf allen Ebenen liegen — Entstehung, Weiterleitung und zentrale Verarbeitung."
+      }
+    },
+    "01f0-5117-723e3268-9700-3310a0c14e57": {
+      "correct": "Spiegeltherapie und funktionelles Training sollen früh beginnen — sie wirken der maladaptiven Reorganisation im somatosensorischen Kortex entgegen, die dem Phantomschmerz zugrunde liegt.",
+      "choices": {
+        "A": "Neurome werden nur bei symptomatischen Beschwerden operiert, keineswegs in jedem Fall.",
+        "B": "Opioide wirken beim Phantomschmerz begrenzt und sind nicht pauschal indiziert; die Therapie ist multimodal.",
+        "C": "Phantomschmerz ist neurobiologisch begründet — periphere, spinale und kortikale Umbauprozesse. Psychische Faktoren modulieren ihn, verursachen ihn aber nicht.",
+        "E": "Typisch sind gerade attackenartige, einschießende oder brennende Schmerzen wechselnder Intensität, nicht ein gleichbleibender Dauerschmerz."
+      }
+    },
+    "01f0-5117-e71b7064-a900-c0cb8476ac32": {
+      "correct": "„Anpassungstraining\" ist kein etabliertes Verfahren der Schmerzmedizin — die übrigen vier sind fester Bestandteil multimodaler Programme.",
+      "choices": {
+        "A": "Quotentraining ist zeit- statt schmerzabhängige Aktivitätssteigerung und durchbricht das Schon-Überlastungs-Muster.",
+        "B": "Biofeedback macht Muskelspannung oder Durchblutung sichtbar und damit beeinflussbar — etabliert bei Spannungskopfschmerz und Migräne.",
+        "C": "Entspannungsverfahren wie die progressive Muskelrelaxation nach Jacobson sind Standard.",
+        "D": "Die kognitive Verhaltenstherapie ist das am besten belegte psychologische Verfahren bei chronischem Schmerz."
+      }
     }
   }
 }
