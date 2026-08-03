@@ -792,6 +792,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   const [highlightMode, setHighlightMode] = useState(false);
   const [examFinished, setExamFinished] = useState(false);
   const [studyFinished, setStudyFinished] = useState(false);
+  // True once a session has produced a score screen. Browsing back into the
+  // questions from there has to leave a way back — in exam mode there was none
+  // at all, since both header buttons hide after handing in.
+  const [resultsReady, setResultsReady] = useState(false);
   const [sessionStartedAt, setSessionStartedAt] = useState(now());
   const [searchQuery, setSearchQuery] = useState("");
   const [newFolderName, setNewFolderName] = useState("");
@@ -1828,6 +1832,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setHighlightMode(false);
     setExamFinished(false);
     setStudyFinished(false);
+    setResultsReady(false);
     setQueueOpen(false);
     setReportOpen(false);
     setExamSubmitOpen(false);
@@ -1919,6 +1924,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setHighlightMode(false);
     setExamFinished(false);
     setStudyFinished(false);
+    setResultsReady(false);
     setSessionStartedAt(startedAt);
     setActiveSessionLogId(sessionId);
     setView("trainer");
@@ -2199,6 +2205,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     // Without this the exam only revealed the answers and stopped — the score
     // screen (and with it the total time) never appeared.
     setStudyFinished(true);
+    setResultsReady(true);
   }
 
 
@@ -2666,6 +2673,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setMode("study");
     setExamFinished(false);
     setStudyFinished(false);
+    setResultsReady(false);
     setView("trainer");
   }
 
@@ -3061,6 +3069,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setHighlightMode(false);
     setExamFinished(false);
     setStudyFinished(false);
+    setResultsReady(false);
     setSessionStartedAt(session.startedAt);
     setActiveSessionLogId(session.id);
     setQueueOpen(false);
@@ -3211,7 +3220,15 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                 Abgeben
               </Button>
             ) : null}
-            {mode !== "exam" && !studyFinished ? (
+            {/* The way back to the score screen after clicking into a question
+                from its review grid. */}
+            {resultsReady && !studyFinished ? (
+              <Button onClick={() => setStudyFinished(true)} variant="primary">
+                <ClipboardList size={16} aria-hidden="true" />
+                Ergebnis
+              </Button>
+            ) : null}
+            {mode !== "exam" && !studyFinished && !resultsReady ? (
               <Button onClick={submitStudySession} variant="primary">
                 <Check size={16} aria-hidden="true" />
                 Abgeben
@@ -3531,6 +3548,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     // As long as questions are still unanswered, the session stays resumable
     // ("Fortführen") and everything keeps being graded into the same log.
     setStudyFinished(true);
+    setResultsReady(true);
   }
 
   function renderExamSubmitGate() {
