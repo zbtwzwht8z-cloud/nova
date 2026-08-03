@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/components/ui";
 import type { Question } from "@/lib/types";
 
 // Thresholds are calibrated against the real distribution of the bank, not
@@ -40,6 +41,11 @@ function toneFor(level: number) {
   return level === 3 ? "var(--warning)" : "var(--danger)";
 }
 
+// A gauge needle rather than a bar chart: rising bars read as signal strength,
+// which is what they mean everywhere else on a screen.
+const GAUGE_R = 9;
+const GAUGE_LEN = Math.PI * GAUGE_R;
+
 function DifficultyMeter({ question }: { question: Question }) {
   const difficulty = difficultyOf(question);
 
@@ -48,25 +54,40 @@ function DifficultyMeter({ question }: { question: Question }) {
   }
 
   const tone = toneFor(difficulty.level);
+  // Needle sits in the middle of its band, so the five levels are visibly
+  // distinct instead of the first one pointing at hard-left "empty".
+  const fraction = (difficulty.level - 0.5) / 5;
+  const angle = Math.PI * (1 - fraction);
+  const tipX = 12 + GAUGE_R * Math.cos(angle);
+  const tipY = 12 - GAUGE_R * Math.sin(angle);
 
   return (
     <span
       aria-label={`Schwierigkeit: ${difficulty.label}`}
-      className="flex h-4 items-end gap-[2px]"
+      className="flex items-center"
       title={`Schwierigkeit: ${difficulty.label} — ${difficulty.percent}% von ${difficulty.answered.toLocaleString(
         "de-DE"
       )} Antworten waren richtig`}
     >
-      {[1, 2, 3, 4, 5].map((step) => (
-        <span
-          className="w-[3px] rounded-[1px] transition-colors"
-          key={step}
-          style={{
-            height: `${step * 20}%`,
-            backgroundColor: step <= difficulty.level ? tone : "var(--surface-muted)"
-          }}
+      <svg className="h-[15px] w-[24px]" viewBox="0 0 24 15">
+        <path
+          d={`M ${12 - GAUGE_R} 12 A ${GAUGE_R} ${GAUGE_R} 0 0 1 ${12 + GAUGE_R} 12`}
+          fill="none"
+          stroke="var(--surface-muted)"
+          strokeLinecap="round"
+          strokeWidth="3"
         />
-      ))}
+        <path
+          d={`M ${12 - GAUGE_R} 12 A ${GAUGE_R} ${GAUGE_R} 0 0 1 ${12 + GAUGE_R} 12`}
+          fill="none"
+          stroke={tone}
+          strokeDasharray={GAUGE_LEN}
+          strokeDashoffset={GAUGE_LEN * (1 - fraction)}
+          strokeLinecap="round"
+          strokeWidth="3"
+        />
+        <circle cx={tipX} cy={tipY} fill={tone} r="2.4" stroke="var(--surface)" strokeWidth="1.2" />
+      </svg>
     </span>
   );
 }
@@ -80,34 +101,46 @@ function RepeatMeter({ question }: { question: Question }) {
 
   const count = Math.max(1, repeats.count);
   const isRepeat = count > 1;
-  const shown = Math.min(count, 5);
 
+  // One glyph for both states rather than two: the loop always means "times
+  // this has been asked", the number says how often, and the colour separates a
+  // one-off from a returning question. A separate "new" icon just read as a
+  // loading spinner at this size.
   return (
     <span
       aria-label={
         isRepeat ? `Altfrage aus ${count} Klausuren` : "Neu — bisher eine Klausur"
       }
-      className="flex h-4 items-center gap-[3px]"
+      className="flex items-center gap-1"
+      style={{ color: isRepeat ? "var(--accent)" : "var(--text-subtle)" }}
       title={
         isRepeat
           ? `Altfrage — kam in ${count} Klausuren vor: ${repeats.terms.join(", ")}`
           : `Neu — bisher nur in ${repeats.terms[0] || "dieser Klausur"}`
       }
     >
-      {Array.from({ length: shown }, (_, index) => (
-        <span
-          className="h-[7px] w-[7px] rounded-full"
-          key={index}
-          style={
-            isRepeat
-              ? { backgroundColor: "var(--accent)" }
-              : { border: "1.5px solid var(--text-subtle)" }
-          }
-        />
-      ))}
-      {count > 5 ? (
-        <span className="text-label font-medium text-accent">+{count - 5}</span>
-      ) : null}
+      <svg
+        className="h-[14px] w-[14px]"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2.2"
+        viewBox="0 0 24 24"
+      >
+        <path d="M17 2.1l4 4-4 4" />
+        <path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8" />
+        <path d="M7 21.9l-4-4 4-4" />
+        <path d="M21 11.8v2a4 4 0 0 1-4 4H4.2" />
+      </svg>
+      <span
+        className={cn(
+          "text-[11px] leading-none tabular-nums",
+          isRepeat ? "font-semibold" : "font-medium"
+        )}
+      >
+        {count}
+      </span>
     </span>
   );
 }
