@@ -1234,10 +1234,17 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     }
 
     if (mode === "review") {
-      return reviewAnswers[question.id] || draftAnswers[question.id];
+      return draftAnswers[question.id] || reviewAnswers[question.id];
     }
 
-    return progress.answers[question.id]?.selected || draftAnswers[question.id];
+    // While the solution is still hidden, a fresh pick has to win over the
+    // stored one — otherwise the first (wrong) answer kept showing as selected
+    // and pressing another number appeared to do nothing.
+    const stored = progress.answers[question.id]?.selected;
+
+    return isRevealedInSession(question)
+      ? stored || draftAnswers[question.id]
+      : draftAnswers[question.id] || stored;
   }
 
   // Whether the question is done *for the running session*. Review sessions
@@ -1683,10 +1690,6 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       }
 
       const choiceId = question.choices[index].id;
-
-      if (isChoiceExcluded(question.id, choiceId)) {
-        return;
-      }
 
       event.preventDefault();
       selectChoice(question, choiceId);
