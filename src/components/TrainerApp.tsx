@@ -786,6 +786,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   // been answered before, so the stored answer can't decide whether to reveal —
   // that would hand back the solution instead of letting them be re-attempted.
   const [reviewAnswers, setReviewAnswers] = useState<Record<string, string>>({});
+  // Wrong options already tried in study mode, and questions where the user
+  // asked for the solution. Together they decide whether the correct answer is
+  // on screen yet — without them a wrong pick revealed it immediately and a
+  // second attempt was pointless.
+  const [wrongTries, setWrongTries] = useState<Record<string, string[]>>({});
+  const [gaveUp, setGaveUp] = useState<Record<string, boolean>>({});
   const [draftAnswers, setDraftAnswers] = useState<Record<string, string>>({});
   const [excludedChoices, setExcludedChoices] = useState<Record<string, string[]>>({});
   const [questionHighlights, setQuestionHighlights] = useState<Record<string, string[]>>(
@@ -1271,12 +1277,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       return;
     }
 
-    if (mode === "review" && reviewAnswers[question.id]) {
-      goToNextQuestion();
-      return;
-    }
+    const alreadySolved =
+      mode !== "exam" && progress.answers[question.id]?.selected === question.answer;
 
-    if (mode === "study" && progress.answers[question.id]) {
+    if (alreadySolved || (mode !== "exam" && gaveUp[question.id])) {
       goToNextQuestion();
       return;
     }
@@ -1302,6 +1306,18 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     } else {
       if (mode === "review") {
         setReviewAnswers((current) => ({ ...current, [question.id]: selected }));
+      }
+
+      // Outside the exam a wrong pick is marked and explained, but the solution
+      // stays hidden so there is still something to work out on the next try.
+      if (selected !== question.answer) {
+        setWrongTries((current) => {
+          const tried = current[question.id] || [];
+
+          return tried.includes(selected)
+            ? current
+            : { ...current, [question.id]: [...tried, selected] };
+        });
       }
 
       recordAnswer(question, selected);
@@ -1828,6 +1844,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setActiveIndex(0);
     setExamAnswers({});
     setReviewAnswers({});
+    setWrongTries({});
+    setGaveUp({});
     setDraftAnswers({});
     setExcludedChoices({});
     setQuestionHighlights({});
@@ -1920,6 +1938,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setActiveIndex(0);
     setExamAnswers({});
     setReviewAnswers({});
+    setWrongTries({});
+    setGaveUp({});
     setDraftAnswers({});
     setExcludedChoices({});
     setQuestionHighlights({});
@@ -2039,9 +2059,13 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   function recordAnswer(question: Question, selected: string, answerMode = mode) {
     patchProgress((current) => {
       const previous = current.answers[question.id];
+      // A retry updates which option is shown as picked, but never the verdict:
+      // the first attempt is what counts, otherwise a second guess would erase
+      // the mistake from the stats and from "Fehler üben".
+      const isRetry = answerMode !== "exam" && Boolean(previous);
       const answer: StoredAnswer = {
         selected,
-        correct: selected === question.answer,
+        correct: isRetry ? previous!.correct : selected === question.answer,
         attempts: (previous?.attempts || 0) + 1,
         answeredAt: now(),
         mode: answerMode === "exam" ? "exam" : "study",
@@ -3988,12 +4012,19 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
     const storedAnswer = progress.answers[question.id];
     const currentSelected = selectedChoiceFor(question);
+    const tried = wrongTries[question.id] || [];
     // In review the question counts as open until it's answered again in this
     // session, so the old (wrong) answer and the solution stay hidden.
     const settled =
       mode === "review" ? Boolean(reviewAnswers[question.id]) : Boolean(storedAnswer);
-    const revealed = mode === "exam" ? examFinished : settled;
-    const locked = mode !== "exam" && settled;
+    // Outside the exam the solution appears once it has actually been picked,
+    // or once the user asks for it — a wrong pick alone no longer gives it away,
+    // which is what makes another attempt worth anything.
+    const solved = settled && storedAnswer?.selected === question.answer;
+    const revealed =
+      mode === "exam" ? examFinished : solved || Boolean(gaveUp[question.id]);
+    const locked = mode !== "exam" && revealed;
+    const retrying = mode !== "exam" && !revealed && tried.length > 0;
     const image = proxiedImage(question.imageUrl);
     const isBookmarked = bookmarkedIds.has(question.id);
     const highlights = questionHighlights[question.id] || [];
@@ -4047,13 +4078,15 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             const correct = question.answer === choice.id;
             const excluded = isChoiceExcluded(question.id, choice.id);
 
-            const distractorNote = revealed
-              ? choice.id === question.answer
-                ? question.distractors?.correct
-                : selected
-                  ? question.distractors?.choices?.[choice.id]
-                  : undefined
-              : undefined;
+            const distractorNote = tried.includes(choice.id)
+              ? question.distractors?.choices?.[choice.id]
+              : revealed
+                ? choice.id === question.answer
+                  ? question.distractors?.correct
+                  : selected
+                    ? question.distractors?.choices?.[choice.id]
+                    : undefined
+                : undefined;
 
             return (
               <div className="grid gap-1" key={choice.id}>
@@ -4069,9 +4102,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                   revealed &&
                     correct &&
                     "border-accent bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))]",
-                  revealed &&
-                    selected &&
-                    !correct &&
+                  ((revealed && selected && !correct) || tried.includes(choice.id)) &&
                     "border-danger bg-[color-mix(in_srgb,var(--danger)_10%,var(--surface))]"
                 )}
               >
@@ -4097,7 +4128,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                   <span
                     className={cn(
                       "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-body-sm font-medium transition-colors",
-                      selected && !revealed
+                      tried.includes(choice.id)
+                        ? "bg-danger text-accent-foreground"
+                        : selected && !revealed
                         ? "bg-accent text-accent-foreground"
                         : revealed && correct
                           ? "bg-accent text-accent-foreground"
@@ -4161,8 +4194,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                       ? "Warum das stimmt"
                       : "Warum das nicht stimmt"}
                     <span aria-hidden="true">·</span>
-                    <span title="Von der App verfasst, nicht aus einer geprüften Quelle übernommen. Im Zweifel gilt die Vorlesung.">
-                      KI-generiert
+                    <span title="Von einem Sprachmodell anhand der Vorlesungsfolien verfasst, nicht aus einer geprüften Quelle übernommen. Im Zweifel gilt die Vorlesung.">
+                      KI · {question.distractors?.model || "unbekanntes Modell"}
                     </span>
                   </span>
                   <p
@@ -4179,17 +4212,37 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         </div>
 
         {!revealed ? (
-          <Button
-            disabled={!currentSelected}
-            onClick={() => submitChoice(question)}
-            variant="primary"
-          >
-            {mode === "exam" && examAnswers[question.id]
-              ? "Weiter"
-              : mode === "exam"
-                ? "Auswahl bestätigen"
-                : "Antwort abgeben"}
-          </Button>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              disabled={!currentSelected || tried.includes(currentSelected)}
+              onClick={() => submitChoice(question)}
+              variant="primary"
+            >
+              {mode === "exam" && examAnswers[question.id]
+                ? "Weiter"
+                : mode === "exam"
+                  ? "Auswahl bestätigen"
+                  : retrying
+                    ? "Nochmal versuchen"
+                    : "Antwort abgeben"}
+            </Button>
+
+            {retrying ? (
+              <>
+                <Button
+                  onClick={() => setGaveUp((current) => ({ ...current, [question.id]: true }))}
+                  variant="ghost"
+                >
+                  Lösung zeigen
+                </Button>
+                <span className="text-body-sm text-text-muted">
+                  {tried.length === 1
+                    ? "Ein Versuch daneben — die Wertung steht schon fest, aber probier es ruhig nochmal."
+                    : `${tried.length} Versuche daneben.`}
+                </span>
+              </>
+            ) : null}
+          </div>
         ) : null}
 
         {currentSelected && revealed ? (
@@ -4287,15 +4340,20 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4 text-body-sm text-text-muted">
           <span>{question.source || question.subject}</span>
-          <Button
-            className="px-3"
-            disabled={!storedAnswer}
-            onClick={clearCurrentAnswer}
-            variant="ghost"
-          >
-            <RotateCcw size={17} aria-hidden="true" />
-            <span>Antwort löschen</span>
-          </Button>
+          {/* Only while an exam is still open, where nothing has been committed
+              yet. In study mode clearing would reset a wrong answer and let a
+              second attempt count as correct — the score has to stand. */}
+          {mode === "exam" && !examFinished ? (
+            <Button
+              className="px-3"
+              disabled={!storedAnswer && !examAnswers[question.id]}
+              onClick={clearCurrentAnswer}
+              variant="ghost"
+            >
+              <RotateCcw size={17} aria-hidden="true" />
+              <span>Antwort löschen</span>
+            </Button>
+          ) : null}
         </footer>
       </article>
     );
@@ -4431,15 +4489,20 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4 text-body-sm text-text-muted">
           <span>{question.source || question.subject}</span>
-          <Button
-            className="px-3"
-            disabled={!storedAnswer}
-            onClick={clearCurrentAnswer}
-            variant="ghost"
-          >
-            <RotateCcw size={17} aria-hidden="true" />
-            <span>Antwort löschen</span>
-          </Button>
+          {/* Only while an exam is still open, where nothing has been committed
+              yet. In study mode clearing would reset a wrong answer and let a
+              second attempt count as correct — the score has to stand. */}
+          {mode === "exam" && !examFinished ? (
+            <Button
+              className="px-3"
+              disabled={!storedAnswer && !examAnswers[question.id]}
+              onClick={clearCurrentAnswer}
+              variant="ghost"
+            >
+              <RotateCcw size={17} aria-hidden="true" />
+              <span>Antwort löschen</span>
+            </Button>
+          ) : null}
         </footer>
       </article>
     );

@@ -2,11 +2,27 @@ import rawQuestions from "../../data/questions.json";
 import schmerzmedizin from "../../data/explanations/schmerzmedizin.json";
 import type { Question, QuestionIndex } from "./types";
 
+type ExplanationFile = {
+  _model?: string;
+  questions: Record<string, NonNullable<Question["distractors"]>>;
+};
+
 // Merged in at load rather than stored on the question, since questions.json is
 // rewritten wholesale by the export script and would drop anything added here.
-const EXPLANATIONS: Record<string, Question["distractors"]> = {
-  ...(schmerzmedizin as Record<string, NonNullable<Question["distractors"]>>)
-};
+// Each file names the model that wrote its texts; per-entry overrides win.
+function collect(...files: ExplanationFile[]) {
+  const merged: Record<string, NonNullable<Question["distractors"]>> = {};
+
+  for (const file of files) {
+    for (const [id, entry] of Object.entries(file.questions || {})) {
+      merged[id] = { ...entry, model: entry.model || file._model };
+    }
+  }
+
+  return merged;
+}
+
+const EXPLANATIONS = collect(schmerzmedizin as ExplanationFile);
 
 function assertQuestion(question: Question, index: number) {
   const prefix = `Question ${index + 1}`;

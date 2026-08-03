@@ -40,7 +40,13 @@ export type Question = {
   // right one is right. Kept in data/explanations/ rather than here, because
   // questions.json is rewritten wholesale on every sync. Author-written, so the
   // UI labels it as generated rather than sourced.
-  distractors?: { correct?: string; choices: Record<string, string> };
+  distractors?: {
+    correct?: string;
+    choices: Record<string, string>;
+    // Which model wrote them, shown in the label so it's clear what produced
+    // the text and when it's worth re-checking.
+    model?: string;
+  };
 };
 
 export type QuestionMetrics = {
