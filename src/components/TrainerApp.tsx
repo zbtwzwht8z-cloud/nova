@@ -1179,8 +1179,37 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       .catch(() => undefined);
   }
 
+  // Advancing past the last question used to be a dead end. Now it loops back
+  // to the first question still open, and once nothing is open it hands in.
   function goToNextQuestion() {
-    setActiveIndex((current) => Math.min(sessionQuestions.length - 1, current + 1));
+    if (activeIndex < sessionQuestions.length - 1) {
+      setActiveIndex(activeIndex + 1);
+      return;
+    }
+
+    const firstOpen = sessionQuestions.findIndex(
+      (question) => !isSettledInSession(question.id)
+    );
+
+    if (firstOpen !== -1) {
+      setActiveIndex(firstOpen);
+      setNotice("Zurück zur ersten offenen Frage");
+      return;
+    }
+
+    if (mode === "exam") {
+      if (!examFinished) {
+        // Route through the same confirmation the Abgeben button uses, so the
+        // last "next" can't hand in an exam by accident.
+        setExamSubmitOpen(true);
+      } else {
+        setStudyFinished(true);
+      }
+
+      return;
+    }
+
+    submitStudySession();
   }
 
   function selectedChoiceFor(question: Question) {
@@ -2167,6 +2196,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     });
 
     setExamFinished(true);
+    // Without this the exam only revealed the answers and stopped — the score
+    // screen (and with it the total time) never appeared.
+    setStudyFinished(true);
   }
 
 
@@ -3093,9 +3125,12 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     const activeSession = sessionLogs.find(
       (session) => session.id === activeSessionLogId
     );
+    const openCount = sessionQuestions.filter(
+      (question) => !isSettledInSession(question.id)
+    ).length;
+    const atEnd = activeIndex >= total - 1;
     const goPrev = () => setActiveIndex((current) => Math.max(0, current - 1));
-    const goNext = () =>
-      setActiveIndex((current) => Math.min(total - 1, current + 1));
+    const goNext = goToNextQuestion;
 
     return (
       <div className="mx-auto grid max-w-content gap-6">
@@ -3212,13 +3247,25 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             <span className="text-body-sm text-text-muted">
               {counterHidden ? "···" : `${total ? activeIndex + 1 : 0} / ${total}`}
             </span>
+            {/* On the last question this becomes the way out of the session
+                rather than a dead button: back to whatever is still open, or
+                hand in when nothing is. */}
             <Button
-              disabled={activeIndex >= total - 1}
               onClick={goNext}
-              variant="secondary"
+              variant={atEnd && !openCount ? "primary" : "secondary"}
             >
-              <span>Weiter</span>
-              <ChevronRight size={18} aria-hidden="true" />
+              <span>
+                {!atEnd
+                  ? "Weiter"
+                  : openCount
+                    ? `${openCount} offen`
+                    : "Abgeben"}
+              </span>
+              {atEnd && !openCount ? (
+                <Check size={16} aria-hidden="true" />
+              ) : (
+                <ChevronRight size={18} aria-hidden="true" />
+              )}
             </Button>
           </div>
         ) : null}
@@ -3580,6 +3627,75 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
           today={todayStats}
           total={total}
         />
+
+        {/* Question-by-question review. Every question is clickable, right ones
+            included — going back over what you got right but guessed is worth
+            as much as re-reading the mistakes. */}
+        <div className="grid gap-2">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <strong className="text-body-sm font-medium text-text-muted">
+              Durchsehen
+            </strong>
+            <span className="flex items-center gap-3 text-label text-text-subtle">
+              <span className="flex items-center gap-1.5">
+                <span
+                  aria-hidden="true"
+                  className="h-2 w-2 rounded-full bg-accent"
+                />
+                richtig
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span
+                  aria-hidden="true"
+                  className="h-2 w-2 rounded-full bg-danger"
+                />
+                falsch
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span
+                  aria-hidden="true"
+                  className="h-2 w-2 rounded-full border border-border"
+                />
+                offen
+              </span>
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5">
+            {sessionQuestions.map((question, index) => {
+              const selected =
+                mode === "exam"
+                  ? examAnswers[question.id]
+                  : progress.answers[question.id]?.selected;
+              const state = !selected
+                ? "open"
+                : selected === question.answer
+                  ? "right"
+                  : "wrong";
+
+              return (
+                <button
+                  aria-label={`Frage ${index + 1} ansehen`}
+                  className={cn(
+                    "h-8 w-8 rounded-lg text-label font-medium tabular-nums transition-transform hover:scale-110",
+                    state === "right" && "bg-accent text-accent-foreground",
+                    state === "wrong" && "bg-danger text-accent-foreground",
+                    state === "open" && "border border-border text-text-subtle"
+                  )}
+                  key={question.id}
+                  onClick={() => {
+                    setActiveIndex(index);
+                    setStudyFinished(false);
+                  }}
+                  title={`Frage ${index + 1} · ${question.subject}`}
+                  type="button"
+                >
+                  {index + 1}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
         {breakdown.length > 1 ? (
           <div className="grid gap-1">
