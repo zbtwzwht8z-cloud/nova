@@ -1944,9 +1944,18 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     if (subjects.length === 1) {
       const terms = papers.map((paper) => paper.examTerm).filter(Boolean);
 
-      return terms.length
-        ? `${subjects[0]} · ${terms.join(", ")}`
-        : subjects[0];
+      if (!terms.length) {
+        return subjects[0];
+      }
+
+      // Listing every term ran to hundreds of characters for a whole subject,
+      // and the exam names are long in their own right — past a few, the count
+      // says more than the names do.
+      if (terms.length > 3) {
+        return `${subjects[0]} · ${terms.length} Klausuren`;
+      }
+
+      return `${subjects[0]} · ${terms.join(", ")}`;
     }
 
     if (subjects.length <= 3) {
@@ -3206,7 +3215,9 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     const goNext = goToNextQuestion;
 
     return (
-      <div className="mx-auto grid max-w-content gap-6">
+      // min-w-0: grid items default to min-width:auto, so a long session label
+      // stretched the whole page instead of truncating inside it.
+      <div className="mx-auto grid w-full min-w-0 max-w-content gap-6 [&>*]:min-w-0">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
           <div className="flex min-w-0 items-center gap-2">
             {/* The app header hides itself while solving, so its sidebar toggle
