@@ -42,6 +42,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import Dashboard from "@/components/Dashboard";
 import PapersView from "@/components/PapersView";
+import QuestionMeters from "@/components/QuestionMeters";
 import QuestionTimer, { TIMER_CHOICES } from "@/components/QuestionTimer";
 import ScoreSummary from "@/components/ScoreSummary";
 import ThemePicker, { isThemeId, type ThemeId } from "@/components/ThemePicker";
@@ -4015,7 +4016,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="grid min-w-0 gap-1">
             <span className="text-label text-text-subtle">{question.subject}</span>
-            <strong className="text-body font-medium">{question.topic}</strong>
+            <span className="flex flex-wrap items-center gap-3">
+              <strong className="text-body font-medium">{question.topic}</strong>
+              <QuestionMeters question={question} />
+            </span>
           </div>
           {renderQuestionActions(question, isBookmarked)}
         </div>
@@ -4275,7 +4279,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="grid min-w-0 gap-1">
             <span className="text-label text-text-subtle">{question.subject}</span>
-            <strong className="text-body font-medium">{question.topic}</strong>
+            <span className="flex flex-wrap items-center gap-3">
+              <strong className="text-body font-medium">{question.topic}</strong>
+              <QuestionMeters question={question} />
+            </span>
           </div>
           {renderQuestionActions(question, isBookmarked)}
         </div>

@@ -33,6 +33,9 @@ export type Question = {
   tags?: string[];
   difficulty?: Difficulty;
   stats?: QuestionStats;
+  // How many distinct exam terms this question (or a reworded version of it)
+  // has appeared in. Written by scripts/annotate-repeats.mjs.
+  repeats?: { count: number; terms: string[] };
 };
 
 export type QuestionMetrics = {
