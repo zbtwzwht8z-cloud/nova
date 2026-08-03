@@ -1,0 +1,114 @@
+{
+  "_model": "Claude Opus 5",
+  "_source": "Vorlesung Humangenetik + Standardlehrbuch; im Zweifel gilt die Vorlesung",
+  "questions": {
+    "01f0-713c-4d49768a-9d00-61b667e24fdc": {
+      "correct": "Zusatzbefunde (Zufalls- oder Nebenbefunde) sind definitionsgemäß Ergebnisse, die mit der ursprünglichen Fragestellung nichts zu tun haben — beim NGS unvermeidlich, weil viele Gene gleichzeitig gelesen werden.",
+      "choices": {
+        "A": "Das GenDG verbietet die Mitteilung nicht pauschal. Entscheidend ist das Recht auf Wissen und auf Nichtwissen: Der Patient legt vor der Untersuchung fest, worüber er informiert werden möchte.",
+        "B": "Zu absolut. Eine therapeutische Konsequenz macht die Mitteilung sinnvoll, hebt aber das zuvor erklärte Recht auf Nichtwissen nicht auf.",
+        "D": "Häufig ist das Gegenteil der Fall: Gerade erbliche Tumorprädispositionen oder Anlageträgerschaften sind für Verwandte hoch relevant — deshalb gehört die familiäre Dimension in die Beratung.",
+        "E": "Tumorrisikogene wie BRCA1/2 oder die Mismatch-Repair-Gene liegen auf den üblichen Panels und sind eine der häufigsten Quellen von Zusatzbefunden."
+      }
+    },
+    "01f0-713c-dbd9e72c-9400-a632a662f5eb": {
+      "correct": "Das vaskuläre EDS (Typ IV, COL3A1) ist die gefährlichste Form: dünne, durchscheinende Haut mit sichtbarer Venenzeichnung, Rupturen und Dissektionen auch mittlerer und kleiner Arterien, Hypermobilität vor allem der kleinen Gelenke sowie Darm- und Uterusruptur.",
+      "choices": {
+        "A": "Hochwuchs mit Linsenluxation und Retardierung passt zur Homocystinurie, nicht zum EDS.",
+        "B": "Kleinwuchs und Entwicklungsverzögerung gehören nicht zum Bild — Patienten mit vaskulärem EDS sind normal groß und normal entwickelt.",
+        "C": "Myopie und Katarakt sind Augenbefunde anderer Bindegewebserkrankungen. Die Augenbeteiligung ist beim vaskulären EDS gerade nicht führend.",
+        "E": "Ein Aortenaneurysma erst mit 70 Jahren bei Hypertonie ist ein gewöhnlicher altersbedingter Befund. Das vaskuläre EDS macht Gefäßkomplikationen typischerweise schon vor dem 40. Lebensjahr."
+      }
+    },
+    "01f0-713d-2937485c-b900-3b6b760cae6e": {
+      "correct": "Das EDS ist eine Bindegewebsschwäche — Knochensklerose passt nicht dazu. Verdichtete Knochen findet man bei der Osteopetrose, dem genauen Gegenteil.",
+      "choices": {
+        "A": "Gelenkluxationen sind typisch und Folge der überdehnbaren Bänder.",
+        "C": "Aneurysmen und Gefäßrupturen sind das Leitproblem der vaskulären Form.",
+        "D": "Überdehnbare, samtige Haut ist ein Kernmerkmal.",
+        "E": "Hypermobile Gelenke sind namensgebend für die häufigste Form."
+      }
+    },
+    "01f0-713d-a6f5bcce-b600-bdf44b931d0c": {
+      "correct": "Das Marfan-Syndrom beruht auf Mutationen in FBN1, das für Fibrillin-1 kodiert — den Hauptbestandteil der Mikrofibrillen. Der Defekt setzt zusätzlich TGF-β frei, was die Gefäßwandschwäche erklärt.",
+      "choices": {
+        "A": "Kollagen V ist beim klassischen Ehlers-Danlos-Syndrom betroffen.",
+        "B": "Kollagen I ist bei der Osteogenesis imperfecta defekt.",
+        "D": "Elastin-Defekte finden sich bei der supravalvulären Aortenstenose und beim Williams-Beuren-Syndrom.",
+        "E": "Fibronektin ist kein Marfan-Gen; eine seltene EDS-Variante wird damit in Verbindung gebracht."
+      }
+    },
+    "01f0-713d-e8aa5940-8e00-3fe6cd08c9aa": {
+      "correct": "Die Linsensubluxation (Ectopia lentis) ist neben der Aortenwurzeldilatation eines der beiden Hauptkriterien der Gent-Nosologie — beim Marfan-Syndrom luxiert die Linse typischerweise nach oben.",
+      "choices": {
+        "B": "Zahnfehlstellungen und ein hoher Gaumen kommen vor, zählen aber nur zu den Nebenbefunden.",
+        "C": "Genau umgekehrt: Charakteristisch sind lange, schmale Finger (Arachnodaktylie) mit positivem Daumen- und Handgelenkzeichen.",
+        "D": "Marfan-Patienten sind typischerweise hochgewachsen mit überlanger Armspannweite, nicht kleinwüchsig.",
+        "E": "Kontrakturen der kleinen Gelenke sprechen für die kongenitale kontrakturelle Arachnodaktylie (Beals-Syndrom), das Gegenteil der Marfan-Hypermobilität."
+      }
+    },
+    "01f0-713f-003d3e50-b000-744b3217374c": {
+      "correct": "Die Mutter ist bei drei betroffenen Söhnen mit an Sicherheit grenzender Wahrscheinlichkeit Konduktorin. Als X-chromosomal-rezessive Erkrankung gibt sie das mutierte X an die Hälfte ihrer Söhne weiter — für einen männlichen Feten also 50 %.",
+      "choices": {
+        "A": "12,5 % ergäbe sich nur, wenn der Konduktorinnenstatus selbst noch unsicher wäre und man Geschlecht und Vererbung zusammen rechnet.",
+        "B": "25 % ist die Wahrscheinlichkeit bezogen auf alle Kinder — die Frage fragt aber ausdrücklich nach einem männlichen Feten, das Geschlecht ist also schon festgelegt.",
+        "D": "66,6 % entsteht durch keine sinnvolle Rechnung. Vorherige betroffene Kinder erhöhen das Risiko nicht: Jede Schwangerschaft ist ein unabhängiges Ereignis.",
+        "E": "Unter 1 % wäre die Größenordnung einer Neumutation bei unauffälliger Familienanamnese — hier sind bereits drei Söhne betroffen."
+      }
+    },
+    "01f0-713f-7f230d26-b000-83000476e843": {
+      "correct": "Hohlfuß, distal betonte Atrophie der Wadenmuskulatur bei kräftigem Oberschenkel („Storchenbein\") und die gleiche Fußdeformität bei der Mutter ergeben eine hereditäre motorisch-sensible Neuropathie (CMT), meist CMT1A mit PMP22-Duplikation und autosomal-dominantem Erbgang.",
+      "choices": {
+        "A": "Die Neurofibromatose 1 zeigt Café-au-lait-Flecken, axilläres Freckling, Neurofibrome und Lisch-Knötchen — keine distale Muskelatrophie mit Hohlfuß.",
+        "B": "Die spinale Muskelatrophie ist autosomal-rezessiv und beginnt proximal betont. Eine ebenfalls betroffene Mutter passt nicht zum Erbgang.",
+        "C": "Die myotone Dystrophie Typ 1 fiele durch Myotonie, Katarakt, Facies myopathica und Antizipation auf, nicht durch isolierte Hohlfüße.",
+        "D": "Duchenne ist X-chromosomal-rezessiv und beträfe die Mutter nicht. Zudem beginnt sie proximal mit Gowers-Zeichen und Wadenhypertrophie statt Atrophie."
+      }
+    },
+    "01f0-713f-dfae845e-af00-64a6e7272c88": {
+      "correct": "Nach dem kolorektalen Karzinom ist das Endometriumkarzinom der zweithäufigste Tumor beim Lynch-Syndrom — bei Frauen ist es nicht selten sogar die Erstmanifestation.",
+      "choices": {
+        "A": "Das kolorektale Karzinom ist der häufigste Tumor, also der erste und nicht der zweite Platz.",
+        "C": "Osteosarkome gehören zum Li-Fraumeni-Syndrom und zum hereditären Retinoblastom.",
+        "D": "Das Mammakarzinom steht für BRCA1/2. Beim Lynch-Syndrom ist es allenfalls schwach überrepräsentiert.",
+        "E": "Melanome gehören zum FAMMM-Syndrom mit CDKN2A-Mutation, nicht zum HNPCC-Spektrum."
+      }
+    },
+    "01f0-7140-1fb4da26-8900-387d2dffdee1": {
+      "correct": "Die familiäre adenomatöse Polyposis wird autosomal-dominant vererbt (APC-Gen auf 5q). Etwa ein Viertel der Fälle entsteht durch Neumutation.",
+      "choices": {
+        "A": "Mitochondrial hieße rein mütterliche Vererbung an alle Kinder — das trifft auf Erkrankungen wie MELAS oder LHON zu.",
+        "C": "Bei autosomal-rezessivem Erbgang wären die Eltern gesunde Anlageträger. Bei der FAP ist typischerweise ein Elternteil selbst betroffen. Autosomal-rezessiv ist dagegen die MUTYH-assoziierte Polyposis.",
+        "D": "X-chromosomal-rezessiv würde fast nur Männer betreffen und über gesunde Konduktorinnen weitergegeben — die FAP betrifft beide Geschlechter gleich.",
+        "E": "X-chromosomal-dominant zeigt keine Vater-Sohn-Weitergabe. Bei der FAP kommt sie vor."
+      }
+    },
+    "01f0-7140-48c6ca78-9300-ed2f4c0b4fb2": {
+      "correct": "Chorea Huntington beruht auf einer expandierten CAG-Wiederholung im HTT-Gen. CAG kodiert Glutamin, daher der Polyglutamin-Trakt; ab etwa 40 Wiederholungen ist die Erkrankung sicher.",
+      "choices": {
+        "B": "Ein solches Repeat existiert bei Huntington nicht. Komplexere Repeats kennt man etwa bei der Myotonen Dystrophie Typ 2 (CCTG).",
+        "C": "Dinukleotid-Repeats wie CA sind Mikrosatelliten und dienen als polymorphe Marker, verursachen aber keine Polyglutamin-Erkrankung.",
+        "D": "GAC ist kein bekanntes krankheitsauslösendes Repeat.",
+        "E": "CA ist ebenfalls ein reiner Mikrosatelliten-Marker ohne Krankheitswert."
+      }
+    },
+    "01f0-7140-b532a1c8-8f00-8632d2a3e1ac": {
+      "correct": "Nach dem GenDG ist eine prädiktive Untersuchung bei Minderjährigen nur zulässig, wenn sich daraus ein unmittelbarer gesundheitlicher Nutzen für das Kind ergibt — also Vorsorge oder Therapie noch im Kindesalter beginnen müssen. Sonst bleibt die Entscheidung dem später einwilligungsfähigen Menschen überlassen.",
+      "choices": {
+        "A": "Der Elternwille allein reicht nicht. Das Gesetz schützt hier gerade das Recht des Kindes auf Nichtwissen und auf eine eigene spätere Entscheidung.",
+        "C": "Eine feste Altersgrenze von 14 Jahren gibt es im GenDG nicht. Maßgeblich sind der gesundheitliche Nutzen und die Einwilligungsfähigkeit im Einzelfall.",
+        "D": "Eine auffällige Familienanamnese begründet die Untersuchung der Erwachsenen. Beim Kind bleibt es dabei: ohne Konsequenz im Kindesalter wird gewartet — etwa bei BRCA erst ab dem Erwachsenenalter.",
+        "E": "Die Heterozygotenfrequenz beschreibt die Häufigkeit in der Bevölkerung und sagt nichts über den Nutzen einer Untersuchung bei diesem Kind aus."
+      }
+    },
+    "01f0-7141-09af0a52-aa00-8569e9d91a49": {
+      "correct": "Das Zervixkarzinom ist ganz überwiegend HPV-bedingt und gehört nicht zum BRCA-Spektrum — es ist damit der schwächste Hinweis.",
+      "choices": {
+        "A": "Das triple-negative Mammakarzinom ist typisch für BRCA1 und gilt bei jungen Frauen für sich genommen als Indikation zur Testung.",
+        "C": "Ein männliches Mammakarzinom ist ein starker Hinweis, besonders auf BRCA2.",
+        "D": "Das Ovarialkarzinom gehört zum Kern des HBOC-Spektrums.",
+        "E": "Ein beidseitiges Mammakarzinom spricht für eine Keimbahnmutation, da beide Seiten unabhängig entartet sind."
+      }
+    }
+  }
+}

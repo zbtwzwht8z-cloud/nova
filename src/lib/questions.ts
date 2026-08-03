@@ -1,4 +1,5 @@
 import rawQuestions from "../../data/questions.json";
+import humangenetik from "../../data/explanations/humangenetik.json";
 import schmerzmedizin from "../../data/explanations/schmerzmedizin.json";
 import type { Question, QuestionIndex } from "./types";
 
@@ -22,7 +23,10 @@ function collect(...files: ExplanationFile[]) {
   return merged;
 }
 
-const EXPLANATIONS = collect(schmerzmedizin as ExplanationFile);
+const EXPLANATIONS = collect(
+  schmerzmedizin as ExplanationFile,
+  humangenetik as ExplanationFile
+);
 
 function assertQuestion(question: Question, index: number) {
   const prefix = `Question ${index + 1}`;
