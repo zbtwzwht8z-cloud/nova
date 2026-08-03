@@ -792,6 +792,10 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   // second attempt was pointless.
   const [wrongTries, setWrongTries] = useState<Record<string, string[]>>({});
   const [gaveUp, setGaveUp] = useState<Record<string, boolean>>({});
+  // Which wrong option is being read up on after the answer is out. Getting it
+  // right on the first go otherwise hid every explanation, including the ones
+  // you'd want to check when the guess was half a guess.
+  const [inspected, setInspected] = useState<Record<string, string>>({});
   const [draftAnswers, setDraftAnswers] = useState<Record<string, string>>({});
   const [excludedChoices, setExcludedChoices] = useState<Record<string, string[]>>({});
   const [questionHighlights, setQuestionHighlights] = useState<Record<string, string[]>>(
@@ -1878,6 +1882,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setReviewAnswers({});
     setWrongTries({});
     setGaveUp({});
+    setInspected({});
     setDraftAnswers({});
     setExcludedChoices({});
     setQuestionHighlights({});
@@ -1972,6 +1977,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     setReviewAnswers({});
     setWrongTries({});
     setGaveUp({});
+    setInspected({});
     setDraftAnswers({});
     setExcludedChoices({});
     setQuestionHighlights({});
@@ -3739,15 +3745,24 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
 
           <div className="flex flex-wrap gap-1.5">
             {sessionQuestions.map((question, index) => {
-              const selected =
+              // Colour by the verdict, not by what is currently selected: after a
+              // retry the selection is the right answer while the question still
+              // counts as missed, and the grid showed green for it.
+              const stored = progress.answers[question.id];
+              const state =
                 mode === "exam"
-                  ? examAnswers[question.id]
-                  : progress.answers[question.id]?.selected;
-              const state = !selected
-                ? "open"
-                : selected === question.answer
-                  ? "right"
-                  : "wrong";
+                  ? !examAnswers[question.id]
+                    ? "open"
+                    : examAnswers[question.id] === question.answer
+                      ? "right"
+                      : "wrong"
+                  : !stored
+                    ? "open"
+                    : stored.correct === false
+                      ? "wrong"
+                      : stored.correct === true
+                        ? "right"
+                        : "open";
 
               return (
                 <button
@@ -4115,7 +4130,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
               : revealed
                 ? choice.id === question.answer
                   ? question.distractors?.correct
-                  : selected
+                  : selected || inspected[question.id] === choice.id
                     ? question.distractors?.choices?.[choice.id]
                     : undefined
                 : undefined;
@@ -4144,11 +4159,22 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                     "flex min-w-0 flex-1 items-center gap-3 px-4 py-3 text-left text-body",
                     highlightMode && "cursor-text select-text"
                   )}
-                  disabled={locked || excluded}
+                  disabled={locked ? !question.distractors : excluded && locked}
                   onClick={() => {
-                    if (!highlightMode) {
-                      selectChoice(question, choice.id);
+                    if (highlightMode) {
+                      return;
                     }
+
+                    if (locked) {
+                      setInspected((current) => ({
+                        ...current,
+                        [question.id]:
+                          current[question.id] === choice.id ? "" : choice.id
+                      }));
+                      return;
+                    }
+
+                    selectChoice(question, choice.id);
                   }}
                   onDoubleClick={() => {
                     if (!highlightMode) {
@@ -4275,6 +4301,13 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
               </>
             ) : null}
           </div>
+        ) : null}
+
+        {revealed && question.distractors ? (
+          <p className="m-0 text-label text-text-subtle">
+            Tipp: Auf eine andere Antwort klicken, um zu sehen, warum sie nicht
+            stimmt.
+          </p>
         ) : null}
 
         {currentSelected && revealed ? (
