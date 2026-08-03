@@ -1,6 +1,6 @@
 {
   "_model": "Opus 5",
-  "_source": "Vorlesung Humangenetik + Standardlehrbuch; im Zweifel gilt die Vorlesung",
+  "_source": "Vorlesungsfolien Humangenetik SoSe 26 (Zusammen.pdf); im Zweifel gilt die Vorlesung",
   "questions": {
     "01f0-713c-4d49768a-9d00-61b667e24fdc": {
       "correct": "Zusatzbefunde (Zufalls- oder Nebenbefunde) sind definitionsgemäß Ergebnisse, die mit der ursprünglichen Fragestellung nichts zu tun haben — beim NGS unvermeidlich, weil viele Gene gleichzeitig gelesen werden.",
@@ -354,7 +354,7 @@
       "choices": {
         "B": "Das stimmt: Schmerzunempfindlichkeit und Bruxismus zählen zu den unterstützenden Kriterien.",
         "C": "Das stimmt: Der Verlust erworbener Sprach- und Handfertigkeiten nach zunächst normaler Entwicklung ist ein Hauptkriterium — samt der typischen stereotypen Handbewegungen.",
-        "D": "Die Zahlen sind hier ungewöhnlich: Beim typischen Rett-Syndrom findet sich in etwa 90–95 % eine MECP2-Mutation, bei atypischen Formen deutlich seltener. Prüfe die offizielle Lösung; die Kernaussage — Mutation im MECP2-Gen — stimmt jedenfalls.",
+        "D": "Die Zahlen stimmen nicht: Nach den Vorlesungsfolien findet sich eine MECP2-Mutation bei 95–97 % der klassischen und bei 50–70 % der atypischen Rett-Syndrome — nicht bei 20 % bzw. 25 %. Die Kernaussage, dass MECP2 das betroffene Gen ist, stimmt allerdings, weshalb der Erbgang in Antwort A die eindeutigere Falschaussage bleibt.",
         "E": "Das stimmt: Die allermeisten Fälle entstehen de novo, familiäre Häufungen sind Raritäten."
       }
     },
@@ -419,6 +419,408 @@
         "B": "Genau das Gegenteil: Der positive Vorhersagewert hängt stark von der Vortestwahrscheinlichkeit ab. Bei jungen Frauen mit niedrigem Grundrisiko sind auffällige Befunde häufiger falsch positiv.",
         "C": "Das Ersttrimester-Screening erfasst über Nackentransparenz und Ultraschall auch strukturelle Fehlbildungen. Der NIPT prüft nur bestimmte Chromosomenzahlen.",
         "E": "Der NIPT ist ab etwa der 10. Woche möglich, sobald der fetale DNA-Anteil ausreicht."
+      }
+    },
+    "01ee-33db-3b72c560-8800-e3a3efdd4cd4": {
+      "correct": "Der Sprung vom Normalallel direkt zur Vollmutation kommt nicht vor. Die Expansion läuft schrittweise über eine Prämutation (etwa 55–200 Repeats), die dann bei mütterlicher Weitergabe zur Vollmutation expandiert.",
+      "choices": {
+        "A": "Nach lateral ansteigende Lidachsen gehören zur Trisomie 21. Beim Fragilen X sind Gesicht schmal-länglich, Ohren groß und abstehend, dazu Makroorchidie nach der Pubertät.",
+        "B": "„Immer\" ist falsch: Die prämature Ovarialinsuffizienz betrifft etwa 20 % der Prämutationsträgerinnen.",
+        "C": "Der Erbgang ist X-chromosomal, und die entscheidende Expansion geschieht ausschließlich bei Weitergabe durch die Mutter — über den Vater schrumpft das Repeat eher zurück.",
+        "E": "Bei Frauen mit Vollmutation liegt die Penetranz durch die X-Inaktivierung bei etwa 50 %, nicht bei 100 %."
+      }
+    },
+    "01ee-33db-94137980-9e00-f427a768228f": {
+      "correct": "Die HMSN Typ I ist die demyelinisierende Form — betroffen sind Gene für Myelinproteine wie PMP22, MPZ oder Connexin 32.",
+      "choices": {
+        "B": "Bei autosomal-dominantem Erbgang liegt die Wahrscheinlichkeit bei 50 %, nicht 25 %.",
+        "C": "X-chromosomale Formen (CMTX) gibt es, sie sind aber nicht die Regel — überwiegend ist der Erbgang autosomal-dominant.",
+        "D": "Häufigste Ursache ist die **Duplikation** von PMP22, nicht die Deletion. Die Deletion desselben Abschnitts führt zu einer anderen Erkrankung, der hereditären Neuropathie mit Neigung zu Druckläsionen (HNPP).",
+        "E": "Autosomal-rezessive Formen sind selten."
+      }
+    },
+    "01ee-33db-e59cc6da-9d00-dcd1ef0b18ca": {
+      "correct": "Das vaskuläre EDS (COL3A1) zeigt dünne, durchscheinende Haut, Rupturen und Dissektionen auch mittlerer und kleiner Arterien, Hypermobilität vor allem der kleinen Gelenke sowie Darm- und Uterusruptur.",
+      "choices": {
+        "A": "Hochwuchs mit Katarakt und Retardierung passt zur Homocystinurie.",
+        "B": "Kleinwuchs und Entwicklungsverzögerung gehören nicht zum EDS.",
+        "C": "Myopie und Katarakt stehen beim vaskulären EDS nicht im Vordergrund.",
+        "E": "Ein Aneurysma erst mit 70 Jahren bei Hypertonie ist ein gewöhnlicher Altersbefund; das vaskuläre EDS macht Komplikationen meist vor dem 40. Lebensjahr."
+      }
+    },
+    "01ee-33dc-71d171d2-9e00-d8c5e9f66bd9": {
+      "correct": "Das Brustkrebsrisiko bei BRCA1 liegt bis zum 70. Lebensjahr bei etwa 60–80 %. Eine Rasterschubmutation führt zum Funktionsverlust des Allels und damit zum vollen Risiko.",
+      "choices": {
+        "A": "5–10 % liegt unter dem Bevölkerungsrisiko, das selbst schon bei etwa 12 % liegt.",
+        "B": "10–20 % entspricht ungefähr dem allgemeinen Bevölkerungsrisiko ohne Mutation.",
+        "C": "20–30 % wäre die Größenordnung moderat penetranter Gene wie CHEK2 oder ATM, nicht von BRCA1.",
+        "E": "90–100 % überschätzt das Risiko: Auch bei BRCA1 erkrankt nicht jede Trägerin."
+      }
+    },
+    "01ee-33dc-d09d79d6-a700-21bac85afe8a": {
+      "correct": "In Regionen mit hoher Trägerfrequenz — Mittelmeerraum, Naher Osten, Südostasien — kommen α- und β-Thalassämie häufig zusammen vor. Interessanterweise mildert eine gleichzeitige α-Thalassämie die β-Thalassämie, weil das Ungleichgewicht der Ketten geringer wird.",
+      "choices": {
+        "A": "Gendosiseffekte durch Kopienzahl sind das Prinzip der α-Thalassämie mit ihren vier Genen. Die β-Thalassämie beruht meist auf Punktmutationen an nur zwei Genen.",
+        "C": "Strukturanomalien mit veränderter Sauerstoffaffinität beschreiben die Hämoglobinopathien im engeren Sinn wie die Sichelzellkrankheit. Thalassämien sind quantitative Störungen.",
+        "D": "Eisen ist hier falsch: Die Anämie beruht nicht auf Eisenmangel, eine Substitution führt zur Überladung — der klassische Fehler.",
+        "E": "Das kleine Blutbild liefert nur den Verdacht (Mikrozytose, Hypochromie bei normalem Ferritin). Gesichert wird per Hämoglobin-Elektrophorese und Molekulargenetik."
+      }
+    },
+    "01ee-33dc-ea2216f0-8a00-1d1e24b01d82": {
+      "correct": "Für Trisomie 21 erreicht der NIPT eine Sensitivität von über 99 % und liegt damit deutlich über dem Ersttrimesterscreening, das etwa 90 % erreicht.",
+      "choices": {
+        "B": "Der NIPT ist eine reine Blutentnahme bei der Mutter und hat kein Abortrisiko. 0,2–1 % ist die Größenordnung invasiver Eingriffe wie Amniozentese.",
+        "C": "Organfehlbildungen erkennt nur der Ultraschall. Der NIPT liest DNA und sieht keine Anatomie.",
+        "D": "Gesucht werden numerische Abweichungen — Trisomie 21, 18, 13 —, keine strukturellen Aberrationen.",
+        "E": "Untersucht wird zellfreie DNA, keine Proteine. Proteinmarker wie PAPP-A und β-hCG gehören zum Ersttrimesterscreening."
+      }
+    },
+    "01ee-33df-5e4a6d96-9700-6e4c55c3a04d": {
+      "correct": "Beide Eltern sind heterozygot. Statistisch sind 25 % der Kinder homozygot (meist letal), 50 % heterozygot wie die Eltern und 25 % normalgroß.",
+      "choices": {
+        "A": "50 % ist der Anteil der heterozygoten Kinder, also derjenigen mit Achondroplasie.",
+        "B": "100 % träfe nur zu, wenn beide Eltern homozygot wären — was mit der Erkrankung nicht vereinbar ist.",
+        "D": "75 % wäre der Anteil aller Kinder mit mindestens einem mutierten Allel.",
+        "E": "66 % entsteht, wenn man die letale homozygote Form herausrechnet: Unter den Lebendgeborenen sind zwei Drittel heterozygot — eine andere Frage."
+      }
+    },
+    "01ee-33df-6b05637e-a500-e210e82d6abf": {
+      "correct": "Ohne Behandlung entarten die hunderten bis tausenden Kolonpolypen bei der FAP praktisch mit Sicherheit — das kolorektale Karzinom tritt bei nahezu 100 % auf. Deshalb die prophylaktische Kolektomie.",
+      "choices": {
+        "B": "Duodenal- und Dünndarmadenome kommen vor und werden überwacht, das Risiko liegt aber weit unter 100 %.",
+        "C": "Das Endometriumkarzinom gehört zum Lynch-Syndrom, nicht zur FAP."
+      }
+    },
+    "01ee-33df-8789efce-be00-1733492e96ea": {
+      "correct": "Die SMA beruht in etwa 95 % der Fälle auf der homozygoten Deletion von Exon 7 im SMN1-Gen. Punktmutationen sind mit rund 5 % die seltene Ausnahme, meist als zweites Allel neben einer Deletion.",
+      "choices": {
+        "B": "Der Erbgang ist autosomal-rezessiv — beide Eltern sind gesunde Träger.",
+        "C": "Die CK ist normal oder allenfalls leicht erhöht. Werte im Tausenderbereich sprechen für eine Muskeldystrophie wie Duchenne, nicht für eine Erkrankung des Motoneurons.",
+        "D": "Nusinersen, Onasemnogen und Risdiplam verbessern den Verlauf teils erheblich, heilen die Erkrankung aber nicht.",
+        "E": "Die SMN2-Kopienzahl erlaubt nur eine grobe Abschätzung, keine sichere Prognose."
+      }
+    },
+    "01ee-33df-aac8546c-9b00-6183f5b61e9e": {
+      "correct": "Drei Faktoren: Als gesunde Schwester eines Betroffenen ist sie mit 2/3 Trägerin. Aus einer Häufigkeit von 1:10.000 folgt q = 1/100 und damit eine Trägerfrequenz von etwa 1/50 für den Mann. Sind beide Träger, ist das Kind mit 1/4 betroffen: 2/3 × 1/50 × 1/4 = 1/300.",
+      "choices": {
+        "B": "1/400 entsteht, wenn man für die Frau 1/2 statt 2/3 einsetzt — der klassische Fehler: Dass sie gesund ist, schließt die homozygote Möglichkeit aus und verschiebt die Wahrscheinlichkeit auf 2/3.",
+        "C": "1/600 ergäbe sich mit einer zu niedrig angesetzten Trägerfrequenz.",
+        "D": "1/800 kombiniert gleich zwei zu niedrige Faktoren.",
+        "E": "1/1000 liegt um mehr als das Dreifache daneben."
+      }
+    },
+    "01ee-33e0-25ef1e64-a400-8ad71e3144b7": {
+      "correct": "Duchenne und Becker sind X-chromosomal-rezessiv: Männer haben nur ein X und sind bei Mutation voll betroffen, Konduktorinnen meist nur leicht oder gar nicht symptomatisch.",
+      "choices": {
+        "A": "Die SMA 5q ist autosomal-rezessiv und betrifft beide Geschlechter gleich schwer.",
+        "C": "Die myotone Dystrophie Typ 2 ist autosomal-dominant.",
+        "D": "Gliedergürteldystrophien vom Typ 2 sind autosomal-rezessiv.",
+        "E": "Die maligne Hyperthermie ist autosomal-dominant (RYR1) und geschlechtsunabhängig."
+      }
+    },
+    "01ee-33e0-c787593a-a500-255fcb502d59": {
+      "correct": "Ein Beginn vor dem 40. Lebensjahr ist so ungewöhnlich früh, dass eine der seltenen monogenen Formen dahinterstecken kann — autosomal-dominante Mutationen in APP, PSEN1 oder PSEN2.",
+      "choices": {
+        "A": "ApoE4 erhöht das Risiko, nicht E3. E3 ist die häufigste Variante und gilt als neutral, E2 wirkt eher schützend.",
+        "B": "In den Plaques liegt Beta-Amyloid, intrazellulär kommt hyperphosphoryliertes Tau dazu. Huntingtin gehört zur Chorea Huntington.",
+        "D": "Tau-Mutationen verursachen die frontotemporale Demenz, nicht die familiäre Alzheimer-Krankheit.",
+        "E": "Auch unter 65 Jahren ist die Mehrzahl der Fälle nicht monogen — die klar monogenen Formen machen insgesamt nur wenige Prozent aus."
+      }
+    },
+    "01ee-33e0-e1290294-9000-5e05f9998b2c": {
+      "correct": "Die HCM ist in über der Hälfte der Fälle erblich, meist autosomal-dominant durch Mutationen in Sarkomergenen.",
+      "choices": {
+        "B": "Das beschreibt die dilatative Kardiomyopathie. Bei der hypertrophen ist die Wand verdickt, das Lumen eher klein.",
+        "C": "Mit etwa 1:500 ist die HCM die häufigste monogene Herzerkrankung überhaupt.",
+        "D": "Der Erbgang ist überwiegend autosomal-dominant mit unvollständiger Penetranz.",
+        "E": "Es gibt kein Hauptgen: Über ein Dutzend Sarkomergene kommen infrage, MYH7 und MYBPC3 machen zusammen etwa die Hälfte aus."
+      }
+    },
+    "01ee-33e1-065d4688-ae00-6cffc86f4d7c": {
+      "correct": "Die Amsterdam-Kriterien (und ergänzend die weicheren Bethesda-Kriterien) dienen dazu, Familien für die weitere Diagnostik auszuwählen. Sachlich richtig ist ebenso, dass ein DNA-Reparaturdefekt zugrunde liegt — bei dieser Mehrfachauswahl lohnt der Blick in die offizielle Lösung.",
+      "choices": {
+        "A": "APC-Mutationen verursachen die FAP. Beim Lynch-Syndrom sind die Mismatch-Repair-Gene MLH1, MSH2, MSH6 und PMS2 betroffen.",
+        "C": "BRAF-Mutationen sprechen gerade **gegen** ein Lynch-Syndrom: Sie finden sich bei sporadischen Tumoren mit MLH1-Promotor-Hypermethylierung und dienen zur Abgrenzung.",
+        "D": "Diese Aussage ist inhaltlich richtig — der Mismatch-Repair-Defekt ist die Ursache und erklärt die Mikrosatelliteninstabilität. Bei einer Mehrfachauswahl gehört sie mit zu den zutreffenden Antworten.",
+        "E": "Erhöht ist das Risiko für das Endometriumkarzinom, also den Gebärmutterkörper. Der Gebärmutterhals ist HPV-bedingt und gehört nicht zum Spektrum."
+      }
+    },
+    "01ee-33e1-b4f7342e-8500-d08b81bb738a": {
+      "correct": "Angeborene Herzfehler sind der Prototyp der multifaktoriellen Vererbung: viele Genvarianten mit kleinem Effekt plus Umweltfaktoren, mit empirischen Wiederholungsrisiken statt Mendel-Zahlen.",
+      "choices": {
+        "A": "MEN ist monogen autosomal-dominant.",
+        "C": "Hämophilie A ist monogen X-chromosomal-rezessiv (Faktor VIII).",
+        "D": "Hämophilie B ebenso (Faktor IX).",
+        "E": "MODY ist definitionsgemäß monogen und autosomal-dominant."
+      }
+    },
+    "01ee-33e1-d0c18eca-8b00-013a00cecc81": {
+      "correct": "Hochwuchs mit überlanger Armspannweite, Arachnodaktylie, Skoliose sowie Trichter- oder Kielbrust sind die skelettalen Kernbefunde und gehen in die Gent-Kriterien ein.",
+      "choices": {
+        "A": "Ursache sind Mutationen im Fibrillin-1-Gen (FBN1), nicht in Kollagengenen.",
+        "C": "Die Symptome beginnen häufig schon im Kindesalter, weshalb betroffene Kinder regelmäßig echokardiographisch kontrolliert werden.",
+        "D": "Die Intelligenz ist normal. Intelligenzminderung mit marfanoidem Habitus spricht eher für eine Homocystinurie.",
+        "E": "Gefährdet ist vor allem die Aortenwurzel, also ein großes Gefäß. Dissektionen kleiner und mittlerer Arterien sind typisch für das vaskuläre EDS."
+      }
+    },
+    "01ee-33e1-fa650cf2-9c00-d6573a9a0347": {
+      "correct": "Gesucht war die falsche Aussage. Für monogene Erkrankungen braucht man keinen Score — dort genügt die eine kausale Variante. PRS zielen gerade auf komplexe, polygene Erkrankungen.",
+      "choices": {
+        "B": "Das stimmt: Individualisierte Prävention ist die erhoffte künftige Anwendung.",
+        "C": "Das stimmt: Der Score gibt ein relatives Risiko im Vergleich zur Bevölkerung an.",
+        "D": "Das stimmt: Grundlage sind genomweite Assoziationsstudien mit sehr großen Fallzahlen.",
+        "E": "Das stimmt: Diabetes und kardiovaskuläre Erkrankungen sind typische Anwendungsfelder."
+      }
+    },
+    "01ee-33e2-26bbb012-ba00-b5202c946c0b": {
+      "correct": "Gesucht war die falsche Aussage. Das Birt-Hogg-Dubé-Syndrom wird autosomal-dominant vererbt, wie die meisten Tumorprädispositionssyndrome.",
+      "choices": {
+        "A": "Das stimmt: Typisch sind chromophobe Nierenzellkarzinome und Onkozytome, oft beidseitig und multipel.",
+        "B": "Das stimmt: Lungenzysten mit rezidivierenden Spontanpneumothoraces sind oft die Erstmanifestation.",
+        "D": "Das stimmt: Fibrofollikulome an Gesicht und Hals sind das namensgebende Hautzeichen.",
+        "E": "Das stimmt: Ursache sind Keimbahnmutationen im FLCN-Gen."
+      }
+    },
+    "01ee-33e2-45bab24c-b200-deba02424713": {
+      "correct": "Eine gesicherte Diagnose beendet die oft jahrelange diagnostische Odyssee, ermöglicht gezielte Vorsorge, eine belastbare Aussage zum Wiederholungsrisiko und den Anschluss an Selbsthilfegruppen — der Nutzen liegt also nicht nur in der Therapie.",
+      "choices": {
+        "A": "Umgekehrt: Bei einer balancierten Translokation eines Elternteils ist das Wiederholungsrisiko deutlich **höher** als bei der freien Trisomie 21, die meist auf einer zufälligen Non-Disjunction beruht.",
+        "B": "Die Vierfingerfurche ist unspezifisch — sie kommt bei etwa 1–5 % gesunder Menschen vor und ist damit kein diagnostisches Kennzeichen.",
+        "C": "Auch mit Genomsequenzierung bleibt ein erheblicher Teil syndromaler Erkrankungen ungeklärt; die Aufklärungsrate liegt je nach Kollektiv bei etwa 30–50 %.",
+        "E": "Beim Fragilen X ist ein Panel der falsche Weg: Die Repeat-Expansion entgeht der üblichen Sequenzierung und braucht eine gezielte Repeat-Analyse."
+      }
+    },
+    "01ee-33e2-6019fc4c-a100-0675fcfd045f": {
+      "correct": "In-frame-Deletionen erhalten das Leseraster: Es entsteht ein verkürztes, aber teilweise funktionsfähiges Dystrophin — das ist der mildere Becker-Typ. Rasterschub-Deletionen führen zum vollständigen Verlust und damit zu Duchenne (Leseraster-Regel nach Monaco).",
+      "choices": {
+        "A": "Exon-Skipping zielt darauf, das Leseraster bei **Deletionen** wiederherzustellen und so Duchenne in einen Becker-artigen Verlauf zu überführen — bei Stopp-Mutationen greift ein anderer Ansatz (Stop-Codon-Readthrough).",
+        "B": "Gliedergürteldystrophien sind ausgesprochen heterogen — über 30 Gene, sehr unterschiedliche Verläufe.",
+        "C": "Eine Konduktorin gibt das mutierte X an je die Hälfte ihrer Söhne und Töchter weiter, nicht an alle Söhne.",
+        "D": "„Niemals\" ist falsch: Etwa 10 % der Konduktorinnen zeigen durch ungleiche X-Inaktivierung Symptome bis hin zur Kardiomyopathie — deshalb werden sie kardiologisch überwacht."
+      }
+    },
+    "01ee-33e2-82ab2b00-8100-fff4fa1d0b84": {
+      "correct": "Der Arztvorbehalt unterscheidet: Diagnostische Untersuchungen darf jeder Arzt veranlassen, prädiktive nur Fachärzte für Humangenetik oder entsprechend qualifizierte Ärzte.",
+      "choices": {
+        "A": "Bei Kindern gilt gerade kein „grundsätzlich\": Prädiktive Untersuchungen sind nur erlaubt, wenn sich daraus ein unmittelbarer gesundheitlicher Nutzen im Kindesalter ergibt — das Einverständnis der Eltern reicht nicht.",
+        "B": "Für prädiktive Untersuchungen genügt die Aufklärung durch irgendeinen Arzt nicht; es braucht die qualifizierte genetische Beratung.",
+        "C": "Das GenDG verlangt ausdrücklich die schriftliche Einwilligung — auch bei Schwangeren, auch unter Zeitdruck."
+      }
+    },
+    "01ec-c158-4a5e1576-b700-1223b0f1072a": {
+      "correct": "Frauen mit Peutz-Jeghers-Syndrom haben ein deutlich erhöhtes Brustkrebsrisiko — in der Größenordnung von 40–50 % Lebenszeitrisiko, weshalb sie in die intensivierte Früherkennung gehören.",
+      "choices": {
+        "A": "Bei etwa 10–20 % findet sich keine STK11-Mutation. Die Diagnose bleibt klinisch möglich — periorale Pigmentflecken plus hamartomatöse Polypen.",
+        "C": "Café-au-lait-Flecken gehören zur Neurofibromatose 1. Beim Peutz-Jeghers-Syndrom sind es dunkle Pigmentflecken an Lippen, Mundschleimhaut und Fingern.",
+        "D": "Erhöht sind vor allem gastrointestinale Tumoren, Pankreas- und Mammakarzinom sowie seltene Hodentumoren — nicht das Prostatakarzinom.",
+        "E": "Der Erbgang ist autosomal-dominant."
+      }
+    },
+    "01ec-c158-68b75c08-9b00-b620e6f86852": {
+      "correct": "Die Phenylketonurie beruht auf Punktmutationen im PAH-Gen, nicht auf einer Repeat-Expansion — sie ist eine klassische autosomal-rezessive Stoffwechselerkrankung.",
+      "choices": {
+        "A": "Die Friedreich-Ataxie beruht auf einer GAA-Expansion im Frataxin-Gen — als einzige der genannten autosomal-rezessiv.",
+        "B": "Die spinozerebellären Ataxien sind überwiegend CAG-Repeat-Erkrankungen mit Polyglutamin-Trakt.",
+        "D": "Chorea Huntington ist die bekannteste CAG-Repeat-Erkrankung.",
+        "E": "Das Fragile X beruht auf einer CGG-Expansion im FMR1-Gen."
+      }
+    },
+    "01ec-c158-7c36bb66-8e00-64d0a049045a": {
+      "correct": "Die HCM ist in über der Hälfte der Fälle erblich, meist autosomal-dominant durch Mutationen in Sarkomergenen.",
+      "choices": {
+        "A": "Es gibt kein Hauptgen: Über ein Dutzend Sarkomergene kommen infrage, MYH7 und MYBPC3 machen zusammen etwa die Hälfte aus.",
+        "B": "Mit etwa 1:500 ist die HCM die häufigste monogene Herzerkrankung überhaupt.",
+        "C": "Das beschreibt die dilatative Kardiomyopathie. Bei der hypertrophen ist die Wand verdickt, das Lumen eher klein.",
+        "E": "Der Erbgang ist überwiegend autosomal-dominant mit unvollständiger Penetranz."
+      }
+    },
+    "01ec-c158-c28ed0b2-8000-1255a7ef3b52": {
+      "correct": "Grundregel der Tumorgenetik: Getestet wird zuerst die **erkrankte** Person in der Familie. Nur dort lässt sich eine ursächliche Mutation sicher finden; erst wenn sie bekannt ist, kann bei der gesunden Ratsuchenden gezielt darauf getestet werden.",
+      "choices": {
+        "A": "Bei der gesunden Ratsuchenden zu beginnen ist der klassische Fehler: Ein unauffälliger Befund wäre nicht verwertbar, da unklar bliebe, ob die Familie überhaupt eine nachweisbare Mutation trägt.",
+        "B": "APC gehört zur FAP, also zu Darmpolypen — bei einer Brustkrebsfamilie der falsche Ansatz.",
+        "C": "Die Person ist richtig gewählt, das Gen offenbar nicht — hier lohnt der Abgleich mit der offiziellen Lösung, da sich die beiden Antworten nur im untersuchten Gen unterscheiden.",
+        "D": "Mikrosatelliteninstabilität ist die Lynch-Abklärung. Bei Brustkrebs in der Familie führt das in die falsche Richtung."
+      }
+    },
+    "01ec-c158-d9a86948-bc00-3c8b53d93c56": {
+      "correct": "Das Hand-Fuß-Syndrom (Daktylitis) ist oft die Erstmanifestation im Säuglingsalter: schmerzhafte Schwellung von Händen und Füßen durch Gefäßverschlüsse in den kleinen Knochen.",
+      "choices": {
+        "A": "Die HbH-Krankheit entsteht beim Verlust von drei der vier α-Globin-Gene und gehört zu den α-Thalassämien.",
+        "C": "Der Erbgang ist autosomal-rezessiv. Heterozygote haben lediglich die weitgehend symptomlose Sichelzell-Trait mit Malariaschutz.",
+        "D": "Gendosiseffekte durch Kopienzahl sind das Prinzip der α-Thalassämie. Die Sichelzellanämie beruht auf einer einzigen Punktmutation im β-Globin-Gen (Glu6Val).",
+        "E": "Verbreitet ist sie in Subsahara-Afrika, dem Mittelmeerraum, Nahen Osten und Indien — überall dort, wo Malaria vorkam."
+      }
+    },
+    "01ec-c158-f23d8524-b800-60eb177f301f": {
+      "correct": "Drei Faktoren: Als gesunde Schwester einer Betroffenen ist sie mit 2/3 Trägerin, der Mann mit 1/80, und sind beide Träger, ist das Kind mit 1/4 betroffen. 2/3 × 1/80 × 1/4 = 1/480.",
+      "choices": {
+        "A": "1/240 entsteht, wenn man den Faktor 1/4 für das Kind vergisst oder mit 1/2 rechnet.",
+        "C": "1/1280 kombiniert gleich zwei zu niedrig angesetzte Faktoren.",
+        "D": "1/2560 liegt um mehr als das Fünffache daneben.",
+        "E": "1/640 ergibt sich, wenn man für Frau Müller 1/2 statt 2/3 einsetzt — der klassische Fehler: Dass sie gesund ist, schließt die homozygote Möglichkeit aus und verschiebt die Wahrscheinlichkeit auf 2/3."
+      }
+    },
+    "01ec-c159-0348d0b2-ad00-c9d3ce811ce3": {
+      "correct": "Die Multiple Sklerose ist multifaktoriell: viele Risikovarianten mit kleinem Effekt (allen voran HLA-DRB1*15:01) plus Umweltfaktoren wie EBV-Infektion, Vitamin-D-Status und Rauchen.",
+      "choices": {
+        "B": "Chorea Huntington ist monogen autosomal-dominant.",
+        "C": "Das Fragile X ist monogen X-chromosomal.",
+        "D": "Die zystische Fibrose ist monogen autosomal-rezessiv (CFTR).",
+        "E": "Marfan ist monogen autosomal-dominant (FBN1)."
+      }
+    },
+    "01ec-c159-139c39ea-bf00-b17390bf944c": {
+      "correct": "Zypern ist ein Hochprävalenzgebiet der β-Thalassämie. Entscheidend ist der Zeitpunkt: Die Anämie zeigt sich erst nach den ersten Lebensmonaten, wenn HbF auf HbA umgestellt wird und der β-Ketten-Mangel zum Tragen kommt.",
+      "choices": {
+        "A": "Die Kugelzellanämie ist in Nordeuropa häufiger und passt nicht zur Herkunft.",
+        "B": "Sphärozytose ist ein anderer Name für dieselbe Erkrankung — aus demselben Grund falsch.",
+        "C": "Doppelt aufgeführte Antwort, ebenfalls falsch.",
+        "E": "Die α-Thalassämie würde sich bereits **pränatal oder direkt nach der Geburt** zeigen, da α-Ketten schon fetal gebraucht werden — nicht erst nach Monaten."
+      }
+    },
+    "01ec-c159-2cf9ceca-ae00-8cd0fd8c7e5b": {
+      "correct": "Eine gesicherte Diagnose beendet die diagnostische Odyssee, ermöglicht gezielte Vorsorge, eine belastbare Aussage zum Wiederholungsrisiko und den Anschluss an Selbsthilfegruppen.",
+      "choices": {
+        "A": "Umgekehrt: Bei einer balancierten Translokation eines Elternteils ist das Wiederholungsrisiko deutlich höher als bei der freien Trisomie 21.",
+        "B": "Die Vierfingerfurche ist unspezifisch — sie kommt bei etwa 1–5 % gesunder Menschen vor.",
+        "C": "Auch mit Genomsequenzierung bleibt ein erheblicher Teil ungeklärt; die Aufklärungsrate liegt bei etwa 30–50 %.",
+        "E": "Beim Fragilen X ist ein Panel der falsche Weg: Die Repeat-Expansion entgeht der üblichen Sequenzierung und braucht eine gezielte Repeat-Analyse."
+      }
+    },
+    "01ec-c159-48efe768-8700-dae1581bf300": {
+      "correct": "In-frame-Deletionen erhalten das Leseraster: Es entsteht ein verkürztes, aber teilweise funktionsfähiges Dystrophin — der mildere Becker-Typ. Rasterschub-Deletionen führen zum vollständigen Verlust und damit zu Duchenne (Leseraster-Regel nach Monaco).",
+      "choices": {
+        "A": "Exon-Skipping stellt bei **Deletionen** das Leseraster wieder her; bei Stopp-Mutationen greift ein anderer Ansatz.",
+        "B": "Gliedergürteldystrophien sind ausgesprochen heterogen — über 30 Gene, sehr unterschiedliche Verläufe.",
+        "C": "Eine Konduktorin gibt das mutierte X an je die Hälfte ihrer Söhne und Töchter weiter, nicht an alle Söhne.",
+        "D": "„Niemals\" ist falsch: Etwa 10 % der Konduktorinnen zeigen durch ungleiche X-Inaktivierung Symptome bis hin zur Kardiomyopathie."
+      }
+    },
+    "01ec-c159-6e1190fa-a400-2917c28597f6": {
+      "correct": "Der Bereich von 36–39 CAG-Wiederholungen ist die Graustufe mit reduzierter Penetranz: Manche Träger erkranken, manche nicht. Ab 40 ist die Penetranz vollständig.",
+      "choices": {
+        "B": "Der Beginn liegt typischerweise zwischen dem 35. und 50. Lebensjahr. Die juvenile Form vor dem 20. Lebensjahr ist die Ausnahme.",
+        "C": "Unter 36 Repeats liegt gar keine krankheitsverursachende Expansion vor — eine Pränataldiagnostik hätte keinen Gegenstand.",
+        "D": "Die Präimplantationsdiagnostik ist in Deutschland nicht generell verboten: Sie ist seit 2011 bei hohem Risiko einer schwerwiegenden Erbkrankheit nach Ethikkommissionsvotum zulässig.",
+        "E": "Inhaltlich nah dran — prädiktive Tests erfordern nach GenDG Beratung und Bedenkzeit. In dieser Klausurfassung war jedoch die Penetranz-Aussage als Lösung vorgesehen."
+      }
+    },
+    "01ec-c159-92d33b78-b700-1ee1028a7d03": {
+      "correct": "Gesucht war die unzutreffende Aussage. Die HMSN wird überwiegend autosomal-dominant vererbt; X-chromosomale Formen (CMTX) gibt es, sie sind aber nicht das im Stammbaum erkennbare Muster.",
+      "choices": {
+        "A": "Das stimmt: Der Erbgang hängt vom betroffenen Gen ab — dominant, rezessiv oder X-chromosomal.",
+        "C": "Das stimmt: Typ I ist die demyelinisierende Form mit Defekten in Myelinproteinen.",
+        "D": "Das stimmt: Die PMP22-Duplikation ist die häufigste Ursache von CMT1A.",
+        "E": "Das stimmt: Bei autosomal-dominantem Erbgang liegt die Wahrscheinlichkeit bei 50 %."
+      }
+    },
+    "01ec-c159-ac7458e6-8e00-dcbc74fa4067": {
+      "correct": "Die Einwilligung kann jederzeit und ohne Begründung widerrufen werden — Ausdruck der Freiwilligkeit und des Rechts auf Nichtwissen im GenDG.",
+      "choices": {
+        "A": "Eine gesetzlich vorgeschriebene starre Bedenkzeit gibt es nicht; verlangt wird eine angemessene Wartezeit zwischen Beratung und Untersuchung, deren Länge im Einzelfall festgelegt wird.",
+        "B": "Ergebnisse werden im persönlichen Gespräch mitgeteilt — gerade weil sie schwerwiegend sein können.",
+        "C": "Beratung ist gerade auch bei unklarer Situation, familiärer Häufung oder Kinderwunsch vorgesehen und nicht an eine gesicherte Diagnose gebunden.",
+        "D": "Auch in der Schwangerschaft ist die schriftliche Einwilligung zwingend; Zeitdruck ändert daran nichts."
+      }
+    },
+    "01ec-c159-bc8710d4-aa00-cec7806bf081": {
+      "correct": "Hochwuchs mit überlanger Armspannweite, Arachnodaktylie, Skoliose sowie Trichter- oder Kielbrust sind die skelettalen Kernbefunde und gehen in die Gent-Kriterien ein.",
+      "choices": {
+        "A": "Ursache sind Mutationen im Fibrillin-1-Gen (FBN1), nicht in Kollagengenen.",
+        "C": "Die Symptome beginnen häufig schon im Kindesalter, weshalb betroffene Kinder regelmäßig echokardiographisch kontrolliert werden.",
+        "D": "Die Intelligenz ist normal. Intelligenzminderung mit marfanoidem Habitus spricht eher für eine Homocystinurie.",
+        "E": "Gefährdet ist vor allem die Aortenwurzel, also ein großes Gefäß. Kleine und mittlere Arterien betrifft das vaskuläre EDS."
+      }
+    },
+    "01ec-c159-cc8b9f0e-9100-31ba90e2e208": {
+      "correct": "Gesucht war die falsche Aussage. Epigenetik verändert die Genaktivität, **nicht** die DNA-Sequenz — Insertionen sind Sequenzveränderungen und damit genetisch, nicht epigenetisch.",
+      "choices": {
+        "A": "Das stimmt: Genregulation ist die Kernfunktion epigenetischer Mechanismen.",
+        "B": "Das stimmt: Methylierung und Histonmodifikation sind grundsätzlich umkehrbar — anders als eine Mutation.",
+        "C": "Das stimmt: Die X-Inaktivierung ist das Musterbeispiel, gesteuert über XIST und Methylierung.",
+        "E": "Das stimmt: Imprinting beruht auf elternspezifischer Methylierung — Grundlage von Prader-Willi und Angelman."
+      }
+    },
+    "01ec-c159-e0bfb74e-b600-c2e7a2fa91e7": {
+      "correct": "Der Ausfall der Mismatch-Reparatur führt dazu, dass Fehler in repetitiven Sequenzen nicht korrigiert werden — die Mikrosatelliteninstabilität im Tumorgewebe ist deshalb der typische Befund und der Einstieg in die Diagnostik.",
+      "choices": {
+        "A": "Neumutationen sind beim Lynch-Syndrom selten; typisch ist die Vererbung über Generationen, weshalb die Familienanamnese so ergiebig ist.",
+        "B": "APC gehört zur FAP, MUTYH zur MUTYH-assoziierten Polyposis, POLE und POLD zur Polymerase-Proofreading-Polyposis. Beim Lynch-Syndrom sind es MLH1, MSH2, MSH6 und PMS2.",
+        "C": "Erhöht ist das Risiko für das Endometriumkarzinom, also den Gebärmutterkörper. Der Gebärmutterhals ist HPV-bedingt.",
+        "D": "Lungenkrebs gehört nicht zum Spektrum. Erhöht sind Kolon-, Endometrium-, Magen-, Dünndarm-, Urothel- und Ovarialkarzinom."
+      }
+    },
+    "01ec-c159-f38f1c0c-9700-c9b5230e0fc7": {
+      "correct": "Die beidseitige Aplasie der Samenleiter ist eine Minimalvariante der zystischen Fibrose: Fast alle Betroffenen tragen CFTR-Mutationen, oft eine schwere und eine milde. Deshalb gehört zur Abklärung männlicher Infertilität die CFTR-Diagnostik.",
+      "choices": {
+        "A": "Das 21-Hydroxylase-Gen gehört zum adrenogenitalen Syndrom.",
+        "B": "BRCA1 gehört zum erblichen Brust- und Eierstockkrebs.",
+        "C": "Das Fragile X macht Intelligenzminderung und Makroorchidie, keine Samenleiteraplasie.",
+        "E": "Kollagen-Gene betreffen Bindegewebserkrankungen wie EDS oder Osteogenesis imperfecta."
+      }
+    },
+    "01ec-c15a-1bc24140-b800-85c568368bc3": {
+      "correct": "Beide Eltern sind heterozygot. Statistisch sind 25 % der Kinder homozygot (meist letal), 50 % heterozygot wie die Eltern und 25 % normalgroß.",
+      "choices": {
+        "A": "50 % ist der Anteil der heterozygoten Kinder, also derjenigen mit Achondroplasie.",
+        "B": "100 % träfe nur zu, wenn beide Eltern homozygot wären — mit der Erkrankung nicht vereinbar.",
+        "D": "75 % wäre der Anteil aller Kinder mit mindestens einem mutierten Allel.",
+        "E": "66 % entsteht, wenn man die letale homozygote Form herausrechnet — eine andere Frage."
+      }
+    },
+    "01ec-c15a-3b72ed96-a300-6270ffd3a991": {
+      "correct": "Der NIPT untersucht zellfreie DNA im mütterlichen Blut, die überwiegend aus der Plazenta stammt — daher ohne Eingriffsrisiko.",
+      "choices": {
+        "A": "Bei der Amniozentese werden fetale Zellen aus dem Fruchtwasser kultiviert; der NIPT arbeitet mit zellfreien DNA-Fragmenten.",
+        "B": "Genau das Gegenteil: Der Vorhersagewert hängt stark von der Vortestwahrscheinlichkeit ab — bei jungen Frauen sind auffällige Befunde häufiger falsch positiv.",
+        "C": "Das Ersttrimester-Screening erfasst über Nackentransparenz und Ultraschall auch strukturelle Fehlbildungen; der NIPT prüft nur bestimmte Chromosomenzahlen.",
+        "E": "Der NIPT ist ab etwa der 10. Woche möglich."
+      }
+    },
+    "01ec-c15a-4e8c539a-b400-b2b90b98fba1": {
+      "correct": "Beide Typen sind Multisystemerkrankungen: Katarakt, Herzrhythmusstörungen, Insulinresistenz, Hypogonadismus und gastrointestinale Beteiligung kommen bei Typ 1 wie Typ 2 vor.",
+      "choices": {
+        "A": "Der Erbgang ist autosomal-dominant.",
+        "C": "Die schwere kongenitale Form gibt es nur bei Typ 1, und sie wird fast ausschließlich über die **Mutter** weitergegeben — die Aussage kehrt das um.",
+        "D": "Die CK ist normal bis allenfalls leicht erhöht. Werte im Tausenderbereich sprechen für Duchenne.",
+        "E": "Beide Repeats liegen im **nicht**-kodierenden Bereich: CTG in der 3'-UTR von DMPK bei Typ 1, CCTG im Intron von CNBP bei Typ 2."
+      }
+    },
+    "01ec-c15a-5be55b0e-bf00-d502d6a1407e": {
+      "correct": "Betroffene in auf- und absteigender Linie — also über mehrere Generationen hinweg — ist das Muster des autosomal-dominanten Erbgangs. Rezessive Erkrankungen treten typischerweise nur in einer Generation auf, meist unter Geschwistern.",
+      "choices": {
+        "A": "Das passt: Die Eltern sind gesunde heterozygote Träger.",
+        "B": "Das passt: Autosomale Erbgänge betreffen beide Geschlechter gleich.",
+        "D": "Das passt: Verwandtenehen erhöhen die Wahrscheinlichkeit, dass beide Eltern dasselbe seltene Allel tragen.",
+        "E": "Das passt: Jedes Geschwisterkind hat ein Risiko von 25 %."
+      }
+    },
+    "01ec-c15a-7fd1cbd8-8d00-db189b9e05fa": {
+      "correct": "Gesucht war die falsche Aussage. Typisch ist gerade das Gegenteil: ein schmales, längliches Gesicht mit **großen, abstehenden** Ohren, dazu Makroorchidie nach der Pubertät.",
+      "choices": {
+        "A": "Das stimmt: Der Sprung vom Normalallel zur Vollmutation kommt nicht vor, die Expansion läuft über die Prämutation.",
+        "C": "Das stimmt: Die Expansion zur Vollmutation geschieht ausschließlich bei Weitergabe durch die Mutter.",
+        "D": "Das stimmt: Bei Frauen liegt die Penetranz durch die X-Inaktivierung bei etwa 50 %.",
+        "E": "Das stimmt: Etwa 20 % der Prämutationsträgerinnen entwickeln eine prämature Ovarialinsuffizienz."
+      }
+    },
+    "01ec-c15a-a485f7a6-b000-88d03f3b896d": {
+      "correct": "Genau diese Zahlen nennen die Vorlesungsfolien: MECP2-Mutation bei über 95 % der klassischen und bei 50–70 % der atypischen Rett-Syndrome.",
+      "choices": {
+        "B": "Umgekehrt: Die stereotypen Handbewegungen — Waschen, Wringen, Kneten — sind ein diagnostisches Hauptkriterium.",
+        "C": "„Stets letal\" ist zu absolut: Jungen mit MECP2-Mutation überleben in Sonderfällen, etwa bei Klinefelter-Karyotyp oder somatischem Mosaik.",
+        "D": "Eine Blickdiagnose ist es nicht — entscheidend ist der Verlauf mit zunächst normaler Entwicklung und anschließendem Verlust erworbener Fähigkeiten.",
+        "E": "Familiäre Fälle machen laut Folien unter 1 % aus; die allermeisten entstehen de novo."
+      }
+    },
+    "01ec-c15a-ba7bd95e-8300-f21c0132cab6": {
+      "correct": "Antizipation heißt: In jeder folgenden Generation beginnt die Erkrankung früher und oft schwerer — Folge der weiteren Expansion des CAG-Repeats bei der Weitergabe.",
+      "choices": {
+        "A": "Die Richtung stimmt, das Geschlecht nicht: Die Expansion geschieht überwiegend in der **männlichen** Meiose, weshalb die juvenile Form meist vom Vater kommt.",
+        "B": "Antizipation beschreibt den zeitlichen Verlauf über Generationen, nicht einen Geschlechtsunterschied in der Ausprägung.",
+        "D": "Das Repeat wird bei der Weitergabe verändert, nicht durch fortlaufende Mutationen im Lauf des Lebens eines Einzelnen.",
+        "E": "Das beschriebe eine schnellere Diagnosestellung — ein Versorgungsaspekt, kein genetisches Phänomen."
       }
     }
   }
