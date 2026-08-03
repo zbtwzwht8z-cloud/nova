@@ -1251,17 +1251,41 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
     return Boolean(progress.answers[questionId]);
   }
 
+  // Whether the solution is already on screen. Until it is, the question stays
+  // open for another attempt — which is what the handlers below key off, so they
+  // can't disagree with what the question is actually showing.
+  function isRevealedInSession(question: Question) {
+    if (mode === "exam") {
+      return examFinished;
+    }
+
+    const stored = progress.answers[question.id];
+    const settled =
+      mode === "review" ? Boolean(reviewAnswers[question.id]) : Boolean(stored);
+
+    return (
+      Boolean(gaveUp[question.id]) ||
+      (settled && stored?.selected === question.answer)
+    );
+  }
+
   function isChoiceExcluded(questionId: string, choiceId: string) {
     return excludedChoices[questionId]?.includes(choiceId) || false;
   }
 
   function selectChoice(question: Question, choiceId: string) {
-    if (
-      question.kind === "freeText" ||
-      isChoiceExcluded(question.id, choiceId) ||
-      (mode !== "exam" && isSettledInSession(question.id))
-    ) {
+    if (question.kind === "freeText" || isRevealedInSession(question)) {
       return;
+    }
+
+    // Picking a crossed-out answer un-crosses it. Without this, excluding the
+    // rest of the options after a wrong guess left nothing selectable at all —
+    // the keyboard went dead and the only way on was "Lösung zeigen".
+    if (isChoiceExcluded(question.id, choiceId)) {
+      setExcludedChoices((current) => ({
+        ...current,
+        [question.id]: (current[question.id] || []).filter((id) => id !== choiceId)
+      }));
     }
 
     setDraftAnswers((current) => ({ ...current, [question.id]: choiceId }));
@@ -1325,7 +1349,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
   }
 
   function toggleExcludedChoice(question: Question, choiceId: string) {
-    if (mode !== "exam" && isSettledInSession(question.id)) {
+    if (isRevealedInSession(question)) {
       return;
     }
 
@@ -1587,6 +1611,14 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       // B files the question in the first pocket — the common "save this for
       // later" case. The rest are one click away in the row under the question,
       // since Shift+digit belongs to excluding answers.
+      // L gives up on the current question — reachable without leaving the
+      // keyboard, which was the other half of the problem.
+      if (key === "l" && mode !== "exam" && !isRevealedInSession(question)) {
+        event.preventDefault();
+        setGaveUp((current) => ({ ...current, [question.id]: true }));
+        return;
+      }
+
       if (key === "b") {
         const pocket = folders[0];
 
@@ -4194,8 +4226,8 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                       ? "Warum das stimmt"
                       : "Warum das nicht stimmt"}
                     <span aria-hidden="true">·</span>
-                    <span title="Von einem Sprachmodell anhand der Vorlesungsfolien verfasst, nicht aus einer geprüften Quelle übernommen. Im Zweifel gilt die Vorlesung.">
-                      KI · {question.distractors?.model || "unbekanntes Modell"}
+                    <span title="Anhand der Vorlesungsfolien verfasst. Im Zweifel gilt die Vorlesung.">
+                      {question.distractors?.model || "unbekanntes Modell"}
                     </span>
                   </span>
                   <p
@@ -5263,6 +5295,7 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
       ["Q, W, E, R, T", "Antwort ausschließen"],
       ["Umschalt+1…5 / ^+1…5", "Antwort ausschließen"],
       ["C", "Frage kopieren (2× als Bild)"],
+      ["L", "Lösung zeigen (Lernmodus)"],
       ["B", "In erste Pocket speichern"],
       ["Alt+1…9", "In Pocket 1…9 speichern"],
       ["⌘K / Ctrl+K", "Befehlspalette"],
