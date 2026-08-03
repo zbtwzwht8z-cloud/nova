@@ -1,0 +1,166 @@
+{
+  "01f0-7074-81c2277c-8000-18b9b356ee4b": {
+    "correct": "Unter den Nicht-Opioiden ist Paracetamol das analgetisch schwächste — bei akutem postoperativem Schmerz ist es NSAR und Metamizol klar unterlegen.",
+    "choices": {
+      "B": "Ibuprofen ist bei postoperativem Schmerz deutlich wirksamer als Paracetamol. Der Schmerz ist hier entzündlich mitbedingt, und genau dort greift die COX-Hemmung im Gewebe an — Paracetamol wirkt überwiegend zentral.",
+      "C": "Genau umgekehrt: Die Kombination von Nicht-Opioiden mit unterschiedlichem Angriffspunkt (z.B. NSAR plus Metamizol) ist als multimodale Analgesie ausdrücklich empfohlen. Sie senkt den Opioidbedarf. Nicht kombiniert werden zwei Substanzen derselben Klasse, also nicht NSAR plus NSAR.",
+      "D": "Opioide sind fester Bestandteil der postoperativen Therapie. Das Abhängigkeitsrisiko betrifft die unkontrollierte Langzeitgabe — bei kurzer, indikationsgerechter Anwendung nach einer Operation ist es gering."
+    }
+  },
+  "01f0-7074-d5e1e2e8-8d00-480716cd4c5e": {
+    "correct": "Gemeint ist der Endpunkt der intrazellulären Kaskade: BDNF bindet an TrkB, aktiviert MAPK/PLCγ und darüber CREB, was zu Genexpression und synaptischer Plastizität führt. Achtung: CREB ist streng genommen ein Transkriptionsfaktor, kein Second Messenger — die Frage wurde in der Klausur genau deshalb angefochten.",
+    "choices": {
+      "A": "NGF ist wie BDNF selbst ein Neurotrophin, also ein extrazellulärer Botenstoff — kein intrazellulärer Signalvermittler.",
+      "B": "Glutamat ist der wichtigste exzitatorische Neurotransmitter und wirkt von außen an NMDA- und AMPA-Rezeptoren, nicht innerhalb der Zelle.",
+      "C": "Mitochondrien sind Organellen der Energiegewinnung, kein Signalmolekül einer Rezeptorkaskade.",
+      "D": "Serotonin ist ein Neurotransmitter und wirkt ebenfalls extrazellulär am Rezeptor."
+    }
+  },
+  "01f0-7076-418fce5a-b400-f2af22f14641": {
+    "correct": "DISH (Morbus Forestier) ist eng mit dem metabolischen Syndrom verknüpft — allen voran Typ-2-Diabetes, dazu Adipositas und Hyperurikämie. Erhöhtes Insulin und IGF-1 wirken osteoanabol und fördern die Verknöcherung der Bänder.",
+    "choices": {
+      "A": "Für eine Depression besteht kein Zusammenhang mit der Ausbildung von Bandverknöcherungen.",
+      "B": "Eine CLL ist eine lymphatische Neoplasie ohne Bezug zur hyperostotischen Spondylose.",
+      "C": "Vorhofflimmern teilt zwar Risikofaktoren des Alters, ist aber selbst nicht mit DISH assoziiert.",
+      "E": "Ein Hallux valgus ist eine lokale Zehenfehlstellung und hat mit der Verknöcherung der Wirbelsäulenbänder nichts zu tun."
+    }
+  },
+  "01f0-7077-455476b6-b200-697a530448ed": {
+    "correct": "Klinisch eine Koxarthrose. Entscheidend ist der NSTEMI vor wenigen Wochen unter dualer Thrombozytenaggregationshemmung: Metamizol ist hier das sinnvolle Nicht-Opioid, weil es weder die Blutungsneigung über die COX-1 der Thrombozyten zusätzlich erhöht noch kardiovaskulär belastet.",
+    "choices": {
+      "B": "NSAR sind bei frischem NSTEMI unter dualer Plättchenhemmung die falsche Wahl: erhöhtes gastrointestinales Blutungsrisiko, zusätzliche kardiovaskuläre Ereignisse und eine mögliche Abschwächung der ASS-Wirkung.",
+      "C": "Der Befund spricht klar gegen eine radikuläre Ursache. Leistenschmerz, Verstärkung bei Innenrotation und Flexion und eine eingeschränkte passive Beweglichkeit sind typisch für das Gelenk selbst — bei einer Spinalkanalstenose wäre die passive Hüftbeweglichkeit frei.",
+      "D": "Opioide sind hier nicht kontraindiziert. Sie sind bei kontrollierter Indikation gerade die Alternative, wenn NSAR wegen der Herz- und Blutungssituation ausfallen."
+    }
+  },
+  "01f0-7077-9b7c7002-9d00-d5ef88cac438": {
+    "correct": "Streng einseitige, stärkste retroorbitale Attacken von 15–30 Minuten mit gleichseitigen autonomen Zeichen (Tränenfluss, Rhinorrhö) und dem periodischen Auftreten über Wochen im Jahr sind das Vollbild des Cluster-Kopfschmerzes.",
+    "choices": {
+      "A": "Eine Trigeminusneuralgie besteht aus blitzartigen Attacken von Sekunden bis maximal zwei Minuten, meist im 2. oder 3. Ast und durch Berührung oder Kauen triggerbar — nicht 15–30 Minuten und ohne diese ausgeprägte autonome Begleitsymptomatik.",
+      "B": "Der N. hypoglossus ist ein rein motorischer Nerv für die Zunge. Eine sensible Neuralgie dieses Nervs gibt es nicht.",
+      "D": "Die Arteriitis temporalis trifft Patienten über 50 mit dauerhaftem Schläfenschmerz, druckschmerzhafter Arterie, Kauclaudicatio und stark erhöhter BSG — keine kurzen, sich wiederholenden Attacken.",
+      "E": "Eine Migräne dauert 4–72 Stunden und geht mit Übelkeit sowie Licht- und Lärmscheu einher. Die Patienten ziehen sich zurück, während sie beim Cluster typischerweise umherlaufen."
+    }
+  },
+  "01f0-7077-ebc93162-a900-fadd8b8b48b3": {
+    "correct": "Cannabinoide und Opioide wirken über getrennte Rezeptorsysteme, deren Signalwege sich überschneiden. Daraus ergibt sich ein additiver bis synergistischer Effekt, der eine Einsparung der Opioiddosis ermöglichen kann.",
+    "choices": {
+      "B": "Es sind zwei verschiedene Rezeptoren: Cannabinoide wirken an CB1 und CB2, Opioide an µ-, κ- und δ-Rezeptoren. Beide sind zwar Gi-gekoppelt, hemmen sich aber nicht gegenseitig."
+    }
+  },
+  "01f0-7078-54482b80-8500-7ff1d0b9921f": {
+    "correct": "Gesucht war die unzutreffende Aussage. Für chronische Rückenschmerzen ist die Wirksamkeit von Cannabinoiden gerade nicht gut belegt — die Evidenz ist schwach und uneinheitlich. Am ehesten belegt ist sie bei Spastik bei MS, chemotherapieinduzierter Übelkeit und neuropathischem Schmerz.",
+    "choices": {
+      "A": "Das stimmt und ist deshalb nicht die gesuchte Antwort: THC ist der psychoaktive Bestandteil und vermittelt seine Wirkung über den zentralen CB1-Rezeptor.",
+      "B": "Das stimmt ebenfalls: CBD hat kaum psychotrope Wirkung, ihm werden antiinflammatorische und antikonvulsive Effekte zugeschrieben.",
+      "D": "Achtung, diese Aussage ist sachlich ebenfalls falsch — psychische Vorerkrankungen, besonders Psychosen, gelten als Kontraindikation. In dieser Klausurfassung war jedoch die Evidenz-Aussage als gesuchte Falschaussage vorgesehen. Hier lohnt der Blick in die offizielle Lösung.",
+      "E": "Das stimmt: Seit 2017 ist die Verordnung möglich, in der Regel wenn andere Therapieoptionen ausgeschöpft sind oder nicht infrage kommen."
+    }
+  },
+  "01f0-7079-1e81977e-8000-36d1cce9e4e8": {
+    "correct": "Nur Patient 1. Eine Osteolyse von 80 % des Wirbelkörpers L4 bedeutet drohende Instabilität mit Fraktur- und Querschnittsgefahr — das ist eine dringliche OP-Indikation, Physiotherapie wäre hier gefährlich.",
+    "choices": {
+      "B": "Beide falsch: In der 32. Schwangerschaftswoche wird ein Bandscheibenvorfall ohne Paresen konservativ behandelt, und auch die 76-Jährige hat keine Paresen — ohne neurologisches Defizit gilt konservativ vor operativ.",
+      "C": "Patient 3 spricht dagegen: Eine Gehstrecke von 1000 m bei Spinalkanalstenose ist ein guter Wert. Operiert wird erst bei erheblichem Leidensdruck, kurzer Gehstrecke oder neurologischem Defizit.",
+      "D": "Enthält die Schwangere und den Stenose-Patienten, bei denen beiden zunächst konservativ vorgegangen wird.",
+      "E": "Nur der erste Fall ist dringlich; die übrigen drei sind klassische Indikationen für konservative Therapie."
+    }
+  },
+  "01f0-7079-5cabb976-9f00-0017bd36a9d9": {
+    "correct": "Der konditionierte Stimulus ist definitionsgemäß ein ursprünglich neutraler Reiz, der durch wiederholte Kopplung an den unkonditionierten Reiz selbst eine Reaktion auslöst — etwa wenn eine Bewegung, die einmal mit Schmerz einherging, später allein schon Angst und Anspannung erzeugt.",
+    "choices": {
+      "B": "Die Verletzung ist der unkonditionierte Stimulus — sie löst die Schmerzreaktion von sich aus und ohne Lernvorgang aus.",
+      "C": "Stress oder Weinen sind die Reaktion auf den Reiz, nicht der Reiz selbst.",
+      "D": "Sicherheitssignale stammen aus dem Vermeidungslernen und der operanten Konditionierung, nicht aus der klassischen Konditionierung.",
+      "E": "Ein Gefahrensignal ist bereits mit Bedeutung besetzt und damit gerade nicht neutral."
+    }
+  },
+  "01f0-7079-8bab9a70-8c00-2c146ba95983": {
+    "correct": "Phantomschmerz ist die Schmerzempfindung im nicht mehr vorhandenen Körperteil.",
+    "choices": {
+      "A": "Schmerz im verbliebenen Stumpf ist der Stumpfschmerz — eine eigene Entität mit anderer Ursache, etwa Neurom, Durchblutungsstörung oder Prothesendruck.",
+      "B": "Eine nicht schmerzhafte Empfindung im Stumpf ist schlicht Stumpfsensibilität und wird nicht als Phantomschmerz bezeichnet.",
+      "D": "Eine nicht schmerzhafte Wahrnehmung des fehlenden Körperteils ist die Phantomempfindung. Sie tritt bei fast allen Amputierten auf und ist nicht behandlungsbedürftig — der Unterschied liegt allein im Schmerz.",
+      "E": "Ein Neurom ist eine wuchernde Nervenendigung im Stumpf, also eine mögliche Ursache von Stumpfschmerz, nicht die Definition des Phantomschmerzes."
+    }
+  },
+  "01f0-7079-efe1dfea-b300-6b5caab41c8b": {
+    "correct": "Carbamazepin ist Mittel der ersten Wahl bei der Trigeminusneuralgie. Es blockiert spannungsabhängige Natriumkanäle und dämpft damit die hochfrequente ektope Entladung des geschädigten Nervs.",
+    "choices": {
+      "A": "Die mikrovaskuläre Dekompression nach Jannetta setzt einen nachgewiesenen Gefäß-Nerven-Kontakt voraus — der wurde im MRT gerade nicht gesehen. Zudem wird immer zuerst medikamentös behandelt.",
+      "C": "Klingt plausibel, ist aber zu absolut formuliert: Bei eindeutigem Gefäß-Nerven-Kontakt und jungen Patienten wird durchaus früh operiert, ohne jede konservative Option auszureizen. Hier scheitert die Aussage ohnehin daran, dass zunächst Carbamazepin indiziert ist."
+    }
+  },
+  "01f0-707a-9dac8d96-b300-1b57b47a255b": {
+    "correct": "Bei fokaler Spastik nach Schlaganfall ist die gezielte Botulinumtoxin-Injektion in die betroffenen Muskeln Methode der ersten Wahl — sie wirkt lokal, ohne systemische Sedierung.",
+    "choices": {
+      "A": "Der Schmerz entsteht hier durch Tonuserhöhung, Fehlstellung und Muskelverkürzung, ist also nozizeptiv-muskuloskelettal. Ein zentraler neuropathischer Schmerz nach Insult wäre brennend-dauerhaft mit Sensibilitätsstörung im betroffenen Areal.",
+      "C": "Amitriptylin und Pregabalin wirken auf neuropathischen Schmerz und lösen die Spastik nicht. Das eigentliche Problem — der erhöhte Muskeltonus — bliebe unbehandelt.",
+      "D": "Umgekehrt: Die Injektion unter Ultraschall- oder EMG-Kontrolle trifft den Zielmuskel zuverlässiger als die Orientierung an Landmarken allein und reduziert Fehlinjektionen.",
+      "E": "Gerade der dauerhafte Faustschluss führt zu Mazeration der Handinnenfläche mit Infektionen und Hautdefekten — eine typische Komplikation und ein wichtiges Argument für die Behandlung."
+    }
+  },
+  "01f0-707b-1d99548a-b500-dc0eda019d84": {
+    "correct": "Das Ansprechen auf Indometacin ist bei der Hemicrania continua so verlässlich, dass es als diagnostisches Kriterium gilt — bleibt es aus, steht die Diagnose infrage.",
+    "choices": {
+      "A": "An 4–5 Tagen pro Woche liegt man über der Grenze für den Medikamenten-Übergebrauchskopfschmerz: Analgetika an mindestens 15 Tagen im Monat, Triptane und Mischpräparate an mindestens 10. Ein Protonenpumpenhemmer schützt allenfalls den Magen, verhindert diesen Kopfschmerz aber nicht.",
+      "B": "Botulinumtoxin ist zur Prophylaxe der chronischen Migräne zugelassen, nicht zur Akuttherapie — der Wirkeintritt dauert Tage bis Wochen.",
+      "D": "Metoprolol ist Prophylaxe der Migräne. Beim Cluster-Kopfschmerz wird Verapamil eingesetzt, überbrückend Kortikosteroide.",
+      "E": "Carbamazepin blockiert Natriumkanäle, nicht NMDA-Kanäle. NMDA-Antagonisten sind zum Beispiel Ketamin oder Memantin."
+    }
+  },
+  "01f0-707c-5c45aaf2-b900-d5ac604d183c": {
+    "correct": "Die KUSS ist für Kinder bis etwa vier Jahre validiert und erfasst rein beobachtend Weinen, Mimik, Rumpf- und Beinhaltung sowie motorische Unruhe — genau richtig für ein zweijähriges Kind, das seinen Schmerz nicht selbst angeben kann.",
+    "choices": {
+      "A": "Codein ist bei Kindern nach Tonsillektomie kontraindiziert — es gab Todesfälle bei ultraschnellen CYP2D6-Metabolisierern durch übermäßige Morphinbildung. Auch Tramadol ist als Prodrug aus demselben Grund kritisch.",
+      "C": "Motorische Unruhe beim Kleinkind ist unspezifisch: Sie kann Schmerz bedeuten, ebenso aber Hypoxie, volle Blase, Hunger oder ein Aufwachdelir. Vor einer weiteren Opioidgabe müssen diese Ursachen ausgeschlossen werden.",
+      "D": "Metamizol ist bei Kindern ab drei Monaten zugelassen und wird gerade nach Tonsillektomie bevorzugt eingesetzt, weil es im Gegensatz zu NSAR die Thrombozytenfunktion und damit die Nachblutungsgefahr nicht beeinflusst.",
+      "E": "Gesichterskalen setzen Selbsteinschätzung voraus und sind erst ab etwa vier Jahren sinnvoll. Bei einem Zweijährigen braucht es eine Fremdbeobachtungsskala."
+    }
+  },
+  "01f0-707c-b671d99c-b200-d044c1403e5b": {
+    "correct": "Bei Kindern steht die nicht-medikamentöse Prophylaxe im Vordergrund — Schlafhygiene, Regelmäßigkeit, Trinkmenge, Stressreduktion, Entspannungsverfahren — ergänzt um eine medikamentöse Prophylaxe, wenn Häufigkeit und Leidensdruck es erfordern.",
+    "choices": {
+      "B": "„Immer medikamentös\" ist schon durch das Wort falsch. Ein großer Teil der Kinder wird ohne Dauermedikation geführt.",
+      "C": "Sumatriptan als Nasenspray ist ab zwölf Jahren zugelassen — also gerade nicht kontraindiziert, sondern die Standardoption in dieser Altersgruppe.",
+      "D": "Domperidon ist ein Antiemetikum und wirkt allenfalls gegen die Begleitübelkeit. Mittel der Wahl im Anfall sind Ibuprofen oder Paracetamol.",
+      "E": "Bei Kindern ist die Migräne typischerweise beidseitig — meist frontal oder bitemporal — und kürzer als bei Erwachsenen. Die Einseitigkeit entwickelt sich erst später. Nüchternerbrechen ist zudem ein Warnzeichen für erhöhten Hirndruck."
+    }
+  },
+  "01f0-707d-2affe1c8-ac00-f98cb703ca8c": {
+    "correct": "Hauptkriterien sind der tastbare Hartspannstrang, die maximale Druckempfindlichkeit im Strang und die Schmerzwiedererkennung — der Patient erkennt beim Druck genau „seinen\" Schmerz wieder.",
+    "choices": {
+      "A": "Kriterium 5 ist falsch: Eine Plegie gehört nicht dazu. Triggerpunkte verursachen Schmerz und allenfalls Kraftminderung durch Schonung, keine Lähmung.",
+      "B": "Kriterium 4 ist falsch: Myofasziale Triggerpunkte sind eine klinische Diagnose. Das Röntgenbild ist unauffällig, sonst wären sie nicht myofaszial.",
+      "C": "Enthält mit der Plegie erneut ein Kriterium, das nicht zutrifft.",
+      "E": "Röntgenbefund und Plegie gehören beide nicht dazu, damit können nicht alle Kriterien richtig sein."
+    }
+  },
+  "01f0-707d-a4e20ad4-b400-1b856f1d4bb1": {
+    "correct": "Einseitiger Hinterhauptschmerz mit umschriebenem Druckpunkt über dem Nervenaustritt, Verstärkung bei Kopfbewegung und unauffälliger Bildgebung spricht für eine Okzipitalisneuralgie. Die Blockade des N. occipitalis major mit Lokalanästhetikum ist zugleich diagnostisch und therapeutisch.",
+    "choices": {
+      "A": "Eine Beißschiene gehört zur kraniomandibulären Dysfunktion mit Kiefergelenkbeschwerden und Bruxismus — hier liegt der Schmerz am Hinterkopf.",
+      "B": "Eine C2-Blockade ist invasiver und wird erst erwogen, wenn die periphere Blockade nicht ausreicht oder eine zervikogene Ursache gesichert ist. Die zervikale Bildgebung war unauffällig.",
+      "C": "Analgetika hat die Patientin bereits erfolglos genommen. Mehr vom Gleichen führt nur näher an den Medikamenten-Übergebrauchskopfschmerz.",
+      "E": "Eine Gefäßdarstellung sucht nach Dissektion oder Aneurysma. Dafür fehlen Warnzeichen wie Donnerschlagkopfschmerz, Horner-Syndrom oder neurologische Ausfälle."
+    }
+  },
+  "01f0-707e-278a03d8-b900-59edca3348c4": {
+    "correct": "Operationen bei CRPS sind möglich, aber heikel: Sie gehören in ein interdisziplinäres Vorgehen mit vorbereiteter, ausreichender Schmerztherapie — regionalanästhesiologisch begleitet —, damit der Eingriff die Erkrankung nicht neu anstößt.",
+    "choices": {
+      "A": "Zu absolut. Notwendige Eingriffe, etwa bei fehlverheilter Fraktur oder Nervenkompression, dürfen und müssen durchgeführt werden.",
+      "B": "„Immer sofort\" ist falsch. Ein Eingriff in der floriden Entzündungsphase ohne Schmerzkonzept kann das CRPS deutlich verschlechtern.",
+      "D": "Zu eng gefasst: Bei klarer struktureller Ursache wartet man nicht, bis jede konservative Option ausgereizt ist — entscheidend ist die interdisziplinäre Abwägung samt Schmerztherapie.",
+      "E": "Die Diagnose CRPS schließt eine Operation nicht aus. Sie ändert das Vorgehen, nicht die grundsätzliche Möglichkeit."
+    }
+  },
+  "01f0-707e-6075065c-a800-16ce7128808c": {
+    "correct": "Eine Einblutung ins Gelenk — etwa unter Antikoagulation oder bei Hämophilie — dehnt die Kapsel innerhalb von Minuten und verursacht dadurch einen schlagartigen Schmerz.",
+    "choices": {
+      "A": "Eine septische Arthritis entwickelt sich über Stunden bis wenige Tage mit Fieber, Überwärmung und Bewegungsunfähigkeit — schnell, aber nicht innerhalb von Minuten.",
+      "C": "Die tuberkulöse Arthritis ist die langsamste Form und entsteht schleichend über Wochen bis Monate.",
+      "D": "Die Arthritis psoriatica beginnt subakut über Tage bis Wochen, meist mit Hautbefund oder Daktylitis.",
+      "E": "Die rheumatoide Arthritis beginnt typischerweise schleichend über Wochen mit symmetrischer Beteiligung kleiner Gelenke und Morgensteifigkeit."
+    }
+  }
+}

@@ -36,6 +36,11 @@ export type Question = {
   // How many distinct exam terms this question (or a reworded version of it)
   // has appeared in. Written by scripts/annotate-repeats.mjs.
   repeats?: { count: number; terms: string[] };
+  // Why each wrong answer is wrong, keyed by choice id, plus optionally why the
+  // right one is right. Kept in data/explanations/ rather than here, because
+  // questions.json is rewritten wholesale on every sync. Author-written, so the
+  // UI labels it as generated rather than sourced.
+  distractors?: { correct?: string; choices: Record<string, string> };
 };
 
 export type QuestionMetrics = {

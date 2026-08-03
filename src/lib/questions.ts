@@ -1,5 +1,12 @@
 import rawQuestions from "../../data/questions.json";
+import schmerzmedizin from "../../data/explanations/schmerzmedizin.json";
 import type { Question, QuestionIndex } from "./types";
+
+// Merged in at load rather than stored on the question, since questions.json is
+// rewritten wholesale by the export script and would drop anything added here.
+const EXPLANATIONS: Record<string, Question["distractors"]> = {
+  ...(schmerzmedizin as Record<string, NonNullable<Question["distractors"]>>)
+};
 
 function assertQuestion(question: Question, index: number) {
   const prefix = `Question ${index + 1}`;
@@ -36,7 +43,8 @@ export const questions = (rawQuestions as Question[]).map((question, index) => {
     ...question,
     subject: question.subject || "General",
     topic: question.topic || "Unsorted",
-    tags: question.tags || []
+    tags: question.tags || [],
+    distractors: EXPLANATIONS[question.id]
   };
 });
 

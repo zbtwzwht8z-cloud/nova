@@ -33,6 +33,7 @@ import {
   Plus,
   RotateCcw,
   Shield,
+  Sparkles,
   Timer,
   Trash2,
   Upload,
@@ -4046,7 +4047,16 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
             const correct = question.answer === choice.id;
             const excluded = isChoiceExcluded(question.id, choice.id);
 
+            const distractorNote = revealed
+              ? choice.id === question.answer
+                ? question.distractors?.correct
+                : selected
+                  ? question.distractors?.choices?.[choice.id]
+                  : undefined
+              : undefined;
+
             return (
+              <div className="grid gap-1" key={choice.id}>
               <div
                 className={cn(
                   "flex w-full items-stretch rounded border border-border bg-surface transition-colors",
@@ -4064,7 +4074,6 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                     !correct &&
                     "border-danger bg-[color-mix(in_srgb,var(--danger)_10%,var(--surface))]"
                 )}
-                key={choice.id}
               >
                 <button
                   aria-pressed={selected}
@@ -4135,6 +4144,35 @@ export default function TrainerApp({ questionMetrics }: TrainerAppProps) {
                 >
                   <Ban size={17} aria-hidden="true" />
                 </button>
+              </div>
+
+              {distractorNote ? (
+                <div
+                  className={cn(
+                    "grid gap-1 rounded-lg border-l-2 bg-surface-muted px-3 py-2",
+                    choice.id === question.answer
+                      ? "border-l-accent"
+                      : "border-l-danger"
+                  )}
+                >
+                  <span className="flex items-center gap-1.5 text-label text-text-subtle">
+                    <Sparkles size={11} aria-hidden="true" />
+                    {choice.id === question.answer
+                      ? "Warum das stimmt"
+                      : "Warum das nicht stimmt"}
+                    <span aria-hidden="true">·</span>
+                    <span title="Von der App verfasst, nicht aus einer geprüften Quelle übernommen. Im Zweifel gilt die Vorlesung.">
+                      KI-generiert
+                    </span>
+                  </span>
+                  <p
+                    className="m-0 text-body-sm text-text-muted"
+                    style={{ fontSize: Math.max(12, readerFontPx - 2) }}
+                  >
+                    {distractorNote}
+                  </p>
+                </div>
+              ) : null}
               </div>
             );
           })}
