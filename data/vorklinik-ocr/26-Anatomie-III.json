@@ -1,0 +1,447 @@
+{
+ "subject": "Anatomie III",
+ "term": "WS 21/22",
+ "sitting": "",
+ "track": "iRM",
+ "source_pdf": "Anatomie III - Hauptklausur WS2122.pdf",
+ "questions": [
+  {
+   "number": 1,
+   "stem": "Welche Aussage zum abgebildeten Muskel ist richtig?",
+   "choices": {
+    "A": "Er dient dem Öffnen des Kiefergelenks.",
+    "B": "Er wird durch den N. maxillaris motorisch innerviert",
+    "C": "Er entspringt am Arcus zygomaticus",
+    "D": "Er dient der Adduktion des Unterkiefers.",
+    "E": "Er dient der Seitwärtsbewegung der Mandibula"
+   },
+   "figure": true
+  },
+  {
+   "number": 2,
+   "stem": "Welche Aussage zur Milz ist falsch?",
+   "choices": {
+    "A": "Die A. splenica kann eine A. gastrica posterior abgeben.",
+    "B": "Über das Lig. splenocolicum gelangt die A. gastromentalis sinistra zur großen Magenkurvatur.",
+    "C": "Die Extremitas posterior der Milz liegt kranial, die Extremitas anterior liegt kaudal in der linken Regio hypogastrica.",
+    "D": "Die Aa. centrales der Milz entspringen den Aa. trabéculares.",
+    "E": "Die Pulpa der Milz besitzen ein diskontinuierliches Endothel."
+   }
+  },
+  {
+   "number": 3,
+   "stem": "Welche Aussage zu den Leitungsbahnen des Kopf- und Halsbereichs trifft zu?",
+   "choices": {
+    "A": "Der N. Hypoglossus rein motorisch",
+    "B": "Anteile des accessorius stammen aus ncl ambiguus und ncl tractus solitarii",
+    "C": "Kerne des vagus liegen in der pons",
+    "D": "Vagus rein viszeroMotorisch",
+    "E": "Der N. facialis verlässt den Schädel durch das foramen jugulare"
+   }
+  },
+  {
+   "number": 4,
+   "stem": "Welche Aussage bezüglich der Topographie und Makroskopie der Leber ist richtig?",
+   "choices": {
+    "A": "Die Area nuda wird unter anderem durch das Lig. coronarium begrenzt.",
+    "B": "Der Lobus quadratus befindet sich in der Divisio anterius.",
+    "C": "Zwischen der Divisio lateralis und der Divisio medialis befindet sich die V. hepatica intermedia.",
+    "D": "Der kraniale Lymphabfluss der Leber erfolgt über die Nll. hepatici und Nll. coeliaci",
+    "E": "Das Lig. falciforme verläuft an der Viszeralseite der Leber durch die Fissura portalis principalis"
+   }
+  },
+  {
+   "number": 5,
+   "stem": "Welche Aussage zur Gl. mammaria trifft zu?",
+   "choices": {
+    "A": "Sie setzt sich aus 2-4 Drüsenlappen zusammen.",
+    "B": "Das Milchgangsystem ist durch ein zweischichtiges Epithel ausgekleidet.",
+    "C": "Sie werden sensorisch über den N. Vagus innerviert.",
+    "D": "25% des Lymphabflusses erfolgt über axilläre Lymphknoten.",
+    "E": "Veränderungen der Glandula im Zyklus sind pathologisch."
+   }
+  },
+  {
+   "number": 6,
+   "stem": "Welcher ist kein viszeraler Ast der Aorta descendens?",
+   "choices": {
+    "A": "Rr. bronchiales",
+    "B": "Rr. oesophagaei",
+    "C": "Rr. pericardici",
+    "D": "Aa. phrenicae superiores",
+    "E": "Aa. intercostales posteriores"
+   }
+  },
+  {
+   "number": 7,
+   "stem": "Welche Aussage ist richtig?",
+   "choices": {
+    "A": "In Segmentbronchien befindet sich kein Knorpel",
+    "B": "In den Bronchii terminales sind keine elastischen Fasern.",
+    "C": "Die Muskulatur in den Bronchioli ist quergestreift",
+    "D": "Das Epithel der Bronchioli respiratorii besitzen viele Becherzellen",
+    "E": "Die Erbkrankheit Mukoviszidose beruht auf einem Defekt der Chlorid-Kanäle, die für die Verdünnung und den Abtransport von Schleim notwendig sind"
+   }
+  },
+  {
+   "number": 8,
+   "stem": "Welche der folgenden Aussagen trifft zu?",
+   "choices": {
+    "A": "→ Proximaler Tubulus",
+    "B": "→ Vas afferens",
+    "C": "1 Distaler Tubulus",
+    "D": "2 Extraglomerulare Mesangiumzellen",
+    "E": "Nucleus eines Podozyten"
+   },
+   "figure": true
+  },
+  {
+   "number": 9,
+   "stem": "Welche Aussage zum Hoden ist zutreffend?",
+   "choices": {
+    "A": "Sertoli-Zellen produzieren Testosteron.",
+    "B": "Leydig-Zellen produzieren Inhibin.",
+    "C": "Tight junctions zwischen den Sertoli-Zellen bilden die Blut-Hoden-Schranke.",
+    "D": "Die Basallamina der Sertoli-Zellen bildet die Blut-Hoden-Schranke.",
+    "E": "Die Spermiogenese beinhaltet nur die Geißelbildung und die Kernkondensation."
+   }
+  },
+  {
+   "number": 10,
+   "stem": "Welche Aussage zur Entwicklung der Bauchhöhle und des Verdauungstraktes ist falsch?",
+   "choices": {
+    "A": "An der Trennung der Kloake ist das Septum urorectale beteiligt.",
+    "B": "Aus dem Epithel der Mundbuckt gehen die Drüsenzellen der Glandula parotidea hervor.",
+    "C": "Der Recessus inferior bursae omentalis wird unter Anderem durch das Mesocolon transversum begrenzt.",
+    "D": "Aus dem Epithel der Analbuckt gehen die Drüsenzellen der Proktodealdürsen hervor.",
+    "E": "Das Epithel des viszeralen Peritoneums ist endodermalen Ursprungs."
+   }
+  },
+  {
+   "number": 11,
+   "stem": "Welche der folgenden Aussagen trifft zu?",
+   "choices": {
+    "A": "Der Douglas-Raum liegt zwischen Harnblase und Uterus.",
+    "B": "Die arterielle Versorgung des Uterus erfolgt über die A. iliaca externa.",
+    "C": "Der Uterus liegt typischerweise in Retroversio-Anteflexio",
+    "D": "Die sympathisch-nervöse Versorgung des Uterus erfolgt über den Plexus hypogastricus inferior.",
+    "E": "Das Myometrium des Uterus wird durch quergestreifte Muskelzellen gebildet"
+   }
+  },
+  {
+   "number": 12,
+   "stem": "Was gehört nicht zum endokrinen Hypothalamus?",
+   "choices": {
+    "A": "Ncl. suprachiasmaticus",
+    "B": "Ncl. ventro-medialis hypothalami",
+    "C": "Ncl. infundibularis",
+    "D": "Eminentia mediana",
+    "E": "Eminentia medialis"
+   }
+  },
+  {
+   "number": 13,
+   "stem": "In welcher Phase entwickeln sich die meisten Alveolen?",
+   "choices": {
+    "A": "5. und 17. Entwicklungswoche",
+    "B": "16. und 25.Entwicklungswoche",
+    "C": "24. Entwicklungswoche und dem 8. Monat",
+    "D": "8. und 9. Monat",
+    "E": "Geburt und dem 10. Lebensjahr"
+   }
+  },
+  {
+   "number": 14,
+   "stem": "Welche Aussage ist richtig?",
+   "choices": {
+    "A": "Die Vena cava inferior verläuft im hinteren Mediastinum.",
+    "B": "Die Nn. vagi verlaufen im mittleren Mediastinum.",
+    "C": "Die Trachea liegt im hinteren Mediastinum.",
+    "D": "Der Ductus thoracicus is verläuft im mittleren Mediastinum.",
+    "E": "Der N. phrenicus verläuft im mittleren Mediastinum."
+   }
+  },
+  {
+   "number": 15,
+   "stem": "Welche Aussage zur männlichen Urethra ist falsch? Zu ihren Anteilen gehört die ...",
+   "choices": {
+    "A": "Pars spongiosa",
+    "B": "Pars cavernosa",
+    "C": "Pars membranacea",
+    "D": "Fossa navicularis",
+    "E": "Pars intramuralis"
+   }
+  },
+  {
+   "number": 16,
+   "stem": "Welche Aussage zur vegetativen Versorgung der Beckenorgane ist falsch?",
+   "choices": {
+    "A": "Es gibt Rami communicantes albi im Bereich des sakralen Truncus sympathicus.",
+    "B": "Nn. splanchnici pelvici zweigen von sakralen Spinalnerven ab.",
+    "C": "Nn. splanchnici sacrali verbinden den Truncus sympathicus mit dem Plexus hypogastricus inferior.",
+    "D": "Über Rami communicantes grisei gelangen postgangliönäre Fasern aus dem Truncus sympathicus in sakrale Spinalnerven.",
+    "E": "Bei den Nn. splanchnici pelvici handelt es sich um präganglionäre Fasern."
+   }
+  },
+  {
+   "number": 17,
+   "stem": "Welche Antwort ist richtig?",
+   "choices": {
+    "A": "Das Präparat zeigt einen Schnitt durch das Pankreas",
+    "B": "Pfeil 2 zeigt eine Vena centralis",
+    "C": "Das Präparat ist nach Masson gefärbt",
+    "D": "Pfeil 1 zeigt eine Arteria interlobularis",
+    "E": "Pfeil 3 zeigt ein Hering Kanälchen"
+   },
+   "figure": true
+  },
+  {
+   "number": 18,
+   "stem": "Welche Aussage ist falsch?",
+   "choices": {
+    "A": "Im Endokard finden sich zahlreiche Weibel-Palade-Körperchen.",
+    "B": "Purkinjefasern sind eingewanderte spezialisierte Nervenzellen.",
+    "C": "Bei der Auskultation hört man die Pulmonalklappe im 2. ICR parasternal links.",
+    "D": "Die vulnerable Phase der fetalen Herzentwicklung liegt im ersten Trimemons (1-3 Monat) der Schwangerschaft.",
+    "E": "Die Pars membranacea des Septum interventriculare geht embryologisch aus dem Endokardkissen hervor ."
+   }
+  },
+  {
+   "number": 19,
+   "stem": "Welche der folgenden Aussagen trifft zu?",
+   "choices": {
+    "A": "Die Ovarien liegen extraperitoneal.",
+    "B": "Der N. femoralis liegt ventral der Ovarien.",
+    "C": "Bei der Geburt sind Primordiallfollikel noch nicht angelegt.",
+    "D": "Das Follikelepithel der Primordiallfollikel ist mehrschichtig.",
+    "E": "Die Proteine der Zona pellucida sind für den Start der Akrosomenreaktion wichtig"
+   }
+  },
+  {
+   "number": 20,
+   "stem": "Welche Aussage zur Glandula thyroidea ist falsch?",
+   "choices": {
+    "A": "Die A.thyroidea superior entspring der A. carotis externa.",
+    "B": "Der N. laryngeus recurrens schlingt sich li. um den Aortenbogen.",
+    "C": "Der Ultimobronchialkörper ist der Vorläufer der C-Zellen.",
+    "D": "Die Follikelepithelzellen synthetisieren Thyreoglobulin.",
+    "E": "Die C-Zellen produzieren Parathyrin."
+   }
+  },
+  {
+   "number": 21,
+   "stem": "Welche der Aussagen zu den gezeigten Präparaten trifft zu? Welche der folgenden Aussagen trifft zu?",
+   "choices": {
+    "A": "Auf keinem der Bilder ist das Rete testis zu sehen.",
+    "B": "Auf Bild 3 kann man Leydigzellen finden.",
+    "C": "Bild 1 zeigt das Keimepithel des Hodens.",
+    "D": "Das Bild 2 zeigt den Ductus deferens.",
+    "E": "Bild 1 und 2 zeigen unterschiedliche Stellen des Nebenhodens"
+   },
+   "figure": true
+  },
+  {
+   "number": 22,
+   "stem": "Welche Aussage ist richtig?",
+   "choices": {
+    "A": "Das parietale Blatt des Perikards ist das Epikard.",
+    "B": "Das Perikard wird sensorischl von den Nn. intercostales innerviert.",
+    "C": "Der Sinus obliquus pericardii ist die Umschlagfalte des viszeralen in das parietale Perikard.",
+    "D": "Die adulte linke Herzkammer hat eine Dicke von 3-4 mm",
+    "E": "Die Pulmonalklappe ist die Segelklappe zwischen dem rechten Ventrikel und dem Truncus pulmonalis."
+   }
+  },
+  {
+   "number": 23,
+   "stem": "Welche Aussage zum endokrinen Pankreas/DNES ist falsch?",
+   "choices": {
+    "A": "Delta-Zellen (Somatostationproduktion) finden sich vorwiegend im Caput des Pankreas",
+    "B": "Delta-Zellen (Somatostationproduktion) finden sich in Langerhans-Inseln.",
+    "C": "Delta-Zellen (Somatostationproduktion) finden sich vereinzelt im Magen.",
+    "D": "APUD-Zellen finden sich in der Lunge.",
+    "E": "APUD-Zellen produzieren biogene Monoamine."
+   }
+  },
+  {
+   "number": 24,
+   "stem": "Bildfrage Topographie Begrenzung hypothalamus",
+   "choices": {
+    "A": "commissura fornicis",
+    "B": "Lamina quadrigemina",
+    "C": "Lamina terminals",
+    "D": "Plexus choroideus",
+    "E": "Corpus callosum"
+   },
+   "figure": true
+  },
+  {
+   "number": 25,
+   "stem": "Welche Aussage zu Hernien ist richtig?",
+   "choices": {
+    "A": "In der Fossa supravesicalis entstehen direkte Hernien.",
+    "B": "In der Fossa inguinalis lateralis entstehen direkte Hernien.",
+    "C": "In der Fossa inguinalis medialis entstehen indirekte Hernien.",
+    "D": "Herniae inguinales directae sind immer erworben.",
+    "E": "Herniae inguinales indirectae sind immer angeboren."
+   }
+  },
+  {
+   "number": 27,
+   "stem": "Welche Lösung gibt die richtige Reihenfolge männlicher Samenwege für den Spermientransport wieder?",
+   "choices": {
+    "A": "1-2-3-4-5",
+    "B": "5-4-3-2-1",
+    "C": "5-2-1-4-3",
+    "D": "5-2-1-3-4",
+    "E": "2-5-1-4-3"
+   }
+  },
+  {
+   "number": 28,
+   "stem": "Welcher Muskel gehört zum Diaphragma pelvis?",
+   "choices": {
+    "A": "M. puborectalis",
+    "B": "M. sphincter ani externus",
+    "C": "M. sphincter ani internus",
+    "D": "M. transversus perinei profundus",
+    "E": "M. transversus perinei superficialis"
+   }
+  },
+  {
+   "number": 29,
+   "stem": "Welcher Muskel verschließt beim Schluckakt die Trachea?",
+   "choices": {
+    "A": "M. constrictor pharyngis superior",
+    "B": "M. constrictor pharyngis medius",
+    "C": "M. constrictor pharyngis inferior",
+    "D": "M. cricoarytenoideus posterior",
+    "E": "M. cricothyroideus"
+   }
+  },
+  {
+   "number": 30,
+   "stem": "Welche Aussage/Zuordnung zu dem Präparationsbildist richtig?",
+   "choices": {
+    "A": "Der Pfeil Nr. 4 weist auf das Lig. gastrocolicum.",
+    "B": "Die Nr. 3 markiert das eröffnete Vestibulum bursae omentalis.",
+    "C": "Pfeil Nr. 2 weist auf das Antrum pyloricum.",
+    "D": "Es gibt Anzeichen für eine paraxiale Hiatshernie.",
+    "E": "Pfeil Nr. 1 markiert die quer geschnittene V. cava inferior."
+   },
+   "figure": true
+  },
+  {
+   "number": 31,
+   "stem": "Gezeigt ist ein Ausschnitt aus einer arteriellen Gefäßwand (A. mesenterica superior) nach Goldner. Welche Aussage ist am ehesten richtig?",
+   "choices": {
+    "A": "1 subendotheliale Fibroblasten",
+    "B": "2 kollagenreicher, artherosklerotischer Plaque der Tunica media",
+    "C": "3 heraugelöste Lipide einer Fettzellvakuole unterhalb Membrana elastica interna",
+    "D": "4 gesteigerte angiogenese im Bereich der Tunica adventitia",
+    "E": "5 zur Schaumzelle transformierte Makrophagen"
+   },
+   "figure": true
+  },
+  {
+   "number": 32,
+   "stem": "Welches Transmembranprotein ist maßgeblich für die Permeabilitätsschranke des Urothels verantwortlich?",
+   "choices": {
+    "A": "Uroplakin",
+    "B": "Nephrin",
+    "C": "Podocin",
+    "D": "Cadherin",
+    "E": "Desmoglein"
+   }
+  },
+  {
+   "number": 33,
+   "stem": "Welche der folgenden Zuordnungen ist zutreffend?",
+   "choices": {
+    "A": "2 = äußeres Schmelzepithel",
+    "B": "1 = Schmelzpulpa",
+    "C": "3 = Schmelz",
+    "D": "4 = Odontoblasten",
+    "E": "5 = Zahnsäckchen"
+   },
+   "figure": true
+  },
+  {
+   "number": 34,
+   "stem": "Mediale Halssystemen entstehen aus welcher embryonalen Struktur?",
+   "choices": {
+    "A": "Erster Schlundbogen",
+    "B": "Ductus thyreoglossus",
+    "C": "Zweite Schlundtasche",
+    "D": "Sinus cervicalis",
+    "E": "Lungenknospe"
+   }
+  },
+  {
+   "number": 35,
+   "stem": "Welche Struktur ist dem richtigen embryonalen Ursprung zugeordnet?",
+   "choices": {
+    "A": "Die Mm. pterygoidei entwickeln sich aus den dritten Schlundbogen.",
+    "B": "Die Zungenmuskulatur entsteht aus den caudalen Schlundbogen.",
+    "C": "Die Skelettmuskel des cranialen Oesophagus entstammt den okzipitalen Dermomyotomen",
+    "D": "Herzmuskulatur entsteht aus kardialer Neuralleiste",
+    "E": "Mimische Muskeln entstehen aus dem 2. Schlundbogen."
+   }
+  },
+  {
+   "number": 36,
+   "stem": "Die Speicheldrüsen des Kopfes sezernieren unter Kontrolle des veg Nervensystems ihr Sekret in die Mundhöhle. Welche Aussage zu diesen Nerven ist richtig?",
+   "choices": {
+    "A": "Die Gl. parotidea enthält postgangliönäre sekretorische Fasern aus der Chorda tympani.",
+    "B": "Die postgangliönären Fasern zur Innervation der Gl. submandibularis verlaufen im N. alveolaris inf.",
+    "C": "Die präganglionären sekretorischen Fasern für die Gl. parotidea verlaufen im N. petrosus minor",
+    "D": "Sekret. Fasern für die Gl. sublingualis und submandibularis werden im Ganglionl pterygopala tinum umgeschaltet",
+    "E": "Die postgangliönären sekretorischen Fasern für die Gll. palatinae verlaufen im N. petrosus major"
+   }
+  },
+  {
+   "number": 37,
+   "stem": "Lippenspalten gehören zu den häufigen angeborenen Fehlbildungen. Welche Aussage zu ihrer Entstehung ist richtig?",
+   "choices": {
+    "A": "Fehlende Verschmelzung der beiden Maxillarfortsätze miteinander",
+    "B": "Fehlende Verschmelzung des Stirnnasenforsatzes mit den lateralen Nasenforsätzen",
+    "C": "Fehlende Verschmelzung des Vomers mit dem Os sphenoidale",
+    "D": "Fehlende Verschmelzung des medialen Nasenwulstes mit dem ipsilateralen Maxillarfortsatz",
+    "E": "Fehlende Verschmelzung der Palatinfortsätze (Gaumenplatten)"
+   }
+  },
+  {
+   "number": 38,
+   "stem": "Aus welcher Quelle stammt das Nebennierenmark?",
+   "choices": {
+    "A": "Mesonephros",
+    "B": "Neuralleiste",
+    "C": "Coelomepithel",
+    "D": "Somatolpleura",
+    "E": "Splanchbopleura"
+   }
+  },
+  {
+   "number": 39,
+   "stem": "Welche Aussage zur Entwicklung der Genitalorgane ist richtig?",
+   "choices": {
+    "A": "Der Ductus deferens entsteht aus den Urnierentubuli.",
+    "B": "Die Bläschendrüse entsteht aus dem Sinus urogenitalis.",
+    "C": "Die Expression des TDF (Testis determinierender Faktor) wird von DAX1 codiert.",
+    "D": "Die äußere Geschlechtsentwicklung kann man ab der 5. Woche erkennen",
+    "E": "Das Rete testis entwickelt sich aus den Marksträngen der Hodenanage"
+   }
+  },
+  {
+   "number": 40,
+   "stem": "Welche Zuordnung der Strukturen in der folgenden Abbildung ist nicht richtig?",
+   "choices": {
+    "A": "4 - Erythrozyten in Zottenkapillare",
+    "B": "2 - Zytotrophoblast",
+    "C": "1 - Erythrozyten im intervillösen Raum",
+    "D": "7 - Zottenstroma",
+    "E": "6 - Rohr-Fibrinoid"
+   },
+   "figure": true
+  }
+ ]
+}

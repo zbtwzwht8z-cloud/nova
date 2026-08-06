@@ -1,0 +1,456 @@
+{
+ "subject": "Anatomie III",
+ "term": "WS 11/12",
+ "sitting": "",
+ "track": "Regelstudiengang",
+ "source_pdf": "Klausur WiSe 20112012.pdf",
+ "questions": [
+  {
+   "number": 1,
+   "stem": "Welche der Aussage zum Nervus laryngeus inferior ist richtig?",
+   "choices": {
+    "A": "Der Nervus laryngeus inferior versorgt den M. cricoarytenoideus posterior.",
+    "B": "Der Nervus laryngeus inferior zieht durch das Spatium colli laterale.",
+    "C": "Der Nervus laryngeus inferior liegt in der Vagina carotica",
+    "D": "Bei einer Läsion des Nerven kommt es zu einer Einschrankung des Schluckmaktes.",
+    "E": "Der Nerv schlingt sich auf der linken Seite um die A. subclavia sinistra."
+   }
+  },
+  {
+   "number": 2,
+   "stem": "Welche Aussage trifft zu?:",
+   "choices": {
+    "A": "Das Ovar liegt sekundär retroperitoneal.",
+    "B": "Die A. uterina entspringt aus der A. iliaca externa.",
+    "C": "Die Eileiter liegen intraperitoneal.",
+    "D": "Die V. ovarica sinistra mündet in die V. cava inferior.",
+    "E": "Der Douglas-Raum liegt zwischen der Hamblase und der Gebärmutter."
+   }
+  },
+  {
+   "number": 3,
+   "stem": "Welche der Angaben zur Ansa cervicalis profunda ist richtig?",
+   "choices": {
+    "A": "Sie innerviert das Platysma.",
+    "B": "Sie bildet eine Anastomose mit dem Nervus facialis.",
+    "C": "Sie innerviert die infrahyale Muskulatur.",
+    "D": "Sie stammt aus dem Plexus brachialis.",
+    "E": "Sie schließt sich vorbeigehend dem Nervus accessorius an."
+   }
+  },
+  {
+   "number": 4,
+   "stem": "Welche Aussage zum Oesophagus trifft zu?",
+   "choices": {
+    "A": "Die Rr. oesophageales der Pars thoracica entspringen der A. thoracica interna.",
+    "B": "Das Laimschen Dreieck ist eine muskuläre Schwachstelle unterhalb der Pars cricopharyngea des M. constrictor pharyngis inferior.",
+    "C": "Gll. oesophageales liegen im Bereich der Lamina propria der Mukosa.",
+    "D": "Der Oesophagus hat Kontakt zum rechten Vorhof des Herzens.",
+    "E": "Der Hiatus oesophageus ist eine Öffnung im Centrum tendicum des Diaphragmas."
+   }
+  },
+  {
+   "number": 5,
+   "stem": "Welcher Auskultationspunkt am Herzen ist richtig?",
+   "choices": {
+    "A": "Aortenklappе: 3. Intercostalraum links parasternal.",
+    "B": "Tricuspidalklappe: Ansatz 3. Rippe links parasternal.",
+    "C": "Erbscher Punkt: 1. Intercostalraum rechts parasternal.",
+    "D": "Mitralklappe: 5. Intercostalraum Medioclavicularlinie.",
+    "E": "Pulmonalklappe: 4. Intercostalraum rechts parasternal."
+   }
+  },
+  {
+   "number": 6,
+   "stem": "Welche Aussage zum Duodenum und Dünndarm trifft zu?",
+   "choices": {
+    "A": "Der Ductus choledochus verläuft dorsal der Pars descendens duodeni.",
+    "B": "Das Ligamentum suspensorii duodeni setzt an der Flexura duodeni inferior an.",
+    "C": "Die Plicae circulares des Dünndarms entstehen durch lokale Kontraktion der Lamina muscularis mucosae.",
+    "D": "An der vegetativen Innervation des Dünndarms ist u.a. der Plexus mesentericus superior beteiligt.",
+    "E": "Der Dünndarm entwickelt sich aus dem aboralen Schenkel der Nabelsehleife des embryonalen Mitteldarms."
+   }
+  },
+  {
+   "number": 7,
+   "stem": "Welche Aussage trifft zu?",
+   "choices": {
+    "A": "Zwischen Vorhof und Kammer liegen die Taschenkiappen.",
+    "B": "Die Crista terminalis zeigt die Grenze zwischen Auricula dextra und Atrium dextrum.",
+    "C": "Der Truncus pulmonalis entspringt aus der linken Kammer.",
+    "D": "In der Fossa ovalis liegt ein embryonaler Shunt zwischen linkem Vorhof und rechter Kammer.",
+    "E": "Die Mm. papillares öffnen aktiv die Segelklappen."
+   }
+  },
+  {
+   "number": 8,
+   "stem": "Welche Aussage zu den weiblichen Geschlechtsorganen ist richtig?:",
+   "choices": {
+    "A": "Das Ligamentum teres uteri zieht zu den Ovarien.",
+    "B": "Aus der Arteria iliaca externa entspringt die Arteria vaginalis.",
+    "C": "Das Ligamentum suspensorium ovarii enthält den R. tubarius der A. uterina.",
+    "D": "An Flexio wird der Winkel zwischen Gebärmutter und Scheide bezeichnet.",
+    "E": "Die V. uterina leitet das venöse Blut in die V. iliaca interna."
+   }
+  },
+  {
+   "number": 9,
+   "stem": "Welche der folgenden Nerven gehören zum parasympathischen Nervensystem?",
+   "choices": {
+    "A": "Nn. splanchnici lumbales",
+    "B": "Nn. splanchnici minores",
+    "C": "Nn. splachnici sacrales",
+    "D": "Nn. splanchnici pelvici",
+    "E": "Nn. splanchnici imi"
+   }
+  },
+  {
+   "number": 10,
+   "stem": "Welche Aussage trifft zu?:",
+   "choices": {
+    "A": "Die arterielle Blutversorgung des Rectum erfolgt ausschließlich über Äste der Arteria iliaca interna.",
+    "B": "Die Projektion der A. renalis auf die Wirbelsäule ist TH 11.",
+    "C": "Die Cisterna chyli ist direkt kranial des Diaphragma lokalisiert.",
+    "D": "In der linken Colonflexur liegen die Anastomosen zwischen der Arteria mesenterica superior und Arteria mesenterica inferior.",
+    "E": "Die Arteria mesenterica superior liegt hinter dem Duodenum."
+   }
+  },
+  {
+   "number": 11,
+   "stem": "Welche Aussage zu den Projektionen der folgenden Strukturen im Bezug zur Wirbelsäule ist richtig?",
+   "choices": {
+    "A": "A. mesenterica superior --- L2-3",
+    "B": "A. mesenterica inferior --- L5",
+    "C": "Truncus coeliacus --- L1",
+    "D": "A. renalis --- L1-2",
+    "E": "Bifurcatio aortae --- S1"
+   }
+  },
+  {
+   "number": 12,
+   "stem": "Welche Aussage trifft zu?:",
+   "choices": {
+    "A": "Die mediale Begrenzung der Lacuna vasorum ist der Arcus ileopectineus.",
+    "B": "In der Lacuna musculorum verläuft der Nervus obturatorius.",
+    "C": "Der Ramus femoralis des Nervus genitofemoralis zieht durch die Lacuna musculorum.",
+    "D": "In der Lacuna vasorum verlaufen von medial nach lateral: Lymphgefäße, Vene, Arterie.",
+    "E": "Der Musculus pectineus verläuft durch die Lacuna musculorum."
+   }
+  },
+  {
+   "number": 13,
+   "stem": "Welche Aussage zum Atemtrakt ist richtig?:",
+   "choices": {
+    "A": "Die Bifurcatio tracheae liegt etwa auf Höhe des 8. Thorakawîrbels.",
+    "B": "Zu den konduktiven Anteilen der Atemwege gehören die Bronchioli respiratorii.",
+    "C": "Die linke Lunge kennzeichnet 3 Lappen, die rechte Lunge hingegen nur zwei Lappen.",
+    "D": "Im rechten Lungenhilum liegt der Bronchus principalis dexter eparterial.",
+    "E": "Die Trachea ist etwa 16 cm lang."
+   }
+  },
+  {
+   "number": 14,
+   "stem": "Welche Aussage zur Regio epigastrica ist richtig? In der Regio epigastrica ist in der Regel ... durch die Bauchdecke tastbar.",
+   "choices": {
+    "A": "die Milz",
+    "B": "der linke Leberlappen",
+    "C": "die Gallenblase",
+    "D": "der Magenfundus",
+    "E": "das Pankreas"
+   }
+  },
+  {
+   "number": 15,
+   "stem": "Welche Aussage zum Profil der Rückseite der vorderen Bauchhand ist richtig?",
+   "choices": {
+    "A": "Die Plica umbilicalis lateralis beinhaltet die Vena umbilicalis",
+    "B": "Die Linea arcuata markiert den Übergang der Aponeurose des M. externus abdominis in das Ligamentum umbilicale.",
+    "C": "Der Arterien profundus liegt medial von der Plica umbilicalis lateralis",
+    "D": "In der Plica umbilicalis mediana liegt ein Teil des obliquus externus Urachus.",
+    "E": "Der Anulus inguinalis superficialis projiziert sich auf die laterale Fossa inguinalis."
+   }
+  },
+  {
+   "number": 16,
+   "stem": "Von den genannten Arterien entspringt aus der A. carotis externa als erste die:",
+   "choices": {
+    "A": "A. facialis",
+    "B": "A. laryngea superior",
+    "C": "A. occipitalis",
+    "D": "A. thyroidea superior",
+    "E": "A. thyroidea inferior"
+   }
+  },
+  {
+   "number": 17,
+   "stem": "Welche Aussage zur Appendix vermiformis ist richtig?",
+   "choices": {
+    "A": "Das Stratum longitudinale der Tunica muscularis ist auf Tänien reduziert.",
+    "B": "Innerhalb der Tela submucosa liegen Lymphfollikel.",
+    "C": "Der McBurney Punkt liegt zwischen lateralem und mittlerem Drittel der Verbindungslinie von Spina iliaca anterior superior und Bauchnabel.",
+    "D": "Die Kaudalposition ist die häufigste Stellung des Appendix vermiformis.",
+    "E": "Die A. appendicularis ist eine Abzweigung der A. colica dextra und verläuft im Mesoappenidix."
+   }
+  },
+  {
+   "number": 18,
+   "stem": "Welche Aussage trifft zu?:",
+   "choices": {
+    "A": "Das Herz ist in seiner Längssachse so gedreht, dass die rechte Herzhälfte der hinteren Brustwand zugewandt ist.",
+    "B": "Die A. coronaria dextra versorgt beim Intermediärtyp den Großteil des Septum interventriculare.",
+    "C": "Die A. coronaria sinistra versorgt Anteile der Vorderwand des rechten Ventrikels.",
+    "D": "Das Blut fließt aus dem Lungenkreislauf in den rechten Vorhof.",
+    "E": "Das durchschnittliche Herzgewicht beträgt etwa 485 g."
+   }
+  },
+  {
+   "number": 19,
+   "stem": "Welche Aussage zur peritonealen Lage des Darmrohres ist falsch?",
+   "choices": {
+    "A": "Das Colon transversum liegt intraperitoneal.",
+    "B": "Das Colon sigmoideum liegt extraperitoneal",
+    "C": "Die Pars superior des Duodenus liegt intraperitoneal",
+    "D": "Das Colon ascendens liegt sekundär retroperitoneal",
+    "E": "Die Appendix vermiformis liegt intraperitoneal"
+   }
+  },
+  {
+   "number": 20,
+   "stem": "Welche Aussage ist falsch?",
+   "choices": {
+    "A": "Der Nebenhoden besteht aus einem eng verknäulten Gang (Ductus epididymidis).",
+    "B": "Der Ductus deferens setzt sich im Ductus ejaculatorius fort.",
+    "C": "Der Funiculus spermaticus durchzieht den Leistenkanal und reicht vom inneren Leisterning bis zur Cauda epididymidis.",
+    "D": "Bestandteile des Funiculus spermaticus sind u.a. Ductus deferens, Arteria ductus deferentis und Plexus pampiniformis.",
+    "E": "Der Plexus pampiniformis wird von der Vena ductus deferentis gebildet, die in die Vena epigastrica inferior abfließt."
+   }
+  },
+  {
+   "number": 21,
+   "stem": "Welche Aussage trifft nicht zu?:",
+   "choices": {
+    "A": "Die Vasa privata des Bronchus principalis sinister kommen aus der A. thoracica interna, den Rr. bronchiales der Bruslaorta, und der 3./4. Interkostalarterie.",
+    "B": "Die linke Lunge sagt einen Lobus superior, medius inferior.",
+    "C": "Im Lobus medius der rechten Lunge liegen die Segmente 4 und 5.",
+    "D": "Im Lobus inferior der linken Lunge liegen die Segmente 6 bis 10.",
+    "E": "Jedes Lungensegment ist als bronchioarteriales Segment eine funktionsfähige unabhängige Atmungseinheit"
+   }
+  },
+  {
+   "number": 22,
+   "stem": "Welche Aussage ist falsch?",
+   "choices": {
+    "A": "Der Musculus ischiocavernosus zieht zur Dorsalseite des Penis und wirkt auf den Schwellkörper",
+    "B": "Der Ramus genitalis des Nervus genitofemoralis innerviert den Musculus cremastir.",
+    "C": "Der Musculus cremastir enthält in der Regel Fasern aus dem Musculus obliquus internus abdominis und/oder dem Musculus transversus abdominis",
+    "D": "Zwischen den beiden Blättern der Tunica vaginalis testis befindet sich die cavitas peritonealis scroti (cavum serosum testis).",
+    "E": "Die Fascia spermatica externa leitet sich von der Fascia transversalis ab."
+   }
+  },
+  {
+   "number": 23,
+   "stem": "Welche Aussage ist falsch?",
+   "choices": {
+    "A": "Das Erektionszentrum befindet sich im Thorakalmark.",
+    "B": "Die Efferenzen des Erektionszentrums verlaufen mit den Nn splanchnici pelvici zu den Gefäßen.",
+    "C": "Die Ejakulation wird über Sympathikusfasern ausgelöst.",
+    "D": "Die Prostata gibt während der Ejakulation ein Sekret ab, dass die Beweglichkeit der Spermien beeinlusst.",
+    "E": "Die Glandula vesiculosa (Bläschendrüse) entleert über den Ductus excretorius ein fructosereiches Sekret."
+   }
+  },
+  {
+   "number": 24,
+   "stem": "Welche Aussage zur Leber trifft nicht zu?",
+   "choices": {
+    "A": "Der Lobus caudatus ist eine kraniale Grenzstruktur der Bursa omentalis.",
+    "B": "Die Einteilung der Leber in Segmente erfolgt entsprechend der großen Aufzweigungen der Vv. hepaticae.",
+    "C": "Im Bereich der Area nuda münden die Vv. hepaticae in die V. cava inferior.",
+    "D": "Eine Variante der arteriellen Versorgung des Lobus dexter erfolgt über die A. mesenterica superior.",
+    "E": "Die Tunica serosa der Leber wird durch den N. phrenicus sensibel innerviert."
+   }
+  },
+  {
+   "number": 25,
+   "stem": "Welche Aussage trifft nicht zu?",
+   "choices": {
+    "A": "Der Ureter unterkreuzt die Vasa testicularis / ovarica.",
+    "B": "N. ilioinguinalis: hat Kontakt zur Niere",
+    "C": "N. subcostalis: hat Kontakt zur Niere",
+    "D": "Der Ureter überkreuzt die A. uterina.",
+    "E": "N. femoralis hat keinen Kontakt zur Niere"
+   }
+  },
+  {
+   "number": 26,
+   "stem": "Welche Aussage zur Milz trifft nicht zu?",
+   "choices": {
+    "A": "Die Milz liegt in der linken, dorsalen Regio hypochondriaca und ist atémverschiedlich.",
+    "B": "Im Bereich des Hilum splenicum liegt die Spitze der Cauda pancreatis.",
+    "C": "Die Facies visceralis besitzt Kontaktstellen mit Magen, Niere und Colon.",
+    "D": "Das Stroma besteht aus retikulärem Bindegewebe.",
+    "E": "Die vegetative Innervation erfolgt über den Plexus coeliacus entlang der V. splenica zum Plexus splenicus."
+   }
+  },
+  {
+   "number": 27,
+   "stem": "Welche Aussage zum Analkanal ist falsch?",
+   "choices": {
+    "A": "Der M. sphincter ani externus wird vom N. pudendus innerviert.",
+    "B": "Der M. sphincter ani internus umfängt den Analkanal auf Höhe der Columnae anales.",
+    "C": "Die Füllung/Entleerung des Corpus cavernosum recti erfolgt in Abhängigkeit des Tonus des M. puborectalis",
+    "D": "Die Zona alba (Pecten analis) ist stark sensibel innerviert und von mehrschichtigem unverhortuem Plattenepithel bedeckt.",
+    "E": "Die Junctio anorectalis liegt ungefähr auf Höhe der Muskelschlinge des M. puborectalis."
+   }
+  },
+  {
+   "number": 28,
+   "stem": "Welche Aussage ist falsch?:",
+   "choices": {
+    "A": "Der N. buccalis ist ein Ast des N. maxillaris.",
+    "B": "Die V. angularis anastomosiert über die V. ophthalmica mit dem Sinus cavernosus.",
+    "C": "Der N. facialis verzweigt sich in der Glandula parotidea.",
+    "D": "Die intrinsischen Muskulatur liegt ohne Faszien im subkutanen Fettgewebe",
+    "E": "Die Gl. submandibularis liefert die größte Speichelmenge von allen drei großen Speicheldrüsen."
+   }
+  },
+  {
+   "number": 29,
+   "stem": "Welche Aussage zur A. thoracica interna ist falsch?",
+   "choices": {
+    "A": "Die Arterie ist der erste Ast der A. subclavia",
+    "B": "Die Arterie liegt in der Fascia endothoracica",
+    "C": "Die Arterie tritt im Bereich des Trigonum sternoclaviculare durch das Zwerchfell.",
+    "D": "Die Arterie wird für aorto-coronare Bypässe genutzt.",
+    "E": "Die Arterie kann bei einer Arterienisthmusstenose zum Abschnitt eines arteriellen Bypasses werden."
+   }
+  },
+  {
+   "number": 30,
+   "stem": "Welche Aussage zum Trigonum caroticum ist falsch?",
+   "choices": {
+    "A": "Es wird begrenzt vom Venter posterior des M. digastricus.",
+    "B": "Hier ist eine Pulsastung möglich.",
+    "C": "Es wird begrenzt vom M. sternocleidomastoideus.",
+    "D": "Es enthält den N. lingualís.",
+    "E": "Es enthält die Vena jugularis interna."
+   }
+  },
+  {
+   "number": 31,
+   "stem": "Welche der Aussagen zu den lymphatischen Abflußwegen der Brustdrüsen ist falsch? Der Lymphabfluss aus den Brustdrüsen geht über folgende Lymphwege.",
+   "choices": {
+    "A": "Intra- und subscapulaire Lymphbahnen und Knoten.",
+    "B": "Die Nn. lymphatici axillares superficiales und profundi.",
+    "C": "Die parasternalen Lymphbahnen und Lymphknoten",
+    "D": "Der Wächterlymphknoten (Sentinel) ist der erste durch Tumoraussaat betroffene Lymphknoten.",
+    "E": "Infraclaviculäre Lymphknoten gehören ebenfalls mit zum Abflußbereich der Brustdrüsen."
+   }
+  },
+  {
+   "number": 32,
+   "stem": "Welche Aussage zum Pancreas trifft nicht zu?",
+   "choices": {
+    "A": "Ein Ductus pancreaticus accessorius entstand der dorsalen Pankreasanlage.",
+    "B": "Der Processus uncinatus pancreatis umgreift die Vasa mesenteriacae superiores.",
+    "C": "Das Caput pancreatís liegt ungefähr auf Höhe des Lendenwîrbels II.",
+    "D": "Die A. pancreatica inferior entspringt aus der A. mesenterica superior.",
+    "E": "In der Regel mündet die V. mesenterica inferior dorsal der Cauda pancreatis in die V. splenica."
+   }
+  },
+  {
+   "number": 33,
+   "stem": "Welche Aussage zu den Nasennebenhöhlen ist falsch?",
+   "choices": {
+    "A": "Die Sinus frontales und maxillares sind schon vor der Geburt pneumatisiert.",
+    "B": "Die Cellulae ethmoidales posteriores münden in den Meatus nasi superior dexter et sinister.",
+    "C": "Die Sinus maxillares liegen kaudal der Orbitae.",
+    "D": "Die Sinus sphenoidales liegen ventral und kaudal zur Hypophyse.",
+    "E": "Bei einer Extraktion von Zähnen des Oberkiefers können die Sinus maxillares eröffnet werden."
+   }
+  },
+  {
+   "number": 34,
+   "stem": "Welche Aussage trifft nicht zu?",
+   "choices": {
+    "A": "Atrium dextrum",
+    "B": "Arcus aortae",
+    "C": "Auricula sinistra",
+    "D": "Ventriculus sinister",
+    "E": "Apex cordis"
+   },
+   "figure": true
+  },
+  {
+   "number": 35,
+   "stem": "Welche Aussage trifft nicht zu? Die Abbildung zeigt die Lagebeziehungen der Nieren. Es ist bezeichnet mit:",
+   "choices": {
+    "A": "Hepar",
+    "B": "Colon, Flexura dextra",
+    "C": "Glandulae suprarenales",
+    "D": "Splen",
+    "E": "Duodenum"
+   },
+   "figure": true
+  },
+  {
+   "number": 36,
+   "stem": "Welche Struktur ist falsch beschriftet?",
+   "choices": {
+    "A": "Fossa ischioanalis",
+    "B": "M. obturatorius internus",
+    "C": "M. levator ani",
+    "D": "Canalis obturatorius",
+    "E": "Fascia superficialis perinei"
+   },
+   "figure": true
+  },
+  {
+   "number": 37,
+   "stem": "Welche Aussage trifft nicht zu?",
+   "choices": {
+    "A": "Durch Öffnung 1 zieht u.a. der Ductus thoracicus.",
+    "B": "Region 2 ist anfällig für die Ausbildung von Zwerchfellhernien.",
+    "C": "Struktur 3 entwickelt sich aus dem embryonalen Septum transversum.",
+    "D": "Öffnung 4 wird durch die Pars medialis des Crus dextrum umfasst.",
+    "E": "Bei 5 befindet sich die Quadratus-arkade, die vom Lig. arcuatum laterale überspannt wird."
+   },
+   "figure": true
+  },
+  {
+   "number": 38,
+   "stem": "Welche Aussage ist nicht richtig?:",
+   "choices": {
+    "A": "Aorta thoracica",
+    "B": "Truncus pulmonalis",
+    "C": "Aorta ascendens",
+    "D": "Scapula",
+    "E": "A. pulmonalis dextra"
+   },
+   "figure": true
+  },
+  {
+   "number": 39,
+   "stem": "Welche Zuordnung trifft nicht zu? Die Abbildung zeigt ein Computertomogramm des Thorax nach Gabe eines Kontrastmittels in das Gefäßsystem. Es sind verschiedene Strukturen markiert.",
+   "choices": {
+    "A": "markiert die Aorta abdominalis.",
+    "B": "markiert die Vena azygos.",
+    "C": "markiert das Atrium dextrum.",
+    "D": "markiert den Ventriculus sinister.",
+    "E": "markiert das Atrium sinistrum."
+   },
+   "figure": true
+  },
+  {
+   "number": 40,
+   "stem": "Der Horizontalschnitt des Abdomens (Ansicht von kaudal) liegt ungefähr auf Höhe des Wirbelkörpers ...",
+   "choices": {
+    "A": "L1",
+    "B": "Th12",
+    "C": "L4",
+    "D": "Th10",
+    "E": "L2"
+   },
+   "figure": true
+  }
+ ]
+}

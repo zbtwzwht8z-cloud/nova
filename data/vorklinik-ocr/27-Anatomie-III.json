@@ -1,0 +1,456 @@
+{
+ "subject": "Anatomie III",
+ "term": "WS 14/15",
+ "sitting": "Nachklausur",
+ "track": "iRM",
+ "source_pdf": "Anatomie III - Nachklausur WS1415.pdf",
+ "questions": [
+  {
+   "number": 1,
+   "stem": "Welche Aussage zur Bauchwand ist richtig?",
+   "choices": {
+    "A": "Die A. epigastrica inferior verläuft zwischen der Lamina anterior der Rektusscheide und dem M. rectus abdominis.",
+    "B": "Die Plica umbilicalis medialis enthält die Vasa epigastrica inferiores.",
+    "C": "Der N. ilioinguinalis und der N. iliohypogastricus verlaufen paarweise zwischen dem M. obliquus internus- und dem M. obliquus externus abdominis.",
+    "D": "Die V. epigastrica superficialis anastomosiert mit der V. thoracoepicast rica.",
+    "E": "Oberhalb der Linea arcuata wird die Lamina posterior der Rektusscheide aus der Fascia transversalis abdominis und dem Peritoneum parietale gebildet."
+   }
+  },
+  {
+   "number": 2,
+   "stem": "Welche Aussage zum Colon ist richtig?",
+   "choices": {
+    "A": "Alle Abschnitte des Colons eines Erwachsenen besitzen ein freies Mesenterium.",
+    "B": "Die Blutgefäße erreichen das Colon über die Taenia libera.",
+    "C": "Das Omentum majus entsteht aus einer Faltenbildung des Mesocolons.",
+    "D": "Die A. colica sinistra entspringt aus der A. mesenterica superior.",
+    "E": "Die linke Colonflexur liegt weiter kranial als die rechte Colonflexur."
+   }
+  },
+  {
+   "number": 3,
+   "stem": "Welche der aufgeführten Impressionen befindet sich am Lobus hepaticus sinister?",
+   "choices": {
+    "A": "Impressio colica",
+    "B": "Impressio gastrica",
+    "C": "Impressio suprarenalis",
+    "D": "Impressio duodenalis",
+    "E": "Impressio renalis"
+   }
+  },
+  {
+   "number": 4,
+   "stem": "Welche Aussage zur Leber ist richtig?",
+   "choices": {
+    "A": "Ein linker Leberlappen, der bis in die linke Regio hypochondriaca reicht, ist stets pathologisch vergrößert.",
+    "B": "Die vegetative Versorgung der Leber und Gallenbläse erfolgt über den Plexus mesentericus superior.",
+    "C": "Portaläppchen besitzen eine dreieckige Grundform mit drei Periportalfeldern als Eckpunkten.",
+    "D": "Der Disse Raum enthält Fibroblesten, Ito Zellen und elastische Fasern.",
+    "E": "Die Porta hepatis liegt zwischen der Fissura principalis und der Fissura accessoria."
+   }
+  },
+  {
+   "number": 5,
+   "stem": "Welche Aussage ist richtig? Ein Teil der Filtrationsbarriere des Nierenglornerulus ist die Schlitzmembran. Sie spannt sich aus zwischen ...",
+   "choices": {
+    "A": "Kapillarendothelzellen.",
+    "B": "Mesangiumzellen.",
+    "C": "Podozyten.",
+    "D": "Epithelzellen des parietalen Blattes der Bowman-Kapsel.",
+    "E": "Zellen des proximalen Tubulus."
+   }
+  },
+  {
+   "number": 6,
+   "stem": "Welche Aussage ist richtig? Welches Organ bzw. welcher Organabschnitt liegt intraperitoneal?",
+   "choices": {
+    "A": "Harnleiter",
+    "B": "Bulbus duodeni",
+    "C": "Nebennieren",
+    "D": "Nieren",
+    "E": "Harnblase"
+   }
+  },
+  {
+   "number": 7,
+   "stem": "Welche Aussage zur Hypophyse ist richtig?",
+   "choices": {
+    "A": "Zellen der Pars distalis entwickeln sich aus dem Neuroektoderm.",
+    "B": "Das Kapillarnetz aus den Portalvenen enthält die Releasing-Hormone.",
+    "C": "Die Pituizyten bilden die Hormone der Neurohypophyse.",
+    "D": "Die basophilen Zellen der Adenohypophyse bilden ACTH.",
+    "E": "Die Pars tuberalis ist ein Anteil der Neurohypophyse."
+   }
+  },
+  {
+   "number": 8,
+   "stem": "Welche Aussage zur Schilddrüse ist richtig?",
+   "choices": {
+    "A": "Der Lobus pyramidalis der Schilddrüse liegt über dem 3. Trachealkorpor.",
+    "B": "In der Masson-Färbung lassen sich die C-Zellen selektiv darstellen.",
+    "C": "Die Schilddrüse entwickelt sich primär wie eine exokrine Drüse.",
+    "D": "Die parafolliculären Zellen der Schilddrüse sind versprengte Bindegewebszellen.",
+    "E": "Die Schilddrüse macht die Schluckbewegung nicht mit."
+   }
+  },
+  {
+   "number": 9,
+   "stem": "Welche Aussage ist richtig?",
+   "choices": {
+    "A": "Vor dem Verschluss des Septum secundum entsteht das Foramen interariale secundum.",
+    "B": "Der Ductus arteriosus stellt eine Verbindung zwischen der linken und rechten Pulmonalarterie dar.",
+    "C": "Die Vena umbilicalis wird postnatal zum Ligamentum venosum.",
+    "D": "Das Herz beginnt erst nach Abschluss der 12. Entwicklungswoche zu schlagen.",
+    "E": "Der Herzschlauch ist mesodermalen Ursprungs."
+   }
+  },
+  {
+   "number": 10,
+   "stem": "Welche Aussage ist richtig?",
+   "choices": {
+    "A": "Das Herzskelet t markiert die Grenze zwischen dem linken und rechten Ventrikel.",
+    "B": "Der größten Anteil am Septum interventriculare wird durch das Pars membranacea gebildet.",
+    "C": "Das Auricula dextra steht im engen Kontakt zum Ösophagus.",
+    "D": "Die Herzklappen sind kapillarfrei.",
+    "E": "Die Herzklappen sind Duplikaturen des Epikards."
+   }
+  },
+  {
+   "number": 11,
+   "stem": "Welche Aussage ist richtig?",
+   "choices": {
+    "A": "Glukose kann Gap junctions nicht passieren.",
+    "B": "Das Perimysium umgibt jede einzelne Herzmuskelzelle.",
+    "C": "Der perinukleäre Hof der Myokardzellen ist gefüllt mit Mitochondrien.",
+    "D": "Herzmuskelzellen besitzen zumeist zwei Zellkerne.",
+    "E": "Der R. interventricularis der A. coronaria dextra liegt in der Subserosa des Endokards."
+   }
+  },
+  {
+   "number": 12,
+   "stem": "Welche Aussage ist richtig? Im Mediastinum medium sind enthalten:",
+   "choices": {
+    "A": "Venae brachiocephalicae.",
+    "B": "Thymus.",
+    "C": "Vasa pericardiacophrenic a.",
+    "D": "Trachea.",
+    "E": "Oesophagus."
+   }
+  },
+  {
+   "number": 13,
+   "stem": "Welche Aussage ist richtig? Die infrahyale Muskulatur befindet sich vornehmlch im/in der...",
+   "choices": {
+    "A": "Trigonum colli laterale.",
+    "B": "Trigonum omoclaviculare.",
+    "C": "Trigonum submentale.",
+    "D": "Trigonum omotracheale (Trigonum musculare).",
+    "E": "Regio sternocleidomastoidea."
+   }
+  },
+  {
+   "number": 14,
+   "stem": "Welche Aussage ist richtig?",
+   "choices": {
+    "A": "Die Teilung der A. carotis communis in die A. carotis externa und interna projiziert sich in der Regel auf die Höhe des siebten Halswirbels.",
+    "B": "Die V. jugularis externa verläuft gemeinsam mit der A. carotis communis in der Vagina carotica.",
+    "C": "Die V. brachiocephalica sinistra bildet sich aus dem Zusammenfluss der V. subclavia sinistra und der V. jugularis sinistra.",
+    "D": "Die A. carotis communis sinistra geht aus dem Truncus brachiocephalicus hervor.",
+    "E": "Der Truncus brachiocephalicus geht aus der Aorta descendens hervor."
+   }
+  },
+  {
+   "number": 15,
+   "stem": "Welche Aussage zur Niere ist richtig?",
+   "choices": {
+    "A": "Die Nieren haben aufgrund ihrer retroperitonealen Lage Kontakt zum Pancreas.",
+    "B": "Die Markstrahlen der Niere enthalten weder Sammelröhre noch intermediäre Tubuli.",
+    "C": "Am Hilum der rechten Niere liegen von ventral nach dorsal zuerst die V. renalis, dahinter die A. renalis und der Ureter.",
+    "D": "Die Fascia prärenalis entsteht aus dem Lig. phrenicolienale.",
+    "E": "Der ampulläre Typ des Pelvis renalis besitzt mehrere Calyces maiores."
+   }
+  },
+  {
+   "number": 16,
+   "stem": "Welche Aussage zur Plazenta ist richtig?",
+   "choices": {
+    "A": "Mütterliches und kindliches Blut fließen im interventllösen Raum zusammen.",
+    "B": "Hofbauerzellen sind Reste des Cytotrophoblsten.",
+    "C": "Deciduazellen sind in den Haftzotten zu finden.",
+    "D": "Die Chorionplatte enthält die beiden Nabelyenen.",
+    "E": "Die Plazenta wird von der Basalplatte aus durch Septen in 15-20 Kotyledone aufgeteilt."
+   }
+  },
+  {
+   "number": 17,
+   "stem": "Welche Aussage zum Hoden und Nebenhoden ist richtig?",
+   "choices": {
+    "A": "Der Deszensus testis erfolgt im vierten Monat der menschlichen Entwicklung.",
+    "B": "Die Appendix epididymis ist ein Rudiment des Müller-Ganges.",
+    "C": "Die Sertolizellen besitzen einen haploiden Chromosomensatz.",
+    "D": "Spermatogonien Typ B liegen im basalen Kompartiment des Hodenepithels.",
+    "E": "Das Rete testis besitzt ein einsichtiges hochprismatisches Epithel."
+   }
+  },
+  {
+   "number": 18,
+   "stem": "In welchem Abschnitt des Bronchialsystems finden sich seromuköse Drüsen?",
+   "choices": {
+    "A": "Bronchioli.",
+    "B": "Segmentbronchien.",
+    "C": "Bronchioli respiratorii.",
+    "D": "Bronchioli terminales.",
+    "E": "Ductus alveolares."
+   }
+  },
+  {
+   "number": 19,
+   "stem": "Aus welchem Organ stammt das folgende histologische Bild?",
+   "figure": true,
+   "choices": {
+    "A": "Niere",
+    "B": "Schilddrüse",
+    "C": "Pankreas",
+    "D": "Tränendrüse",
+    "E": "Adenohypophyse"
+   }
+  },
+  {
+   "number": 20,
+   "stem": "Dieser histologische Ausschnitt gehört zu welcher endokrinen Drüse?",
+   "figure": true,
+   "choices": {
+    "A": "Inselapparat des Pankreas",
+    "B": "Nebennierenmark",
+    "C": "Pars distalis der Adenohypophyse",
+    "D": "Glandula parathyreoidea",
+    "E": "Epiphysis cerebri"
+   }
+  },
+  {
+   "number": 21,
+   "stem": "Welche Aussage ist richtig? Das auf der Abbildung dargestellte Epithel stammt am ehesten aus ...",
+   "figure": true,
+   "choices": {
+    "A": "Ureter",
+    "B": "Oesophagus",
+    "C": "Vagina",
+    "D": "Canalis analis",
+    "E": "Uterus"
+   }
+  },
+  {
+   "number": 22,
+   "stem": "Welche Aussage ist richtig? Die mit dem Pfeil markierte Struktur in der Abbildung ist ...",
+   "figure": true,
+   "choices": {
+    "A": "Sammelrohr",
+    "B": "Verbindungspol",
+    "C": "Harnpol",
+    "D": "proximaler Tubulus",
+    "E": "Tubulus mit der Macula densa"
+   }
+  },
+  {
+   "number": 23,
+   "stem": "Welche Aussage zur nachstehenden Abbildung ist richtig?",
+   "figure": true,
+   "choices": {
+    "A": "Schwarze Pfeile verweisen auf Surfactant.",
+    "B": "Es handelt sich um einen Ausschnitt aus der Lunge.",
+    "C": "Bei 1 handelt es sich um distale Podozytenfortsätze.",
+    "D": "Das abgebildete Organ besitzt Kapillaren mit kontinuierlichem Endothel.",
+    "E": "Der Primärharn befindet sich im Raum 2."
+   }
+  },
+  {
+   "number": 24,
+   "stem": "Welche Aussage zur nachstehenden Abbildung ist richtig?",
+   "figure": true,
+   "choices": {
+    "A": "Bei 1 handelt es sich um das Lumen der Urethra.",
+    "B": "Die Belegzellen sind mit 2 (Pfeil) beschriftet.",
+    "C": "Mit 2 (Pfeil) sind seröse Drüsen beschriftet.",
+    "D": "Es handelt sich um einen Ausschnitt aus dem Fundus des Magens.",
+    "E": "3 bezeichnet Anschnitte glatter Muskulatur."
+   }
+  },
+  {
+   "number": 25,
+   "stem": "Welche Aussage zur Bursa omentalis ist falsch?",
+   "choices": {
+    "A": "Ventral des Caput pancreaticus liegt der Recessus inferior bursa omentalis.",
+    "B": "Der Lobus quadratus der Leber grenzt an den Recessus superior bursa omentalis.",
+    "C": "Der natürliche Zugang zur Bursa omentalis liegt im Bereich des freien Randes des Ligamentum hepatoduodenale.",
+    "D": "Ein operativer Zugangsweg zur Bursa omentalis besteht in der Durchrennung des Mesocolon transversum.",
+    "E": "Die Bursa omentalis entsteht aus dem Recessus pneumatoentericus innerhalb des Mesogastrium dorsale."
+   }
+  },
+  {
+   "number": 26,
+   "stem": "Welche Aussage zum Enddarm ist falsch?",
+   "choices": {
+    "A": "Der M. canalis analis entspricht einer verbreiterten Lamina muscularis mucosae im Bereich des Corpus cavernosum recti.",
+    "B": "Das Corpus cavernosum recti wird durch die A. rectalis superior versorgt.",
+    "C": "Die Nll. iliaci interni sind regionäre Lymphknoten u.a. des unteren Rektums.",
+    "D": "Die Kohlrauch Falte des Rektums entspricht der Plica transversi recti media.",
+    "E": "Die Linea dentata (pectinata) bildet die Grenzlinie zwischen Rektum und Analkanal."
+   }
+  },
+  {
+   "number": 27,
+   "stem": "Welche Aussage zur Histologie des Verdauungstraktes ist falsch?",
+   "choices": {
+    "A": "Hochendotheliale Venolen findet man u.a. in der Mukosa des Appendix vermiformis.",
+    "B": "Plicae circulares sind permanente Auffaltungen der Mukosa und Submukosa.",
+    "C": "Belegzellen reagieren in der HE-Färbung aufgrund ihres Mitochondrienreichtums stark eosinophil.",
+    "D": "Merokrine Paneth-Körnerzellen in den Krypten der Mukosa des Dünndarms und des Rektums sezernieren u.a. Lysozym und Defensine.",
+    "E": "Über Transzytose durch M-Zellen werden IgA-Antikörper ins ileum sezerniert."
+   }
+  },
+  {
+   "number": 28,
+   "stem": "Welche Aussage zur Nebenniere ist falsch?",
+   "choices": {
+    "A": "Die Zona glomerulosa liegt subkapsulär.",
+    "B": "Das Nebennierenmark entwickelt sich aus dem Mesoderm.",
+    "C": "Die Breite der Zona fasciculata wird über das ACTH gesteuert.",
+    "D": "Die Androgene werden in der Zona reticularis gebildet.",
+    "E": "Mitochondrien des Nebennierenmarkes gehören zum Cristae-Typ."
+   }
+  },
+  {
+   "number": 29,
+   "stem": "Welche Aussage ist ist falsch:",
+   "choices": {
+    "A": "Der M. orbicularis oculi ist mit seinem Pars orbitalis wichtig für den festen Lidschluss.",
+    "B": "Die Glandula submandibulris ist eine seromukose Drüse.",
+    "C": "Die Glandula parotis ist eine seröse Drüse.",
+    "D": "Der M. masseter wird vom N. facialis innerviert.",
+    "E": "Die Glandula lacrimalis liegt im temporalen Anteil der Orbita."
+   }
+  },
+  {
+   "number": 30,
+   "stem": "Welche Aussage ist ist falsch:",
+   "choices": {
+    "A": "Die Lamina praetrachealis liegt medial vom M. omohyoideus.",
+    "B": "Die Grenzen des Trigonum colli laterale werden posterior durch den M. trapezius gebildet.",
+    "C": "Die Lamina superficialis bildet das oberflächliche Blatt der Halsf azie.",
+    "D": "Im Trigonum caroticum ist die A. facialis zu finden.",
+    "E": "Das Punktum nervosum ist die Austrittsstelle der motorischen Nerven des Plexus brachialis."
+   }
+  },
+  {
+   "number": 31,
+   "stem": "Welche Aussage ist ist falsch:",
+   "choices": {
+    "A": "Sero-muköse Drüsen kommen im Kehlkopf vor.",
+    "B": "Der Kehldeckel wird aus elastischem Knorpel gebildet.",
+    "C": "Das Epithel der Plicae vocales ist ein mehrreihiges Flimmerepithel.",
+    "D": "Den Kehlkopf kennzeichnet quergestreifte Muskulatur.",
+    "E": "Der Schildknorpel kann partiell ab dem 3. Dezennium verknöchern."
+   }
+  },
+  {
+   "number": 32,
+   "stem": "Welche Aussage ist ist falsch:",
+   "choices": {
+    "A": "In der linken Lunge liegen die Segmente 5 und 6 im Lobus superior.",
+    "B": "In der rechten Lunge liegen die Segmente 1 und 2 im Lobus superior.",
+    "C": "Im Epithel der Bronchioli terminales fehlen die Becherzellen.",
+    "D": "Die Hauptbronchien zeigen ein mehrreihiges Flimmerepithel.",
+    "E": "Die nicht heilbare Erbkrankheit Mukoviszidose beruht auf einem Defekt der Chlorid-Kanäle, die für die Verdünnung und des Abtransports von Schleim notwendig sind."
+   }
+  },
+  {
+   "number": 33,
+   "stem": "Welche Aussage ist ist falsch:",
+   "choices": {
+    "A": "Die Wand der Vagina besteht aus drei Schichten.",
+    "B": "Die Tunica mucosa vaginalis besteht aus einem mehrschichtigen unverhorntem Plattenepithel.",
+    "C": "Ein Vaginalabstrich bei ausgeprägter Östrogenw irkung zeigt eosinophile Superf icialzellen und große Intermediärzellen.",
+    "D": "Die Portio vaginalis cervicis zeigt eine variable Lage Umwandlungszone in Abhängigkeit von der Geschlechtsreife.",
+    "E": "In der Tunica adventitia der Vagina befinden sich die Döderlein-Bakterien."
+   }
+  },
+  {
+   "number": 34,
+   "stem": "Welche Aussage ist ist falsch: folgende Gefäße liegen intraperikardial ...",
+   "choices": {
+    "A": "Truncus pulmonalis.",
+    "B": "V. cava inferior.",
+    "C": "Vv. pulmonales.",
+    "D": "Pars ascendens aortae.",
+    "E": "V. brachiocephalica."
+   }
+  },
+  {
+   "number": 35,
+   "stem": "Welche Aussage ist ist falsch? In den Sinus coronarius mündet die ...",
+   "choices": {
+    "A": "V. cardiaca parva.",
+    "B": "V. cardiaca magna.",
+    "C": "V. obliqua atrii sinistri.",
+    "D": "V. ventriculi sinistri posterior.",
+    "E": "V. cardiacae minimae."
+   }
+  },
+  {
+   "number": 36,
+   "stem": "Welche Aussage ist ist falsch?",
+   "choices": {
+    "A": "Das Myokard weist eine dichte Vaskularisierung auf.",
+    "B": "Im Stratum subendotheliale befindet sich lockeres Bindegewebe.",
+    "C": "Das Endokard besteht aus einreihigem Zylinderepithel.",
+    "D": "Durch die schraubenart ige Anordnung der Arbeitsmuskulatur zeigt sich mittig eine Ringschicht.",
+    "E": "Das Zytoplasma der Purkinjefasern ist reich an Glykogen."
+   }
+  },
+  {
+   "number": 37,
+   "stem": "Welche Aussage ist ist falsch? Die folgenden Strukturen reichenurch die Apertura thoracis superior:",
+   "choices": {
+    "A": "Mediastinum medium.",
+    "B": "Trachea.",
+    "C": "Oesophagus.",
+    "D": "Rechte und linke Lungenspitze.",
+    "E": "Truncus brachiocephalicus."
+   }
+  },
+  {
+   "number": 38,
+   "stem": "Welcher Muskel gehört nicht zur mimischen Muskulatur?",
+   "choices": {
+    "A": "M. zygomaticus major",
+    "B": "M. occipitofrontalis",
+    "C": "M. orbicularis oris",
+    "D": "M. pterygoideus medialis",
+    "E": "M. procerus"
+   }
+  },
+  {
+   "number": 39,
+   "stem": "Welcher Muskel gehört nicht zur suprahyoidalen Muskulatur?",
+   "choices": {
+    "A": "M. thyrohyoideus",
+    "B": "M. mylohyoideus",
+    "C": "M. stylohyoideus",
+    "D": "M. geniohyoideus",
+    "E": "M. digastricus"
+   }
+  },
+  {
+   "number": 40,
+   "stem": "Welche Aussage zur nachstehenden Abbildung ist falsch?",
+   "figure": true,
+   "choices": {
+    "A": "Es handelt sich um eine in-situ-Hybridisierung zum Nachweis von Pax2.",
+    "B": "Es handelt sich um die paarigen Aorten des frühen Embryos.",
+    "C": "Das Neuralrohr ist bereits geschlossen.",
+    "D": "Das intermediäre Mesoderm ist angefärbt.",
+    "E": "Die Seitenplatten liegen jeweils lateral vom angefärbten Bereich."
+   }
+  }
+ ]
+}

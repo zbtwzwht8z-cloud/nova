@@ -34,7 +34,14 @@ except ImportError:
     sys.exit("PyMuPDF missing — install it with: pip3 install pymupdf")
 
 ROOT = "/Users/bebo/Downloads/Von Studierenden für Studierende/Altklausuren"
-OUTPUT = os.path.join(os.path.dirname(__file__), "..", "data", "vorklinik.json")
+DATA = os.path.join(os.path.dirname(__file__), "..", "data")
+OUTPUT = os.path.join(DATA, "vorklinik.json")
+# Answer keys that exist only as a scan, so they cannot be read out of the PDF
+# text. Hand-checked against the images; see the file's own note.
+KEYS_PATH = os.path.join(DATA, "vorklinik-keys.json")
+# Exams with no text layer at all, transcribed from the page images. One file
+# per exam, checked in so a re-run doesn't need the transcription again.
+OCR_DIR = os.path.join(DATA, "vorklinik-ocr")
 
 # Only the pre-clinical semesters: 5-9 already come from docsdocs.
 SCOPE = [
@@ -249,12 +256,12 @@ def split_choices(block):
     return clean(stem), choices
 
 
-def parse_exam(path):
+def parse_exam(path, external_key=None):
     document = fitz.open(path)
     pages = [document[i].get_text() for i in range(len(document))]
     document.close()
 
-    key = find_key(pages)
+    key = find_key(pages) or (external_key or {})
     if len(key) < 5:
         return [], "kein Lösungsschlüssel"
 
@@ -313,12 +320,85 @@ def parse_exam(path):
     return questions, dropped
 
 
-def question_id(subject, topic, stem):
-    """Identity is the exam plus the wording — deliberately not the question
-    number. The archive holds several exams twice (a scan and a corrected
-    re-type), where the same question sits under a different number."""
-    seed = f"{subject}|{topic}|{re.sub(r'[^a-zäöüß0-9]', '', stem.lower())[:120]}"
+def question_id(subject, topic, stem, choices):
+    """Identity is the exam plus the full wording — deliberately not the question
+    number, because the archive holds several exams twice (a scan and a
+    corrected re-type) with the same question under a different number.
+
+    The choices are part of it: stems like "Welche Aussage zum Colon ist
+    richtig?" repeat verbatim within one exam, and keying on the stem alone
+    would throw away every question after the first.
+    """
+    body = stem + "|" + "|".join(f"{c['id']}{c['text']}" for c in choices)
+    seed = f"{subject}|{topic}|{re.sub(r'[^a-zäöüß0-9]', '', body.lower())}"
     return "vk-" + hashlib.sha1(seed.encode("utf-8")).hexdigest()[:16]
+
+
+def load_ocr(external_keys, out, seen, skipped):
+    """Exams that had no text layer, transcribed from the page images.
+
+    These go through the same gate as the parsed PDFs: a question is kept only
+    if the hand-checked key names a letter for it and that letter is among the
+    transcribed options.
+    """
+    if not os.path.isdir(OCR_DIR):
+        return 0
+
+    added = 0
+    for name in sorted(os.listdir(OCR_DIR)):
+        if not name.endswith(".json"):
+            continue
+        with open(os.path.join(OCR_DIR, name), encoding="utf-8") as handle:
+            exam = json.load(handle)
+
+        subject, term, sitting = exam["subject"], exam["term"], exam.get("sitting", "")
+        key = external_keys.get(f"{subject}|{term}|{sitting}")
+        if not key:
+            skipped["OCR ohne geprüften Schlüssel"] += 1
+            continue
+
+        topic = f"{term} {sitting}".strip()
+        for question in exam["questions"]:
+            number = question["number"]
+            choices = [
+                {"id": letter, "text": clean(text)}
+                for letter, text in sorted(question["choices"].items())
+            ]
+            stem = clean(question["stem"])
+
+            if number not in key:
+                skipped["OCR: nicht im Schlüssel"] += 1
+                continue
+            if len(choices) < 2 or any(not choice["text"] for choice in choices):
+                skipped["OCR: Antwortoptionen unvollständig"] += 1
+                continue
+            if key[number] not in {choice["id"] for choice in choices}:
+                skipped["OCR: Lösungsbuchstabe fehlt"] += 1
+                continue
+            if len(stem) < 12:
+                skipped["OCR: kein Fragetext"] += 1
+                continue
+            if question.get("figure"):
+                skipped["OCR: Abbildungsbezug"] += 1
+                continue
+
+            identifier = question_id(subject, topic, stem, choices)
+            if identifier in seen:
+                skipped["OCR: doppelte Frage"] += 1
+                continue
+            seen[identifier] = True
+            out.append({
+                "id": identifier,
+                "subject": subject,
+                "topic": topic,
+                "source": f"{subject} / {topic}",
+                "stem": stem,
+                "choices": choices,
+                "answer": key[number],
+                "tags": ["Vorklinik", exam.get("track", "iRM"), "OCR"],
+            })
+            added += 1
+    return added
 
 
 def main():
@@ -341,6 +421,18 @@ def main():
                     continue
                 files.append((track, os.path.join(dirpath, name), folder, name))
 
+    external_keys, key_for_file = {}, {}
+    if os.path.exists(KEYS_PATH):
+        with open(KEYS_PATH, encoding="utf-8") as handle:
+            for name, entry in json.load(handle).get("keys", {}).items():
+                answers = {int(n): v for n, v in entry["answers"].items()}
+                external_keys[name] = answers
+                # A key belongs to one exam version. The same exam often exists
+                # in both curricula with its questions in a different order, and
+                # applying the key across them would silently mis-answer it.
+                if entry.get("questions_file"):
+                    key_for_file[entry["questions_file"]] = answers
+
     out, seen, skipped = [], {}, Counter()
     reasons = Counter()
 
@@ -354,7 +446,7 @@ def main():
             skipped["kein Semester erkennbar"] += 1
             continue
 
-        questions, info = parse_exam(path)
+        questions, info = parse_exam(path, key_for_file.get(name))
         if not questions:
             skipped[info if isinstance(info, str) else "nichts geparst"] += 1
             continue
@@ -363,7 +455,7 @@ def main():
 
         topic = f"{term} {sitting}".strip()
         for question in questions:
-            identifier = question_id(subject, topic, question["stem"])
+            identifier = question_id(subject, topic, question["stem"], question["choices"])
             if identifier in seen:
                 skipped["doppelte Frage"] += 1
                 continue
@@ -379,12 +471,14 @@ def main():
                 "tags": ["Vorklinik", track],
             })
 
+    ocr_added = load_ocr(external_keys, out, seen, skipped)
+
     out.sort(key=lambda q: (SEMESTER_OF[q["subject"]], q["subject"], q["topic"], q["id"]))
 
     papers = len({(q["subject"], q["topic"]) for q in out})
     print(f"PDFs im Zuschnitt:  {len(files)}")
     print(f"Klausuren übernommen: {papers}")
-    print(f"Fragen:               {len(out)}")
+    print(f"Fragen:               {len(out)}  (davon {ocr_added} aus OCR)")
     print("\nübersprungene Dateien:")
     for reason, count in skipped.most_common():
         print(f"  {count:4}  {reason}")

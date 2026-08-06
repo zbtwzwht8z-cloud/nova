@@ -1,0 +1,456 @@
+{
+ "subject": "Medizinische Psychologie IV",
+ "term": "SS 16",
+ "sitting": "",
+ "track": "iRM",
+ "source_pdf": "Psychologie iRM Hauptklausur SS16.pdf",
+ "questions": [
+  {
+   "number": 1,
+   "stem": "Die Eheleute K. suchen Rat bei Ihrem Hausarzt. Beide Ehepartner sind in ihrer Intelligenz leicht gemindert und wünschen sich Nachwuchs. Sie sind besorgt, dass das Kind ebenfalls eine geminderte Intelligenz besitzen könnte. Welche Auskunft trifft für die Eltern am ehesten zu?",
+   "choices": {
+    "A": "Der erworbenе Anteil der Intelligenz ist deutlich kleiner als der angeborene Teil der Intelligenz.",
+    "B": "Zwillingstudien zeigen, dass die Intelligenz im Wesentlichen erworben wird.",
+    "C": "Durch ein ausreichendes Training der fluiden Intelligenz lassen sich Defizite der kristallinen Intelligenz beheben.",
+    "D": "Die fluide Intelligenz repräsentiert den Teil der angeborenen Intelligenz, welcher gut zu trainieren ist.",
+    "E": "Die Intelligenz der Eltern korreliert nur schwach mit der Intelligenz der Kinder."
+   }
+  },
+  {
+   "number": 2,
+   "stem": "Welches der folgenden Kriterien weist auf eine mittelgradige Intelligenzminderung (F71) nach ICD-10 der WHO hin?",
+   "choices": {
+    "A": "IQ im Bereich von 20 - 34",
+    "B": "IQ im Bereich von 35 – 49",
+    "C": "IQ im Bereich von 50 – 69",
+    "D": "IQ kleiner 20",
+    "E": "IQ im Bereich von 70 – 90"
+   }
+  },
+  {
+   "number": 3,
+   "stem": "Welche der folgenden Aussagen sind zur Habituation am ehesten nicht zutreffend?",
+   "choices": {
+    "A": "Die Darbietungsrate des Stimulus, der die Orientierungsreaktion auslöst, korreliert negativ mit der Habituationsgeschwindigkeit.",
+    "B": "Angst verringert die Habituation.",
+    "C": "Die Reduktion der physiologischen Reaktionen bei Lernprozessen erfolgt in der Regel exponentiell.",
+    "D": "Schizophrene Patienten zeigen eine verringerte Habituation.",
+    "E": "Der Grad der Habituation kann an der Reduktion der aufretenden Orientierungsreaktionen gemessen werden."
+   }
+  },
+  {
+   "number": 4,
+   "stem": "Wodurch wird die Entwicklung motorischer Schemata nach Piaget am ehesten initiiert?",
+   "choices": {
+    "A": "durch den motorischen Apparat",
+    "B": "durch Umwelteinflüsse",
+    "C": "durch die Eigenschaften des Objektes",
+    "D": "durch Schemata",
+    "E": "durch Zufallsprozesse"
+   }
+  },
+  {
+   "number": 5,
+   "stem": "Welche der folgenden Vorgaben gibt eine korrekte Beschriftung der nachfolgenden Grafik wieder, wenn das Yerkes-Dodson-Gesetz dargestellt werden soll?",
+   "figure": true,
+   "choices": {
+    "A": "I: große Schwierigkeit, II: Aktiviertheit, III: Leistung",
+    "B": "I: große Schwierigkeit, II: Leistung, III: Aktiviertheit",
+    "C": "I: geringe Schwierigkeit, II: Leistung, III: Aktiviertheit",
+    "D": "I: geringe Schwierigkeit, II: Aktiviertheit, III: Leistung",
+    "E": "I: maximale Aktiviertheit, II: optimale Schwierigkeit, III: Leistung"
+   }
+  },
+  {
+   "number": 6,
+   "stem": "Welchem Bereich der Prävention ist das Rauchverbot in öffentlichen Gebäuden am ehesten zuzurechnen?",
+   "choices": {
+    "A": "Gesundheitserziehung",
+    "B": "Soziales Marketing",
+    "C": "Tertiärprävention",
+    "D": "Verhaltensprävention",
+    "E": "Verhältnisprävention"
+   }
+  },
+  {
+   "number": 7,
+   "stem": "Abreagieren und sublimieren sind am ehesten Konsequenzen für den Umgang mit Aggressionen innerhalb",
+   "choices": {
+    "A": "der Trieb- und Instinkttheorien",
+    "B": "von biologischen Erklärungsansätzen",
+    "C": "von lernpsychologisch – behavioralen Ansätzen",
+    "D": "von kognitiven Ansätzen",
+    "E": "von Frustrations-Aggressionsmodellen"
+   }
+  },
+  {
+   "number": 8,
+   "stem": "Das nachstehende Bild zeigt Ihnen eine EEG-Ableitung von ca. 6 Sekunden Länge. Welche der folgenden Aussagen ist zutreffend?",
+   "figure": true,
+   "choices": {
+    "A": "Während den ersten 3 Sekunden ist eine dominierende Theta-Frequenz zu sehen, welche bei mentaler Anstrengung typisch ist.",
+    "B": "Die dominierende Frequenz in den letzten 3 Sekunden zeigt die Aktivität einer stark reduzierten Reizverarbeitung.",
+    "C": "Die Aktivität in der 4. Sekunde weist auf eine sogenannte ß-Blockade hin.",
+    "D": "Die dominierende Frequenz der ersten 3 Sekunden wird als ß-Frequenz bezeichnet und beträgt 13Hz bis 40 Hz.",
+    "E": "Die ersten 3 Sekunden der Ableitung zeigen eine α-Frequenz. Diese Frequenz tritt nur im entspannten Wachzustand auf."
+   }
+  },
+  {
+   "number": 9,
+   "stem": "Welche der nachfolgenden Facetten ist einem Big Five-Faktor richtig zugeordnet?",
+   "choices": {
+    "A": "Leistungsstreben ➜ Neurotizismus",
+    "B": "Altruismus ➜ Extraversion",
+    "C": "Ästhetik ➜ Offenheit für Erfahrungen",
+    "D": "Geselligkeit ➜ Verträglichkeit",
+    "E": "Reizbarkeit ➜ Gewissenhaftigkeit"
+   }
+  },
+  {
+   "number": 10,
+   "stem": "Lacey postuliert eine „individuelle Reaktionsstereotypie“ als stressmodullierender Faktor. Als individuelle Reaktionsstereotypie werden am ehesten …",
+   "choices": {
+    "A": "wiederkehrende Copingstrategien unter Einfluss von Stressoren verstanden.",
+    "B": "wiederkehrende Abwehrmechanismen unter Einfluss von Stressoren verstanden.",
+    "C": "wiederkehrende körperliche Reaktionen unter Einfluss von Stressoren verstanden.",
+    "D": "wiederkehrende verbale Reaktionen unter Einfluss von Stressoren verstanden.",
+    "E": "wiederkehrende paraverbale Reaktionen unter Einfluss von Stressoren verstanden."
+   }
+  },
+  {
+   "number": 11,
+   "stem": "Welches Verhalten ist bei einem Typ – A Verhaltensstil eher nicht zu erwarten?",
+   "choices": {
+    "A": "Exzessive Konkurrenznahlung",
+    "B": "Starker Ehrgeiz",
+    "C": "Freundlich, gelassene Stimmungslage",
+    "D": "enge Terminplanung mit chronisch auftretender Zeitnot",
+    "E": "unermüdlicher beruflicher Einsatz mit schlecht definierten Zielen"
+   }
+  },
+  {
+   "number": 12,
+   "stem": "Welche der folgenden Verhaltensweisen zählt am ehesten nicht zu einem effektiven Bewältigungsverhalten?",
+   "choices": {
+    "A": "aktives Explorieren der Realität und Informationssuche",
+    "B": "Wahrnehmen von Ermüdungs- und Desorganisationserscheinungen",
+    "C": "aktives Beherrschen der Gefühle und das Akzeptieren von Gefühlen, die man nicht beherrschen kann",
+    "D": "Warten auf die Hilfe durch andere",
+    "E": "Grundvertrauen in die eigene Person und andere Menschen"
+   }
+  },
+  {
+   "number": 13,
+   "stem": "Als die Mutter das Behandlungszimmer des Kinderarztes erneut betritt, zeigt ihr 14 Monate altes Kind wenig Emotionen und konzentriert sich weiterhin auf das Spielzeug, welches im Behandlungszimmer des Arztes bereitgelegt. Welches entwicklungspsychologische Phänomen kann dieses Verhalten am ehesten beschreiben?",
+   "choices": {
+    "A": "mangelnde Feldabhängigkeit des Kindes",
+    "B": "gelernte Hilflosigkeit",
+    "C": "orale Phase der psychosexuellen Entwicklung nach Freud",
+    "D": "unsicher-vermeidender Bindungsstil nach Bowlby",
+    "E": "Egozentrismus nach Piaget"
+   }
+  },
+  {
+   "number": 14,
+   "stem": "Welches der folgenden Modelle der Krankheitsentstehung wird als „systembezogen“ und als „nicht-materialistisch“ bezeichnet?",
+   "choices": {
+    "A": "Gratifikationskrisenmodell",
+    "B": "Kohäsions- und Sozialkapital-Modell",
+    "C": "Wohlstandsmodell",
+    "D": "Einkommensungleichheits-Modell",
+    "E": "Schicht-Modell"
+   }
+  },
+  {
+   "number": 15,
+   "stem": "Welche der folgenden Eigenschaften ist bei einer Dishabituation eher nicht zu erwarten?",
+   "choices": {
+    "A": "Die Orientierungsreaktion tritt erneut auf.",
+    "B": "Habituierte Stimuli erhalten einen „Neuheitswert\".",
+    "C": "Tritt nach langen Darbietungspausen habituierter Stimuli auf.",
+    "D": "Tritt auch bei nur geringfügig veränderten Präsentationen habituierter Stimuli auf.",
+    "E": "Der wahrgenommene Stimulus stimmt weitgehend mit den Gedächtnisinhalten überein."
+   }
+  },
+  {
+   "number": 16,
+   "stem": "Welche der Bezeichnungen trifft für die Vergütung von Krankenhausbehandlungen in Form von Fallpauschalien am ehesten zu?",
+   "choices": {
+    "A": "nach dem Sachleistungsprinzip",
+    "B": "auf der Grundlage von Diagnosis Related Groups",
+    "C": "nach dem Subsidiaritätsprinzip",
+    "D": "nach dem Äquivalenzprinzip",
+    "E": "nach dem Solidaritätsprinzip"
+   }
+  },
+  {
+   "number": 17,
+   "stem": "Welche Form der Abwehr ist im Folgenden am ehesten beschrieben? „Ereignisse oder Gegebenheiten, die Angst auslösend sind oder auf Angst auslösende Impulse hinweisen, werden nicht oder unzureichend wahrgenommen und/oder durch Wunschdenken ersetzt.\"",
+   "choices": {
+    "A": "Rationalisierung",
+    "B": "Sublimierung",
+    "C": "Reaktionsbildung",
+    "D": "Verleugnung",
+    "E": "Identifikation"
+   }
+  },
+  {
+   "number": 18,
+   "stem": "Was ist eher keine Folge der maladaptiven Ärgerverarbeitung „Anger-Out\"?",
+   "choices": {
+    "A": "Situative Erhöhung von systolischem und diastolischem Blutdruck",
+    "B": "Ärger, der nach Beendigung einer Situation noch anhält, blockiert eine angemessene Situationsbewältigung neuer Aufgaben",
+    "C": "Aggressive Handlungen werden operant verstärkt",
+    "D": "Interaktionspartner reagieren mit Gegenagression",
+    "E": "Erhöhte Wahrscheinlichkeit negativer Selbstbewertung"
+   }
+  },
+  {
+   "number": 19,
+   "stem": "Welche der folgenden pathologischen Reaktionen nach Verlustern eignis sen kennzeichnen die fehlende Trauer am ehesten?",
+   "choices": {
+    "A": "psychische Auffälligkeit des Hinterbliebenen",
+    "B": "körperliche Beschwerden, besonders Schmerzen",
+    "C": "Suizid",
+    "D": "Herzerkrankungen",
+    "E": "Trauerreaktionen länger als ein Jahr ohne Akzeptanz"
+   }
+  },
+  {
+   "number": 20,
+   "stem": "Herr M. nimmt eine ärztliche Behandlung in Anspruch. Er muss die Behandlung nicht direkt beim Arzt bezahlen. Vielmehr erhält der Arzt von seiner Kassenärztlichen Vereinigung das Honorar für die Behandlung. Wie bezeichnet man das dem obigen Verfahren zugrundeliegende Gestaltungsprinzip?",
+   "choices": {
+    "A": "Äquivalenzprinzip",
+    "B": "Kostenerstattungsprinzip",
+    "C": "Sachleistungsprinzip",
+    "D": "Solidaritätsprinzip",
+    "E": "Subsidiaritätsprinzip"
+   }
+  },
+  {
+   "number": 21,
+   "stem": "Sie eröffnen als Facharzt Ihre erste eigene Praxis. Im Rahmen des Qualitätsmanagements achten Sie u. a. darauf, für Ihre Patienten gut erreichbar zu sein (z.B. Anrufbeantworter für das Telefon, gute Verkehrsanbindung), wichtige medizinische Geräte verfügbar zu haben (z.B. Ultraschallgerät) und genügend und gut ausgebildetes Personal zu beschäftigen (z.B. medizinische Fachangestellte). Welche Qualitätsdimension beschreibt diese Maßnahmen am besten?",
+   "choices": {
+    "A": "Prozessqualität",
+    "B": "Ergebnisqualität",
+    "C": "Urteilsqualität",
+    "D": "Strukturqualität",
+    "E": "Lebensqualität"
+   }
+  },
+  {
+   "number": 22,
+   "stem": "Wenn Sie ein Objekt für längere Zeit beobachtet haben und anschließend die Augen schließen, scheint die visuelle Wahrnehmung noch für eine gewisse Zeit weiter zu existieren. Das Mehrspeicher-Gedächtnismodell sieht die Funktion begründet durch …",
+   "choices": {
+    "A": "das limitierte Verarbeitungssystem (KZG)",
+    "B": "Effektoren",
+    "C": "Filter",
+    "D": "sensorische Speicher",
+    "E": "das LZG"
+   }
+  },
+  {
+   "number": 23,
+   "stem": "Herr D. vergisst, dass er gerade gegessen hat. Er erkennt sich auf Kindheitsfotos, aber erkennt sich nicht im Spiegel. Neue Informationen können nicht im Langzeitgedächtnis gespeichert werden, obwohl ansonsten eine gute Orientierung zu Personen und Geschehnissen bis zur Kindheit hin besteht. Wie nennt man dieses Phänomen?",
+   "choices": {
+    "A": "aphasische Amnesie",
+    "B": "anterograde Amnesie",
+    "C": "posterograde Amnesie",
+    "D": "apraktische Amnesie",
+    "E": "retrograde Amnesie"
+   }
+  },
+  {
+   "number": 24,
+   "stem": "Welches EEG - Frequenzband sollte beim gesunden Menschen bei mentaler Anstrengung dominant sein?",
+   "choices": {
+    "A": "Delta",
+    "B": "Theta",
+    "C": "Alpha",
+    "D": "Beta",
+    "E": "Gamma"
+   }
+  },
+  {
+   "number": 25,
+   "stem": "Eine Kommilotonin ist in der Stadt unterwegs und verspürt Hunger, da sie seit Stunden nichts gegessen hat. Auf der Suche nach einer Imbissbude erblickt sie in jeder Leuchtreklame zuerst einen Hinweis auf etwas Essbares: einen Hamburger, Hot Dog, Eis, etc. … Mit welchem Mechanismus könnte man dieses Phänomen am ehesten erklären?",
+   "choices": {
+    "A": "Umdeutung der Wahrnehmung",
+    "B": "Verstärkung von Wahrnehmungstendenzen",
+    "C": "Wahrnehmungsabwehr",
+    "D": "selektive Wahrnehmung",
+    "E": "niedrige Wahrnehmungsschwelle"
+   }
+  },
+  {
+   "number": 26,
+   "stem": "Querschnittanalytische Ergebnisse zum Verlauf der Intelligenz zeigen m. H. der Hamburger (HAWIE) – Gesamtskala ein Maximum der Intelligenz im Alter von ca. 25 Jahren. Welcher der folgenden Faktoren kann am ehesten zu diesem Ergebnis beigetragen haben?",
+   "choices": {
+    "A": "genetische Dispositionen der Untersuchten",
+    "B": "mangelnde Zuverlässigkeit des verwendeten Testverfahrens (HAWIE).",
+    "C": "mangelnde Validität des verwendeten Testverfahrens (HAWIE).",
+    "D": "Gesellschaftliche und persönliche Lebensbedingungen in der Untersuchungszeit.",
+    "E": "die Berechnung des Intelligenzquotienten in der älteren Form nach Stern."
+   }
+  },
+  {
+   "number": 27,
+   "stem": "In der Kinderarztpraxis wird der laut brüllende Sven nach einem Sturz vom Klettergerüst verarztet. Während der Arzt die Platzwunde am Kopf näht, nennt er dem anwesenden Vater die Symptome einer Gehirnerschütterung und was bei deren Auftreten angeraten wäre. Kurze Zeit nach der Behandlung ruft der Vater in der Praxis an: 'Es tut mir leid, können Sie mir noch mal das sagen mit der Gehirnerschütterung sagen?'",
+   "stem_complete": "Womit lässt sich das Vergessen des Vaters am ehesten erklären?",
+   "choices": {
+    "A": "Verdrängung",
+    "B": "Yerkes-Dodson-Regel",
+    "C": "Stevens Potenzfunktion",
+    "D": "AAS nach Selye",
+    "E": "Locus of Control"
+   }
+  },
+  {
+   "number": 28,
+   "stem": "Sie sind Arzt/Ärztin in der onkologischen Abteilung einer Klinik und müssen immer wieder Patienten mit einer ungünstigen Prognose konfrontieren. Jeder Patient hat seine eigene Art und Weise, mit dieser Nachricht umzugehen. Welcher der folgenden Prozesse ist eher nicht ein Abwehrmechanismus?",
+   "choices": {
+    "A": "Identifikation",
+    "B": "Sublimierung",
+    "C": "Verleugnung",
+    "D": "Projektion",
+    "E": "Fatalismus"
+   }
+  },
+  {
+   "number": 29,
+   "stem": "Welches der folgenden Kriterien ist eher kein Risikofaktor für eine pathologische Reaktion nach Partnerverlust?",
+   "choices": {
+    "A": "extrem einseitige Aufgabenverteilung zwischen den Partnern",
+    "B": "soziale Desintegration",
+    "C": "niedriger Sozialstatus",
+    "D": "soziale Unterstützung durch Freunde",
+    "E": "finanzielle Probleme"
+   }
+  },
+  {
+   "number": 30,
+   "stem": "Welche der folgenden Eigenschaften und Verhaltensweisen entsprechen nicht den Vorstellungen von Tod bei Kindern vor Beginn der formaloperationalen Phase?",
+   "choices": {
+    "A": "Tod wird durch bekannte Vorgänge erklärt.",
+    "B": "indirekte Fragen nach dem Tod",
+    "C": "Tod partieller Körperfunktionen",
+    "D": "Tod trifft nicht die unmittelbaren Beziehungspersonen.",
+    "E": "Irreversibilität des Todes"
+   }
+  },
+  {
+   "number": 31,
+   "stem": "Freud postulierte die Ausprägung von Persönlichkeitseigenschaften während der kindlichen Entwicklung. Welche psychosexuellen Entwicklungsphasen (6-9) bedingen welche Persönlichkeitseigenschaften (1-5)? Geben Sie die korrekte Zuordnung an.",
+   "figure": true,
+   "choices": {
+    "A": "(7) -> (3)",
+    "B": "(9) -> (4)",
+    "C": "(8) -> (1)",
+    "D": "(6) -> (2)",
+    "E": "(6) -> (5)"
+   }
+  },
+  {
+   "number": 32,
+   "stem": "Piaget ordnete den zu erwartenden Beginn der folgenden kognitiven Fertigkeiten verschiedenen Entwicklungsphasen zu. Welche der folgenden Zuordnungen steht in Übereinstimmung mit dem Modell der kognitiven Entwicklung von J. Piaget?",
+   "figure": true,
+   "choices": {
+    "A": "(1) -> (8)",
+    "B": "(2) -> (6)",
+    "C": "(3) -> (7)",
+    "D": "(4) -> (9)",
+    "E": "(5) -> (8)"
+   }
+  },
+  {
+   "number": 33,
+   "stem": "Welche Reaktionen bei Ärger sind auf der physiologisch-humoralen Reaktionsebene am ehesten zu erwarten?",
+   "choices": {
+    "A": "Anstieg des systolischen, Abfall des diastolischen Blutdrucks, Anstieg der Herzrate",
+    "B": "Vasokonstriktion in der Skelettmuskulatur",
+    "C": "Vasokonstriktion der Gefäße, Erhöhung der Magensäuresekretion",
+    "D": "Abfall des diastolischen Blutdrucks, Anstieg der Herzrate",
+    "E": "Vasodilatation der Gefäße, Erhöhung der Magensäuresekretion"
+   }
+  },
+  {
+   "number": 34,
+   "stem": "Welche Faktoren der Intelligenz werden nach Wechsler dem Verbalteil der Intelligenz zugeordnet?",
+   "choices": {
+    "A": "Würfelrotationsaufgaben",
+    "B": "Figurenlegen",
+    "C": "Rechnerisches Denken",
+    "D": "Zahlensymbolaufgaben",
+    "E": "Mosaiktest"
+   }
+  },
+  {
+   "number": 35,
+   "stem": "Welche Reaktion ist innerhalb des AAS von Selye in der Widerstandsphase am ehesten zu erwarten?",
+   "choices": {
+    "A": "Dekompensation der Immunokompetenz",
+    "B": "Zusammenbruch von Reproduktions- und Wachstumsfunktionen",
+    "C": "Steigerung der Empfindlichkeit der Gefäßmuskulatur für Adrenalin/Noradrenalin",
+    "D": "Vergrößerung der Nebennieren",
+    "E": "Schrumpfung der Thymusdrüsen"
+   }
+  },
+  {
+   "number": 36,
+   "stem": "Frau B. (46) sucht aufgrund verschiedener körperlicher Beschwerden (Schmerzen) ihren Allgemeinarzt auf. Er kann keine organische Ursache feststellen. Bei der Exploration belastender Lebensereignisse berichtet sie teilnahmslos, vor 5 Monaten ihren Mann unerwartet bei einem Verkehrsunfall verloren zu haben. Welche Aussage trifft am ehesten auf das Verhalten von Frau B. zu?",
+   "choices": {
+    "A": "Frau B. hat den Verlust erfolgreich verarbeitet.",
+    "B": "Frau B. akzeptiert ihren Verlust nicht als Realität.",
+    "C": "Frau B. zeigt fehlende Trauer (erfährt keinen Trauerschmerz).",
+    "D": "Frau B. befindet sich in der initialen Phase.",
+    "E": "Frau B. hat ihren Verlust als Realität akzeptiert."
+   }
+  },
+  {
+   "number": 37,
+   "stem": "Welche der folgenden Formeln lässt den Positiven Prädiktionswert ermitteln?",
+   "figure": true,
+   "choices": {
+    "A": "PPW (%) = a/(a+b) * 100",
+    "B": "PPW (%) = d/(a+b) * 100",
+    "C": "PPW (%) = a/(c+d) * 100",
+    "D": "PPW (%) = c/(c+d) * 100",
+    "E": "PPW (%) = b/(a+b) * 100"
+   }
+  },
+  {
+   "number": 38,
+   "stem": "Welche der folgenden Formel berechnet die Spezifität eines Testverfahrens?",
+   "figure": true,
+   "choices": {
+    "A": "Spezifität (%) = a/(a+b) * 100",
+    "B": "Spezifität (%) = d/(a+b) * 100",
+    "C": "Spezifität (%) = c/(c+d) * 100",
+    "D": "Spezifität (%) = d/(b+d) * 100",
+    "E": "Spezifität (%) = b/(a+b) * 100"
+   }
+  },
+  {
+   "number": 39,
+   "stem": "Welche der folgenden Verfahren wird zur Aufmerksamkeitsmessung eingesetzt?",
+   "choices": {
+    "A": "Wisconsin Card Sorting Test [WCST]",
+    "B": "Wechsler Memory Scale [WMS]",
+    "C": "D2 – Test",
+    "D": "Freiburger Persönlichkeitstest [FPI]",
+    "E": "Motorische Leistungsserie [MLS]"
+   }
+  },
+  {
+   "number": 40,
+   "stem": "Welche der folgenden Bewertungen einer Situation zählt nicht zu den primären Bewertungen nach Lazarus?",
+   "choices": {
+    "A": "angenehm",
+    "B": "effektive Handlungsmöglichkeiten vorhanden",
+    "C": "Bedrohung",
+    "D": "Herausforderung",
+    "E": "irrelevant"
+   }
+  }
+ ]
+}
