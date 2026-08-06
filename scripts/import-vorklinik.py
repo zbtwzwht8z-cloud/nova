@@ -230,6 +230,86 @@ def find_key(pages):
     return best
 
 
+# A few exams carry no key page and instead set the correct option in bold.
+# Emphasis is used all over these papers ("trifft nicht zu"), so a mark only
+# counts when it lands on exactly one choice, does so for most of the questions,
+# and the resulting letters spread out like a real key.
+MARK = "\x01"
+MARKED_MIN_COVERAGE = 0.6
+MARKED_MIN_ANSWERS = 10
+
+
+def marked_text(document):
+    lines = []
+    for index in range(len(document)):
+        for block in document[index].get_text("dict")["blocks"]:
+            for line in block.get("lines", []):
+                built = ""
+                for span in line["spans"]:
+                    bold = span["flags"] & 16 and span["text"].strip()
+                    built += (MARK + span["text"]) if bold else span["text"]
+                lines.append(built)
+        lines.append("")
+    return "\n".join(lines)
+
+
+def marked_choice(block):
+    """The single choice whose own lines are set in bold, or None.
+
+    Works line by line rather than by splitting on the choice markers: the mark
+    sits in front of the letter it belongs to, so a marker-based split would
+    hide that line's opening and credit the emphasis to the choice above it.
+    """
+    current, marked = None, {}
+    for line in block.split("\n"):
+        bare = line.replace(MARK, "")
+        opener = CHOICE.match(bare)
+        if opener:
+            current = opener.group(1).upper()
+            marked.setdefault(current, False)
+        if current and MARK in line:
+            marked[current] = True
+
+    hit = [letter for letter, found in marked.items() if found]
+    return hit[0] if len(hit) == 1 else None
+
+
+def marked_key(document):
+    text = marked_text(document)
+    plain = text.replace(MARK, "")
+    # Map an offset in the stripped text back to the marked one.
+    offsets = [i for i, char in enumerate(text) if char != MARK]
+
+    marks, last = [], 0
+    for match in QNUM.finditer(plain):
+        number = int(match.group(1) or match.group(2))
+        if last < number <= last + 3:
+            marks.append((match.start(), match.end(), number))
+            last = number
+    if len(marks) < 5:
+        return {}
+
+    key, questions = {}, 0
+    for index, (_, end, number) in enumerate(marks):
+        stop = marks[index + 1][0] if index + 1 < len(marks) else len(plain)
+        block = text[offsets[end]:(offsets[stop] if stop < len(offsets) else len(text))]
+        _, choices = split_choices(block.replace(MARK, ""))
+        if not choices:
+            continue
+        questions += 1
+        hit = marked_choice(block)
+        if hit:
+            key[number] = hit
+
+    if len(key) < MARKED_MIN_ANSWERS or not questions:
+        return {}
+    if len(key) / questions < MARKED_MIN_COVERAGE:
+        return {}
+    if Counter(key.values()).most_common(1)[0][1] / len(key) > 0.6:
+        return {}
+    return key
+
+
 def run_of(marks, first):
     kept, expect = [], first
     for start, end, letter in marks:
@@ -259,9 +339,10 @@ def split_choices(block):
 def parse_exam(path, external_key=None):
     document = fitz.open(path)
     pages = [document[i].get_text() for i in range(len(document))]
+
+    key = find_key(pages) or (external_key or {}) or marked_key(document)
     document.close()
 
-    key = find_key(pages) or (external_key or {})
     if len(key) < 5:
         return [], "kein Lösungsschlüssel"
 

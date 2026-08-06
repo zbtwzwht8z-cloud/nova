@@ -17316,9 +17316,10 @@
       "iRM"
     ],
     "repeats": {
-      "count": 1,
+      "count": 2,
       "terms": [
-        "WS 19/20"
+        "WS 19/20",
+        "WS 24/25"
       ]
     }
   },
@@ -18840,9 +18841,10 @@
       "iRM"
     ],
     "repeats": {
-      "count": 1,
+      "count": 2,
       "terms": [
-        "WS 20/21"
+        "WS 20/21",
+        "WS 24/25"
       ]
     }
   },
@@ -24733,6 +24735,1528 @@
       "count": 1,
       "terms": [
         "WS 23/24"
+      ]
+    }
+  },
+  {
+    "id": "vk-038482b88bd1f334",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welches der folgenden funktionellen Gruppen ist im abgebildeten Molekül nicht enthalten? (Organik, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "sekundärer Alkohol"
+      },
+      {
+        "id": "B",
+        "text": "Phenol"
+      },
+      {
+        "id": "C",
+        "text": "primäres Amin"
+      },
+      {
+        "id": "D",
+        "text": "Ether"
+      },
+      {
+        "id": "E",
+        "text": "Aldehyd"
+      }
+    ],
+    "answer": "E",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-0781afe40f444686",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Orbitalen trifft zu? (Stunde 2/5)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Die Orbitale sind wie folgt (anhand ihrer Energieniveaus) angeordnet: 1s,2s,3s, 4s, 2p,3p,4p"
+      },
+      {
+        "id": "B",
+        "text": "p-Orbitale können mit maximal 8 Elektronen besetzt werden."
+      },
+      {
+        "id": "C",
+        "text": "Jedes Molekül besitzt bindende und antibindende Orbitale."
+      },
+      {
+        "id": "D",
+        "text": "Entartete Orbitale besitzen unterschiedliche Energieniveaus."
+      },
+      {
+        "id": "E",
+        "text": "Unter Hybridisierung versteht man die Doppelbesetzung von p-Orbitalen."
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-0e5631a0627e969f",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche der folgenden Zuordnungen trifft zu?\n\nDas der Gleichgewichtsreaktion H2SO4 + 2 NaOH Na2SO4 + 2 H2O zugehörige Massenwirkungsgesetz ist:",
+    "choices": [
+      {
+        "id": "A",
+        "text": "K = [H2SO4] 2[NaOH] / [Na2SO4] 2[H2O]"
+      },
+      {
+        "id": "B",
+        "text": "K = [Na2SO4] 2[H2O] / [H2SO4] 2[NaOH]"
+      },
+      {
+        "id": "C",
+        "text": "K = [Na2SO4] [H2O]2 / [H2SO4] [NaOH]2"
+      },
+      {
+        "id": "D",
+        "text": "K = [H2SO4] [NaOH]2 / [Na2SO4] [H2O]2"
+      },
+      {
+        "id": "E",
+        "text": "[H2SO4] [NaOH] / [Na2SO4] [H2O]"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-1d4b5a1f5f169365",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Wählen Sie die richtige Kombination, um die Teilgleichung der Oxidation von Blei(II)sulfid zu Blei(II)sulfat zu ergänzen: (Stunde 17, Praktikum) Ox: PbS + ……. → PbSO4 + ………. + ………",
+    "choices": [
+      {
+        "id": "A",
+        "text": "2 H2O, 8e-, 4H+"
+      },
+      {
+        "id": "B",
+        "text": "4 H2O, 8e-, 8H+"
+      },
+      {
+        "id": "C",
+        "text": "2O2, 6H+, 6e-"
+      },
+      {
+        "id": "D",
+        "text": "8OH-, 8e-, 8H+"
+      },
+      {
+        "id": "E",
+        "text": "4OH-, 6e-, 4H+"
+      }
+    ],
+    "answer": "B",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-28ff2bf5e112b256",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "In welchem der aufgeführten Moleküle weist das N-Atom die höchste Oxidationszahl auf? (Stunde 17, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Ammoniumchlorid"
+      },
+      {
+        "id": "B",
+        "text": "Kaliumcyanid"
+      },
+      {
+        "id": "C",
+        "text": "Lachgas (Distickstoffmonoxid)"
+      },
+      {
+        "id": "D",
+        "text": "Stickstoffmonoxid"
+      },
+      {
+        "id": "E",
+        "text": "Stickstoff"
+      }
+    ],
+    "answer": "D",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-3343351cc6d3107b",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche folgenden Reaktionsgleichungen ist nicht richtig? (Stunde 14, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "NH3 + H3O+ → NH4+ + H2O"
+      },
+      {
+        "id": "B",
+        "text": "H2CO3 + OH- → HCO3 - + H2O"
+      },
+      {
+        "id": "C",
+        "text": "OH- + CH3COOH → CH3COO- + H2O"
+      },
+      {
+        "id": "D",
+        "text": "2BaCl2 + Na2SO4 → 2BaSO4 + 2NaCl"
+      },
+      {
+        "id": "E",
+        "text": "Fe + CuSO4 → Cu + FeSO4"
+      }
+    ],
+    "answer": "D",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-39f50ff3e9d161a6",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zum Periodensystem der Elemente trifft zu? (Stunde 3)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Elemente einer Hauptgruppe besitzen sehr unterschiedliche chemische Eigenschaften."
+      },
+      {
+        "id": "B",
+        "text": "Der Atomradius nimmt im PSE von oben nach unten ab."
+      },
+      {
+        "id": "C",
+        "text": "He besitzt die höchste Elektronegativität."
+      },
+      {
+        "id": "D",
+        "text": "Die Halogene besitzen die geringste Elektronenaffinität."
+      },
+      {
+        "id": "E",
+        "text": "Die Ionisierungsenergie nimmt von links nach rechts zu."
+      }
+    ],
+    "answer": "E",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-4b38f45374f422d2",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage über einen Katalysator trifft zu? (Stunde 16)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Das Gleichgewicht wird durch den Katalysator zugunsten des Endprodukts verschoben."
+      },
+      {
+        "id": "B",
+        "text": "Der Katalysator erhöht die Reaktionsgeschwindigkeit der Hin- und Rückreaktion."
+      },
+      {
+        "id": "C",
+        "text": "Eine endergone Reaktion kann durch einen Katalysator in eine exergone umgewandelt werden."
+      },
+      {
+        "id": "D",
+        "text": "Der Katalysator wird bei der Reaktion verbraucht und muss daher in ausreichender Konzentration zugegeben werden."
+      },
+      {
+        "id": "E",
+        "text": "Der Katalysator erhöht die Aktivierungsenergie der Rückreaktion."
+      }
+    ],
+    "answer": "B",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-54191e059e683baf",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Proteinen trifft zu? (Stunde 44) Domänen eines Proteins sind",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Polypeptidketten mit nicht modifiziertem C- und N-Terminus"
+      },
+      {
+        "id": "B",
+        "text": "Abschnitte einer Polypeptidkette mit eigener Tertiärstruktur."
+      },
+      {
+        "id": "C",
+        "text": "Monomere von fibrillären Proteinen."
+      },
+      {
+        "id": "D",
+        "text": "Synonym zu dem Begriff „Proteinuntereinheiten“"
+      },
+      {
+        "id": "E",
+        "text": "Modifikationen an Cysteinresten."
+      }
+    ],
+    "answer": "B",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-61129e2bc5d4ed79",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche der folgenden Verbindungen ist/sind Nukleophile? (Stunde 20/21)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Alkylhalogenide"
+      },
+      {
+        "id": "B",
+        "text": "Protonierte Alkohole"
+      },
+      {
+        "id": "C",
+        "text": "Wasser"
+      },
+      {
+        "id": "D",
+        "text": "Carbokationen"
+      },
+      {
+        "id": "E",
+        "text": "Halogene"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-6342916840d8f7e9",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Langmuirschen Adsorptionsisothermen trifft zu? (Stunde 11)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Eine Substanz wird bei geringerer Temperatur schlechter adsorbiert."
+      },
+      {
+        "id": "B",
+        "text": "Der Bedeckungsgrad-Grenzwert Theta=1 (Sättigung) wird bei Schmelztemperatur erreicht."
+      },
+      {
+        "id": "C",
+        "text": "Für jede Temperatur gilt eine temperaturspezifische Isothermen-Kurve."
+      },
+      {
+        "id": "D",
+        "text": "Der Verteilungskoeffizient K hängt nicht von der Temperatur ab."
+      },
+      {
+        "id": "E",
+        "text": "Der Bedeckungsgrad ist die Anzahl der adsorbierten Teilchen mal die Anzahl der Adsorptionsplätze."
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-767182e9b01babc4",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Alkoholen/Phenolen trifft zu? (Stunde 25/26)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Phenole sind gut löslich in Wasser."
+      },
+      {
+        "id": "B",
+        "text": "Die Löslichkeit von primären Alkoholen in Wasser steigt mit steigendem Molekulargewicht."
+      },
+      {
+        "id": "C",
+        "text": "Die Hydroxylgruppe von Alkoholen ist nicht polar."
+      },
+      {
+        "id": "D",
+        "text": "Die Siedepunkte von Alkoholen sind deutlich höher als die der entsprechenden Alkane."
+      },
+      {
+        "id": "E",
+        "text": "Alkohole sind starke Säuren."
+      }
+    ],
+    "answer": "D",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-7d46e6bbff358cec",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Bei untenstehender Reaktion handelt es sich um eine (Stunde 20/21)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Substitution"
+      },
+      {
+        "id": "B",
+        "text": "Addition"
+      },
+      {
+        "id": "C",
+        "text": "Eliminierung"
+      },
+      {
+        "id": "D",
+        "text": "Umlagerung"
+      },
+      {
+        "id": "E",
+        "text": "Kondensation"
+      }
+    ],
+    "answer": "B",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-7da0839dc081c8ce",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu einer Reaktion mit folgendem Energieprofil trifft zu? (Stunde 16)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "„1“ gibt die Aktivierungsenergie an."
+      },
+      {
+        "id": "B",
+        "text": "„2“ gibt die freie Gibbs Energie der Gesamtreaktion an."
+      },
+      {
+        "id": "C",
+        "text": "„3“ bezeichnet man als Zwischenprodukt der Reaktion."
+      },
+      {
+        "id": "D",
+        "text": "Die Geschwindigkeit der Reaktion wird durch die Größe von „2“ bestimmt."
+      },
+      {
+        "id": "E",
+        "text": "Die Gleichgewichtslage der Reaktion wird durch die Differenz von „1“ und „2“ bestimmt."
+      }
+    ],
+    "answer": "D",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-7f790eebd82be503",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Zuordnung von Säure und Anion(en) ist richtig? (Stunde 7, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Salpetersäure - NItrit"
+      },
+      {
+        "id": "B",
+        "text": "Schwefelsäure - Sulfid"
+      },
+      {
+        "id": "C",
+        "text": "Kohlensäure – Hydrogencarbonat/Carbonat"
+      },
+      {
+        "id": "D",
+        "text": "Essigsäure - Cyanid"
+      },
+      {
+        "id": "E",
+        "text": "Salzsäure – Chlorat"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-89943d676d977031",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Wie viel Mol Chlorid-Ionen befinden sich in 10 L einer gesättigten AgCl-Lösung?\nLp (AgCl) = 2x10-10 mol2/L2 (Stunde 19, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "1,41 x 10-5 mol"
+      },
+      {
+        "id": "B",
+        "text": "1,41 x 10-10 mol"
+      },
+      {
+        "id": "C",
+        "text": "1,41 x 10-4 mol"
+      },
+      {
+        "id": "D",
+        "text": "14,1 x 10-10 mol"
+      },
+      {
+        "id": "E",
+        "text": "14,1 x 10-4 mol"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-a6299840d2f43601",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Puffern trifft zu? (Stunde 8, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "NH4+ kann zugesetzte HCl neutralisieren."
+      },
+      {
+        "id": "B",
+        "text": "Nach der Zugabe von Natronlauge zu einem Ammonium / Ammoniak Puffer sinkt der Anteil an Ammoniak."
+      },
+      {
+        "id": "C",
+        "text": "In dem H2PO4- / HPO42- Puffer ist HPO42- die Säurekomponente."
+      },
+      {
+        "id": "D",
+        "text": "Eine starke Säure (wie z.B. HCl) und deren konjugierte schwache Base können als Pufferkomponenten fungieren."
+      },
+      {
+        "id": "E",
+        "text": "Wenn in einem Puffersystem die Pufferkapazität überschritten ist, wird die Zugabe von Säure oder Base den pH-Wert merklich ändern."
+      }
+    ],
+    "answer": "E",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-a67e1a94bf791c26",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage trifft zu? (Stunde 35) α- und β-D-Glukose",
+    "choices": [
+      {
+        "id": "A",
+        "text": "sind Enantiomere"
+      },
+      {
+        "id": "B",
+        "text": "können sich in wässriger Lösung ineinander umwandeln."
+      },
+      {
+        "id": "C",
+        "text": "sind Ketohexosen."
+      },
+      {
+        "id": "D",
+        "text": "unterscheiden sich durch die Stellung der OH-Gruppe am C4-Atom."
+      },
+      {
+        "id": "E",
+        "text": "besitzen den gleichen Energiegehalt."
+      }
+    ],
+    "answer": "B",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-a6a49f245ab7606b",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Wasserstoffbrückenbindungen trifft nicht zu? (Stunde 6)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Wenn sie sich ausbilden, erhöht sich der Siedepunkt einer Substanz."
+      },
+      {
+        "id": "B",
+        "text": "Molekularer Wasserstoff ist durch sie assoziiert."
+      },
+      {
+        "id": "C",
+        "text": "Sie sind schwächer als Atombindungen."
+      },
+      {
+        "id": "D",
+        "text": "Voraussetzung für ihre Bindung ist das Vorliegen eines H-Donators und eines Akzeptors."
+      },
+      {
+        "id": "E",
+        "text": "Sie sind bei Raumtemperatur zwischen Wassermolekülen wirksam."
+      }
+    ],
+    "answer": "B",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-aa69aa112b312212",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welches ist der korrekte IUPAC Name für das folgende Molekül (Stunde 23)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "5-Methyl-5-ethyloctan"
+      },
+      {
+        "id": "B",
+        "text": "5-Methyl-5-propylheptan"
+      },
+      {
+        "id": "C",
+        "text": "4-Ethyl-4-methyloctan"
+      },
+      {
+        "id": "D",
+        "text": "3-Methyl-3-propyloctan"
+      },
+      {
+        "id": "E",
+        "text": "3-Methyl-3-propylheptan"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-ae7601c32199ec16",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Wenn bei einer Reaktion unter Normaldruck für die Reaktionsenthalpie ∆H = 130 kJ/mol und die Entropie ∆S = 0,13 kJ/mol K gilt, so verläuft sie (Stunde 15)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "bei T = 300 K exergon."
+      },
+      {
+        "id": "B",
+        "text": "bei T = 100 K endergon."
+      },
+      {
+        "id": "C",
+        "text": "bei T = 1500 K endergon."
+      },
+      {
+        "id": "D",
+        "text": "unabhängig von T immer endergon."
+      },
+      {
+        "id": "E",
+        "text": "unabhängig von T immer exergon."
+      }
+    ],
+    "answer": "B",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 2,
+      "terms": [
+        "WS 20/21",
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-b3685343fd7e8127",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Mit welchem Lösungsmitteln würden Sie eine Substanz von einer Säule (mit Silikagel als stationäre Phase) am schnellsten eluieren? (Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Methanol"
+      },
+      {
+        "id": "B",
+        "text": "Pentan"
+      },
+      {
+        "id": "C",
+        "text": "Ethylacetat"
+      },
+      {
+        "id": "D",
+        "text": "Dichlormethan"
+      },
+      {
+        "id": "E",
+        "text": "2-Propanol"
+      }
+    ],
+    "answer": "A",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-ba1a6300b705ac2d",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage trifft zu? (Stunde 47) Die Michaelis-Konstante (KM)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "hängt von der Enzymkonzentration ab."
+      },
+      {
+        "id": "B",
+        "text": "hängt von der Substratkonzentration ab."
+      },
+      {
+        "id": "C",
+        "text": "ist dimensionslos."
+      },
+      {
+        "id": "D",
+        "text": "ist ein Maß für die Affinität eines Enzyms."
+      },
+      {
+        "id": "E",
+        "text": "gibt die Reaktionsgeschwindigkeit wieder."
+      }
+    ],
+    "answer": "D",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-be9e35e75665265c",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Aldehyden trifft nicht zu? (Stunde 29, Praktikum) Aldehyde",
+    "choices": [
+      {
+        "id": "A",
+        "text": "reagieren mit primären Aminen zum Imin."
+      },
+      {
+        "id": "B",
+        "text": "entstehen durch Oxidation primärer Alkohole."
+      },
+      {
+        "id": "C",
+        "text": "lassen sich zu Carbonsäuren oxidieren."
+      },
+      {
+        "id": "D",
+        "text": "reagieren mit Ketonen zu Hydrazon."
+      },
+      {
+        "id": "E",
+        "text": "reagieren mit TOLLENS Reagenz."
+      }
+    ],
+    "answer": "D",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-c5f8613cc9538ffb",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zur abgebildeten Verbindung trifft zu? (Stunde 32/33, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Das Chiralitätszentrum weist eine S-Konfiguration auf."
+      },
+      {
+        "id": "B",
+        "text": "Die OH-Gruppen stehen in para-Stellung zueinander."
+      },
+      {
+        "id": "C",
+        "text": "Die Verbindung ist optisch inaktiv."
+      },
+      {
+        "id": "D",
+        "text": "Die Verbindung enthält einen Pyridin-Ring."
+      },
+      {
+        "id": "E",
+        "text": "Die Verbindung ist ein Säureamid."
+      }
+    ],
+    "answer": "A",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-c6b8198895d3a21c",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Carbonsäuren und ihren Derivaten trifft zu? (Stunde 32)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Carbonsäuren sind reaktiver als die entsprechenden Carbonsäurechloride."
+      },
+      {
+        "id": "B",
+        "text": "Bei der Reaktion von einem Alkohol mit einer Carbonsäure entsteht ein Carbonsäureanhydrid."
+      },
+      {
+        "id": "C",
+        "text": "Lactone sind cyclische Carbonsäureamide."
+      },
+      {
+        "id": "D",
+        "text": "Gesättigte Fettsäuren enthalten mindestens eine Doppelbindung."
+      },
+      {
+        "id": "E",
+        "text": "Aus Aminocarbonsäuren können sich Lactame bilden."
+      }
+    ],
+    "answer": "E",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-c77309b84c21f60a",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zum Donnan-Gleichgewicht trifft zu? (Stunde 12)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Im Gleichgewicht diffundieren die wanderungsfähigen Ionen weiter von außen nach innen."
+      },
+      {
+        "id": "B",
+        "text": "Im Gleichgewicht sind Anionen -und Kationen-Produkt für die wanderungsfähigen Ionen innen und außen gleich Null."
+      },
+      {
+        "id": "C",
+        "text": "Im Gleichgewicht kann der osmotische Druck von den Konzentrationen der wanderungsfähigen Teilchen abgeleitet werden."
+      },
+      {
+        "id": "D",
+        "text": "Im Donnan-Gleichgewicht reagieren negative und positive Ionen zu neutralen Ionen"
+      },
+      {
+        "id": "E",
+        "text": "Das Donnan-Potential entspricht im Gleichgewicht 22,4 V (Naturkonstante)."
+      }
+    ],
+    "answer": "A",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-d04565938f13cd6e",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage trifft zu? (Stunde 4)\n\nEine ionische Bindung liegt vor in",
+    "choices": [
+      {
+        "id": "A",
+        "text": "B2H6"
+      },
+      {
+        "id": "B",
+        "text": "PBr3"
+      },
+      {
+        "id": "C",
+        "text": "CaBr2"
+      },
+      {
+        "id": "D",
+        "text": "ClF3"
+      },
+      {
+        "id": "E",
+        "text": "HCN"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-d7f44040ee652c14",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Wasser trifft zu? (Stunde 9)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Das Ionenprodukt des Wassers hat (in mol2/L2 bei 25 °C und 1 bar) einen Zahlenwert von etwa 10-14."
+      },
+      {
+        "id": "B",
+        "text": "Destilliertes Wasser enthält keine Ionen."
+      },
+      {
+        "id": "C",
+        "text": "Destilliertes Wasser leitet sehr gut den elektrischen Strom."
+      },
+      {
+        "id": "D",
+        "text": "Neutrales Wasser enthält doppelt so viele Hydroniumionen wie Hydroxidionen."
+      },
+      {
+        "id": "E",
+        "text": "Wasser hat in festem Aggregatzustand die größte Dichte."
+      }
+    ],
+    "answer": "A",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-d9d64aba6586a2ed",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Triacylglyceriden trifft zu? (Stunde 36)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "sie sind Glycerinaldehyde."
+      },
+      {
+        "id": "B",
+        "text": "sie sind hydrophil."
+      },
+      {
+        "id": "C",
+        "text": "durch ihre Hydrolyse entstehen Glycin und langkettige Aldehyde."
+      },
+      {
+        "id": "D",
+        "text": "bei Behandlung mit Säuren liefern sie Seifen."
+      },
+      {
+        "id": "E",
+        "text": "sie sind wichtige Energiespeicher."
+      }
+    ],
+    "answer": "E",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-da80151fa262e7d4",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Der Kern des Kohlenstoffisotops besteht aus 6 Protonen und 7 Neutronen. Welche der folgenden Schreibweisen ist richtig? (Stunde 1)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "76C"
+      },
+      {
+        "id": "B",
+        "text": "67C"
+      },
+      {
+        "id": "C",
+        "text": "136C"
+      },
+      {
+        "id": "D",
+        "text": "146C"
+      },
+      {
+        "id": "E",
+        "text": "137C"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-dce15d44d1354586",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche der folgenden Reaktionen ist eine Reduktion? (Stunde 17, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Hydrochinon → Chinon"
+      },
+      {
+        "id": "B",
+        "text": "NADH → NAD+"
+      },
+      {
+        "id": "C",
+        "text": "Cystin → Cystein"
+      },
+      {
+        "id": "D",
+        "text": "Cholin → Acetylcholin"
+      },
+      {
+        "id": "E",
+        "text": "Aldehyd → Halbacetal"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-dd02c787921bd8eb",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage trifft nicht zu? (Stunde 39) Die abgebildete Verbindung",
+    "choices": [
+      {
+        "id": "A",
+        "text": "ist Glycin."
+      },
+      {
+        "id": "B",
+        "text": "ist achiral."
+      },
+      {
+        "id": "C",
+        "text": "ist proteinogen."
+      },
+      {
+        "id": "D",
+        "text": "kann kein Salz bilden."
+      },
+      {
+        "id": "E",
+        "text": "ist eine Aminosäure."
+      }
+    ],
+    "answer": "D",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-e7fbed199d52d22f",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Eine Peptidbindung entsteht, wenn die (I)__________Gruppe der ersten Aminosäure mit der (II)________Gruppe der zweiten Aminosäure reagiert.",
+    "choices": [
+      {
+        "id": "A",
+        "text": "(I) α-Kohlenstoff, (II) Rest-"
+      },
+      {
+        "id": "B",
+        "text": "(I) Amino-, (II) Carboxy-"
+      },
+      {
+        "id": "C",
+        "text": "(I) α-Kohlenstoff, (II) Amino-"
+      },
+      {
+        "id": "D",
+        "text": "(I) Carboxy-, (II) Rest-"
+      },
+      {
+        "id": "E",
+        "text": "(I) Amino-, (II) Rest-"
+      }
+    ],
+    "answer": "B",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-ef366d87d6cd3e6e",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Für die Neutralisation von 30 ml Magensaft benötigt man 90 ml einer 0,1 mol/l NaOH.\nWie groß ist die Molarität (mol/l) der im Magensaft enthaltenen Salzsäure? (Stunde 14, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "0,1"
+      },
+      {
+        "id": "B",
+        "text": "0,2"
+      },
+      {
+        "id": "C",
+        "text": "0,3"
+      },
+      {
+        "id": "D",
+        "text": "0,6"
+      },
+      {
+        "id": "E",
+        "text": "0,9"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-f4273368c77ac48c",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Bei welcher der folgenden Reaktionen entsteht kein schwerlöslicher Niederschlag?\n(Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "BaCl2 + AgNO3"
+      },
+      {
+        "id": "B",
+        "text": "BaCl2 + Na2SO4"
+      },
+      {
+        "id": "C",
+        "text": "NaCl + H2SO4"
+      },
+      {
+        "id": "D",
+        "text": "CaCl2 + Na2SO4"
+      },
+      {
+        "id": "E",
+        "text": "CaCl2 + (NH4)2C2O4"
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 2,
+      "terms": [
+        "WS 19/20",
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-f7c980a053a10708",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Welche Aussage zu Metallkomplexen trifft nicht zu? (Stunde 13, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Mehrzähnige Liganden bilden mit Metallen stabilere Komplexe als einzähnige."
+      },
+      {
+        "id": "B",
+        "text": "Die Koordinationszahl bei Komplexen mit einzähnigen Liganden entspricht der Anzahl der Liganden."
+      },
+      {
+        "id": "C",
+        "text": "Die Gesamtladung des Komplexes entspricht der Ladung des Koordinationszentrums."
+      },
+      {
+        "id": "D",
+        "text": "Stabile Komplexe sind charakterisiert durch eine kleine Dissoziationskonstante."
+      },
+      {
+        "id": "E",
+        "text": "EDTA liegt bei basischem pH als sechszähniger Ligand vor."
+      }
+    ],
+    "answer": "C",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
+      ]
+    }
+  },
+  {
+    "id": "vk-fb96dfd9b3dedaa5",
+    "subject": "Chemie",
+    "topic": "WS 24/25",
+    "source": "Chemie / WS 24/25",
+    "stem": "Der pKs -Wert einer schwachen Säure betrage 6,5.\nIn einer Pufferlösung betrage das Verhältnis [A-] : [HA] = 10 : 1.\nWelchen pH-Wert hat die Lösung? (Stunde 8, Praktikum)",
+    "choices": [
+      {
+        "id": "A",
+        "text": "9,5"
+      },
+      {
+        "id": "B",
+        "text": "7,5"
+      },
+      {
+        "id": "C",
+        "text": "6,5"
+      },
+      {
+        "id": "D",
+        "text": "5,5"
+      },
+      {
+        "id": "E",
+        "text": "4,0"
+      }
+    ],
+    "answer": "B",
+    "tags": [
+      "Vorklinik",
+      "iRM"
+    ],
+    "repeats": {
+      "count": 1,
+      "terms": [
+        "WS 24/25"
       ]
     }
   },
