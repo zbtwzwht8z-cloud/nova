@@ -12,6 +12,10 @@ export type CurriculumSemester = {
 
 export const CURRICULUM_SEMESTERS: CurriculumSemester[] = [
   { key: "vorklinik", label: "Vorklinik", sort: 0 },
+  { key: "sem-1", label: "Semester 1", sort: 1 },
+  { key: "sem-2", label: "Semester 2", sort: 2 },
+  { key: "sem-3", label: "Semester 3", sort: 3 },
+  { key: "sem-4", label: "Semester 4", sort: 4 },
   { key: "sem-5", label: "Semester 5", sort: 5 },
   { key: "sem-6", label: "Semester 6", sort: 6 },
   { key: "sem-7", label: "Semester 7", sort: 7 },
@@ -32,6 +36,30 @@ const SUBJECT_SEMESTER: Record<string, string> = {
   // Vorklinik
   Biochemie: "vorklinik",
   Physiologie: "vorklinik",
+
+  // Vorklinik, Semester 1-4. These come from the Altklausuren archive
+  // (scripts/import-vorklinik.py), not from docsdocs, and are split by teaching
+  // semester so the list follows the order they are actually examined in.
+  "Anatomie I": "sem-1",
+  Biologie: "sem-1",
+  Chemie: "sem-1",
+  "Medizinische Psychologie I": "sem-1",
+  Physik: "sem-1",
+  Terminologie: "sem-1",
+
+  "Anatomie II": "sem-2",
+  "Biochemie I": "sem-2",
+  "Physiologie I": "sem-2",
+
+  "Anatomie III": "sem-3",
+  "Biochemie II": "sem-3",
+  "Physiologie II": "sem-3",
+  "Ärztliche Fertigkeiten III": "sem-3",
+
+  "Anatomie IV": "sem-4",
+  "Biochemie III": "sem-4",
+  "Medizinische Psychologie IV": "sem-4",
+  "Physiologie III": "sem-4",
 
   // Semester 5
   Arbeitsmedizin: "sem-5",

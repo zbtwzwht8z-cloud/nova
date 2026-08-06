@@ -7,10 +7,19 @@
 //
 //   node scripts/annotate-repeats.mjs "Schmerzmedizin"
 //   node scripts/annotate-repeats.mjs            # every subject
+//   node scripts/annotate-repeats.mjs --file data/vorklinik.json
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-const OUTPUT_PATH = path.join(process.cwd(), "data", "questions.json");
+const args = process.argv.slice(2);
+const fileFlag = args.indexOf("--file");
+const dataFile = fileFlag === -1 ? "data/questions.json" : args[fileFlag + 1];
+
+if (fileFlag !== -1) {
+  args.splice(fileFlag, 2);
+}
+
+const OUTPUT_PATH = path.join(process.cwd(), dataFile);
 const STEM_THRESHOLD = 0.6;
 const CHOICE_THRESHOLD = 0.45;
 
@@ -105,7 +114,7 @@ function cluster(questions) {
   return [...groups.values()];
 }
 
-const subjectFilter = process.argv[2];
+const subjectFilter = args[0];
 const questions = JSON.parse(await readFile(OUTPUT_PATH, "utf8"));
 const subjects = [
   ...new Set(

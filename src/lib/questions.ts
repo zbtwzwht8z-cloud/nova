@@ -1,4 +1,5 @@
 import rawQuestions from "../../data/questions.json";
+import vorklinikQuestions from "../../data/vorklinik.json";
 import humangenetik from "../../data/explanations/humangenetik.json";
 import schmerzmedizin from "../../data/explanations/schmerzmedizin.json";
 import type { Question, QuestionIndex } from "./types";
@@ -56,7 +57,15 @@ function assertQuestion(question: Question, index: number) {
   }
 }
 
-export const questions = (rawQuestions as Question[]).map((question, index) => {
+// The Vorklinik Altklausuren live in their own file: questions.json is the
+// docsdocs export and gets rewritten wholesale on every sync, which would drop
+// them. They carry no answer statistics, so the difficulty meter stays hidden.
+const allQuestions = [
+  ...(rawQuestions as Question[]),
+  ...(vorklinikQuestions as Question[])
+];
+
+export const questions = allQuestions.map((question, index) => {
   assertQuestion(question, index);
 
   return {
