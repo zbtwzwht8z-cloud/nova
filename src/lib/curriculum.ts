@@ -11,7 +11,6 @@ export type CurriculumSemester = {
 };
 
 export const CURRICULUM_SEMESTERS: CurriculumSemester[] = [
-  { key: "vorklinik", label: "Vorklinik", sort: 0 },
   { key: "sem-1", label: "Semester 1", sort: 1 },
   { key: "sem-2", label: "Semester 2", sort: 2 },
   { key: "sem-3", label: "Semester 3", sort: 3 },
@@ -33,10 +32,6 @@ export const UNASSIGNED_SEMESTER: CurriculumSemester = {
 // the bank's spelling of "Immunulogie". Anything not listed here falls into the
 // Unassigned group at the bottom of the view.
 const SUBJECT_SEMESTER: Record<string, string> = {
-  // Vorklinik
-  Biochemie: "vorklinik",
-  Physiologie: "vorklinik",
-
   // Vorklinik, Semester 1-4. These come from the Altklausuren archive
   // (scripts/import-vorklinik.py), not from docsdocs, and are split by teaching
   // semester so the list follows the order they are actually examined in.
@@ -50,6 +45,11 @@ const SUBJECT_SEMESTER: Record<string, string> = {
   "Anatomie II": "sem-2",
   "Biochemie I": "sem-2",
   "Physiologie I": "sem-2",
+  // Two small docsdocs leftovers ("Biochemie / Sem2 SS12", "Physiologie / SS 12").
+  // They sat alone in a "Vorklinik" group of their own; their exam terms put
+  // them in the second semester, next to the subjects they belong with.
+  Biochemie: "sem-2",
+  Physiologie: "sem-2",
 
   "Anatomie III": "sem-3",
   "Biochemie II": "sem-3",
